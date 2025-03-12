@@ -1,0 +1,98 @@
+<resources>
+    <string name="app_name">AngerLog</string>
+
+    <string name="initial">利用案内画面</string>
+    <string name="initial_description">このアプリは記録する怒りと向きあうアプリです。\nこのアプリを使っても怒りは解決しません。\nしかし、日々の怒りを記録し、分析し、振り返り、自分の怒りを向きあうことで上手に怒りと付き合う方法を考えるアプリです。</string>
+    <string name="initial_policy_pre_text">「利用を開始する」を押下すると</string>
+    <string name="initial_policy_link_text">利用規約</string>
+    <string name="initial_policy_suffix_text">に同意することになります</string>
+    <string name="initial_button_text">利用を開始する</string>
+
+    <string name="permission">権限</string>
+    <string name="permission_description">アプリをより便利に利用するために次の画面で「許可する」を押して下さい。\n後から変更することも可能です。</string>
+    <string name="permission_next_button">次の画面へ</string>
+    <string name="permission_skip_button">スキップする</string>
+
+    <string name="home">ホーム</string>
+    <string name="home_title">最近の気持ち</string>
+
+    <string name="calendar">カレンダー</string>
+    <string name="calendar_title_back_cd">戻る</string>
+    <string name="calendar_title_year">%d年</string>
+    <string name="calendar_title_month">%d月</string>
+    <string name="calendar_title_next_cd">進む</string>
+    <string name="calendar_log_picker_dialog_day">%d日</string>
+
+    <string name="analysis">分析</string>
+    <string name="analysis_record_count_title">記録</string>
+    <string name="analysis_record_count_description">今月の記録した回数</string>
+    <string name="analysis_record_count_unit">回</string>
+    <string name="analysis_look_back_count_title">振り返り</string>
+    <string name="analysis_look_back_count_description">今月の振り返り回数</string>
+    <string name="analysis_look_back_count_unit">回</string>
+    <string name="analysis_anger_rate_title">怒りの割合</string>
+    <string name="analysis_anger_rate_description">これまでの怒りの割合を表示</string>
+    <string name="analysis_anger_rate_count_notice">1回以上、記録を行ってください</string>
+    <string name="analysis_average_per_day_of_week_title">曜日別の平均</string>
+    <string name="analysis_average_per_day_of_week_description">曜日別の怒りの強さを表示</string>
+    <string name="analysis_average_per_day_of_week_notice">1回以上、記録を行ってください</string>
+    <string name="analysis_transition_title">今月の変遷</string>
+    <string name="analysis_transition_description">今月の怒りの変化を表示</string>
+    <string name="analysis_transition_notice">あと%d回以上、記録を行ってください</string>
+    <string name="analysis_lock_cd">機能が制限されています。</string>
+
+    <string name="setting">設定</string>
+    <string name="setting_tips">お役立ちTips</string>
+    <string name="setting_notification">お知らせの設定</string>
+    <string name="setting_application_version">アプリバージョン</string>
+    <string name="setting_policy">利用規約</string>
+    <string name="setting_License">ライセンス</string>
+    <string name="setting_share">このアプリをシェアする</string>
+    <string name="setting_other_app">ほかのアプリ</string>
+    <string name="setting_evaluate">このアプリを評価する</string>
+    <string name="setting_question">問い合わせはこちら</string>
+    <string name="setting_question_mail_subject">あんがーろぐに関する問い合わせ</string>
+    <string name="setting_question_text">アプリバージョン：%1s\nOSバージョン：Android %2d \n 機種名：%3s\n日にち：%4s</string>
+    <string name="setting_share_text">あんがーろぐを使ってみよう\n https://play.google.com/store/apps/details?id=io.github.kurramkurram.angerlog</string>
+    <string name="setting_next_cd">次へ</string>
+
+    <string name="register">登録</string>
+    <string name="register_back_dialog_description">編集内容が保存されていません。このまま終了しますか？</string>
+    <string name="register_back_dialog_positive_button">終了する</string>
+    <string name="register_back_dialog_negative_button">編集に戻る</string>
+    <string name="register_save">保存する</string>
+    <string name="register_anger_level_title">どのくらい怒りましたか？</string>
+    <string name="register_anger_event_title">できごと</string>
+    <string name="register_anger_event_hint">なにが起きた？</string>
+    <string name="register_anger_event_detail_title">くわしく</string>
+    <string name="register_anger_event_detail_hint">できごとを詳しく教えて</string>
+    <string name="register_anger_event_thought_title">どう思った？</string>
+    <string name="register_anger_event_thought_hint">その時に感じたことは？</string>
+    <string name="register_anger_event_place_title">場所</string>
+    <string name="register_anger_event_place_hint">どこで起きたできごとなの？</string>
+    <string name="register_delete">削除する</string>
+    <string name="register_delete_dialog_description">この怒りを削除しますか？</string>
+    <string name="register_delete_dialog_positive_button">削除する</string>
+    <string name="register_delete_dialog_negative_button">削除しない</string>
+
+    <string name="tips">お役立ちTips</string>
+    <string name="tips_description">怒りをコントロールするためのお役立ち情報を紹介\n怒りを感じたら次のことをやってみましょう。</string>
+    <string name="tips_category_change_of_pace">気分を変えてみる</string>
+    <string name="tips_category_change_of_pace_listen_music_title">音楽を聴く</string>
+    <string name="tips_category_change_of_pace_listen_music_description">好きな音楽を聞いて心を落ち着けてみませんか？</string>
+    <string name="tips_category_change_of_pace_count_6_seconds_title">6秒数える</string>
+    <string name="tips_category_change_of_pace_count_6_seconds_description">怒りは6秒で収まるとされています。まずは6秒数えてみましょう。</string>
+    <string name="tips_category_use_app">このアプリを利用する</string>
+    <string name="tips_category_use_app_record_log_title">アンガーログを付ける</string>
+    <string name="tips_category_use_app_record_log_description">アンガーログを記録して、自分の怒りを客観視してみましょう。</string>
+    <string name="tips_category_use_app_look_back_title">振り返りをする</string>
+    <string name="tips_category_use_app_look_back_description">怒りを振り返りましょう。\nこれま記録したアンガーログをもとに自分がどういった時に怒りの感情を持つのか？振り返ってみましょう。</string>
+    <string name="tips_category_thinking">考えてみる</string>
+    <string name="tips_category_thinking_put_yourself_in_someone_title">相手の立場に立ってみる</string>
+    <string name="tips_category_thinking_put_yourself_in_someone_description">怒りを感じた相手の立場に立ってみましょう。\n何らかの原因があるかもしれません。</string>
+
+    <string name="policy">利用規約</string>
+
+    <string name="license">ライセンス</string>
+    <string name="license_divider">----------------------------</string>
+</resources>
