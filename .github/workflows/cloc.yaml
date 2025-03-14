@@ -9,7 +9,7 @@ on:
       - README.md
       - xd/**
   pull_request:
-#    branches: [ "master" ]
+    branches: [ "master" ]
     paths-ignore:
       - README.md
       - xd/**
