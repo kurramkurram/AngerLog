@@ -57,13 +57,23 @@ fun HomeScreen(
 
         when (state) {
             is HomeUiState.Success -> {
-                LazyColumn(
-                    modifier = modifier
-                        .padding(10.dp)
-                        .fillMaxHeight()
-                ) {
-                    items((state as HomeUiState.Success).angerLogList) { angerLog ->
-                        HomeListItem(angerLog = angerLog, onClick = { id -> onClick(id) })
+                if ((state as HomeUiState.Success).hasAngerLog) {
+                    LazyColumn(
+                        modifier = modifier
+                            .padding(10.dp)
+                            .fillMaxHeight()
+                    ) {
+                        items((state as HomeUiState.Success).angerLogList) { angerLog ->
+                            HomeListItem(angerLog = angerLog, onClick = { id -> onClick(id) })
+                        }
+                    }
+                } else {
+                    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+                        Text(
+                            text = stringResource(R.string.home_no_anger_log),
+                            textAlign = TextAlign.Center,
+                            style = MaterialTheme.typography.bodyLarge
+                        )
                     }
                 }
             }
@@ -92,6 +102,7 @@ fun HomeListItem(modifier: Modifier = Modifier, angerLog: AngerLog, onClick: (id
         AngerLogListItem(modifier = modifier, item = angerLog, onItemClick = { onClick(it) })
     }
 }
+
 //
 //@Preview
 //@Composable
