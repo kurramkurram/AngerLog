@@ -12,10 +12,7 @@ abstract class AgreementPolicyRepository {
 }
 
 class AgreementPolicyRepositoryImpl : AgreementPolicyRepository() {
+    override fun agree(context: Context) = saveToPreference(context, KEY_POLICY_AGREEMENT, 1)
 
-    override fun agree(context: Context) =
-        saveToPreference(context, KEY_POLICY_AGREEMENT, 1)
-
-    override fun hasAgree(context: Context): Boolean =
-        getFromPreference(context, KEY_POLICY_AGREEMENT, 0) == 1
+    override fun hasAgree(context: Context): Boolean = getFromPreference(context, KEY_POLICY_AGREEMENT, 0) == 1
 }

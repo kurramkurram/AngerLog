@@ -16,9 +16,8 @@ private const val MAX_LOADING_TIME = 500
 
 class CalendarViewModel(
     private val calendarDataUseCase: CalendarDataUseCase,
-    yearMonth: YearMonth = YearMonth.now()
+    yearMonth: YearMonth = YearMonth.now(),
 ) : ViewModel() {
-
     private val _state: MutableStateFlow<CalendarUiState> =
         MutableStateFlow(CalendarUiState.Loading)
     val state = _state.asStateFlow()
@@ -58,7 +57,7 @@ class CalendarViewModel(
             _state.update {
                 (it as CalendarUiState.Success).copy(
                     showDialog = true,
-                    selectDay = day
+                    selectDay = day,
                 )
             }
         }
@@ -68,7 +67,7 @@ class CalendarViewModel(
         _state.update {
             (it as CalendarUiState.Success).copy(
                 showDialog = false,
-                selectDay = 0
+                selectDay = 0,
             )
         }
     }

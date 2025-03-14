@@ -27,13 +27,21 @@ interface AngerLogDao {
     fun selectLimited(limit: Int): Flow<List<AngerLog>>
 
     @Query("SELECT * FROM t_anger_log WHERE date BETWEEN :start AND :end")
-    fun selectByPeriod(start: Long, end: Long): Flow<List<AngerLog>>
+    fun selectByPeriod(
+        start: Long,
+        end: Long,
+    ): Flow<List<AngerLog>>
 
-    @Query("""
+    @Query(
+        """
        SELECT CAST(strftime('%d', date / 1000, 'unixepoch', 'localtime') AS INTEGER) AS day, id, level
         FROM t_anger_log WHERE date BETWEEN :start AND :end ORDER BY day 
-    """)
-    fun selectIdByPeriod(start: Long, end: Long): Flow<List<AngerIdOfDayDto>>
+    """,
+    )
+    fun selectIdByPeriod(
+        start: Long,
+        end: Long,
+    ): Flow<List<AngerIdOfDayDto>>
 
     @Query("SELECT * FROM t_anger_log WHERE id = :id")
     fun select(id: Long): Flow<AngerLog>

@@ -9,12 +9,12 @@ import java.io.InputStreamReader
 
 data class LibraryLicenseList(val licenseList: List<LibraryLicenseDto>) :
     List<LibraryLicenseDto> by licenseList {
-
     companion object {
         suspend fun create(context: Context): LibraryLicenseList {
-            val licenses = loadLibraries(context).map {
-                LibraryLicenseDto(it.name, loadLicense(context, it))
-            }
+            val licenses =
+                loadLibraries(context).map {
+                    LibraryLicenseDto(it.name, loadLicense(context, it))
+                }
             return LibraryLicenseList(licenses)
         }
 
@@ -38,7 +38,10 @@ data class LibraryLicenseList(val licenseList: List<LibraryLicenseDto>) :
             }
         }
 
-        private suspend fun loadLicense(context: Context, library: LibraryDto): String {
+        private suspend fun loadLicense(
+            context: Context,
+            library: LibraryDto,
+        ): String {
             return withContext(Dispatchers.IO) {
                 val charArray = CharArray(library.length)
                 val inputStream = context.resources.openRawResource(R.raw.third_party_licenses)

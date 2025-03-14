@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowLeft
 import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
@@ -41,14 +39,15 @@ fun AngerLogCalendarPicker(
     onCloseYearDropDown: () -> Unit,
     onCloseMonthDropDown: () -> Unit,
     onSelectYear: (year: Int) -> Unit,
-    onSelectMonth: (month: Int) -> Unit
+    onSelectMonth: (month: Int) -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(horizontal = 20.dp),
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
@@ -57,56 +56,61 @@ fun AngerLogCalendarPicker(
         )
 
         Row(
-            modifier = Modifier
-                .weight(1f)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center
+            modifier =
+                Modifier
+                    .weight(1f)
+                    .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
         ) {
             Column {
                 Text(
                     text = stringResource(R.string.calendar_title_year, selectYearMonth.year),
-                    modifier = Modifier
-                        .clickable { onShowYearDropDown() }
-                        .padding(horizontal = 10.dp),
+                    modifier =
+                        Modifier
+                            .clickable { onShowYearDropDown() }
+                            .padding(horizontal = 10.dp),
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
                 )
 
                 AngerLogDropDown(
                     min = minYear,
                     max = state.now.year,
                     expanded = state.yearDropDown,
-                    onDismissRequest = { onCloseYearDropDown() }
+                    onDismissRequest = { onCloseYearDropDown() },
                 ) { onSelectYear(it) }
             }
 
             Column {
                 Text(
-                    text = stringResource(
-                        R.string.calendar_title_month,
-                        selectYearMonth.month.value
-                    ),
-                    modifier = Modifier
-                        .clickable { onShowMonthDropDown() }
-                        .padding(horizontal = 10.dp),
+                    text =
+                        stringResource(
+                            R.string.calendar_title_month,
+                            selectYearMonth.month.value,
+                        ),
+                    modifier =
+                        Modifier
+                            .clickable { onShowMonthDropDown() }
+                            .padding(horizontal = 10.dp),
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge
+                    style = MaterialTheme.typography.titleLarge,
                 )
                 AngerLogDropDown(
                     min = 1,
                     max = 12,
                     expanded = state.monthDropDown,
-                    onDismissRequest = { onCloseMonthDropDown() }
+                    onDismissRequest = { onCloseMonthDropDown() },
                 ) { onSelectMonth(it) }
             }
         }
 
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowRight,
-            modifier = Modifier
-                .alpha(if (canShowNextArrow) 1f else 0f)
-                .clickable(enabled = canShowNextArrow) { onPlusMonthClick() },
-            contentDescription = stringResource(R.string.calendar_title_next_cd)
+            modifier =
+                Modifier
+                    .alpha(if (canShowNextArrow) 1f else 0f)
+                    .clickable(enabled = canShowNextArrow) { onPlusMonthClick() },
+            contentDescription = stringResource(R.string.calendar_title_next_cd),
         )
     }
 }

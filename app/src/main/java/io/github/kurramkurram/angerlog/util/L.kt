@@ -4,7 +4,6 @@ import android.util.Log
 import io.github.kurramkurram.angerlog.BuildConfig
 
 class L {
-
     companion object {
         private const val TAG = "AngerLog"
 

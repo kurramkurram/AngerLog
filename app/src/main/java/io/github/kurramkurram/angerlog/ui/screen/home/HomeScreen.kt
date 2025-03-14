@@ -25,7 +25,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.model.AngerLog
-import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 import io.github.kurramkurram.angerlog.ui.component.AngerLogListItem
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -37,31 +36,34 @@ object Home
 fun HomeScreen(
     modifier: Modifier = Modifier,
     onClick: (id: Long) -> Unit,
-    viewModel: HomeViewModel = koinViewModel()
+    viewModel: HomeViewModel = koinViewModel(),
 ) {
     Column(
-        modifier = modifier
-            .padding(top = 20.dp)
-            .fillMaxSize()
+        modifier =
+            modifier
+                .padding(top = 20.dp)
+                .fillMaxSize(),
     ) {
         val state by viewModel.state.collectAsStateWithLifecycle()
 
         Text(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
             text = stringResource(R.string.home_title),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
         )
 
         when (state) {
             is HomeUiState.Success -> {
                 if ((state as HomeUiState.Success).hasAngerLog) {
                     LazyColumn(
-                        modifier = modifier
-                            .padding(10.dp)
-                            .fillMaxHeight()
+                        modifier =
+                            modifier
+                                .padding(10.dp)
+                                .fillMaxHeight(),
                     ) {
                         items((state as HomeUiState.Success).angerLogList) { angerLog ->
                             HomeListItem(angerLog = angerLog, onClick = { id -> onClick(id) })
@@ -72,7 +74,7 @@ fun HomeScreen(
                         Text(
                             text = stringResource(R.string.home_no_anger_log),
                             textAlign = TextAlign.Center,
-                            style = MaterialTheme.typography.bodyLarge
+                            style = MaterialTheme.typography.bodyLarge,
                         )
                     }
                 }
@@ -90,29 +92,35 @@ fun HomeScreen(
 }
 
 @Composable
-fun HomeListItem(modifier: Modifier = Modifier, angerLog: AngerLog, onClick: (id: Long) -> Unit) {
+fun HomeListItem(
+    modifier: Modifier = Modifier,
+    angerLog: AngerLog,
+    onClick: (id: Long) -> Unit,
+) {
     ElevatedCard(
-        modifier = modifier
-            .padding(10.dp)
-            .clickable { onClick(angerLog.id) },
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        )
+        modifier =
+            modifier
+                .padding(10.dp)
+                .clickable { onClick(angerLog.id) },
+        elevation =
+            CardDefaults.cardElevation(
+                defaultElevation = 6.dp,
+            ),
     ) {
         AngerLogListItem(modifier = modifier, item = angerLog, onItemClick = { onClick(it) })
     }
 }
 
 //
-//@Preview
-//@Composable
-//fun PreviewHomeScreen() {
+// @Preview
+// @Composable
+// fun PreviewHomeScreen() {
 //    HomeScreen {  }
-//}
+// }
 
-//@Composable
-//@Preview
-//fun PreviewHomeListItem() {
+// @Composable
+// @Preview
+// fun PreviewHomeListItem() {
 //    val log = AngerLog(
 //        id = 0,
 //        date = "2025/01/16",
@@ -123,4 +131,4 @@ fun HomeListItem(modifier: Modifier = Modifier, angerLog: AngerLog, onClick: (id
 //        thought = "aaaaa",
 //    )
 //    HomeListItem(angerLog = log, onClick = {})
-//}
+// }

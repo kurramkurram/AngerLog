@@ -12,14 +12,13 @@ import io.github.kurramkurram.angerlog.util.DateConverter
 @Database(entities = [AngerLog::class], version = 1)
 @TypeConverters(DateConverter::class)
 abstract class AngerLogDatabase : RoomDatabase() {
-
     abstract fun angerLogDao(): AngerLogDao
 
     companion object {
         private const val DB_NAME = "AngerLog.db"
 
         @Volatile
-        private var INSTANCE: AngerLogDatabase? = null
+        private var instance: AngerLogDatabase? = null
 
         /**
          * インスタンスを取得する.
@@ -28,19 +27,20 @@ abstract class AngerLogDatabase : RoomDatabase() {
          * @return [AngerLogDatabase]
          */
         fun getDatabases(context: Context): AngerLogDatabase {
-            val tmpInstance = INSTANCE
+            val tmpInstance = instance
             if (tmpInstance != null) return tmpInstance
             synchronized(this) {
-                val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AngerLogDatabase::class.java,
-                    DB_NAME
-                ).apply {
-                    allowMainThreadQueries()
-                    setJournalMode(JournalMode.TRUNCATE)
-                }.build()
-                INSTANCE = instance
-                return instance
+                val i =
+                    Room.databaseBuilder(
+                        context.applicationContext,
+                        AngerLogDatabase::class.java,
+                        DB_NAME,
+                    ).apply {
+                        allowMainThreadQueries()
+                        setJournalMode(JournalMode.TRUNCATE)
+                    }.build()
+                instance = i
+                return i
             }
         }
     }

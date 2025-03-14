@@ -7,5 +7,5 @@ import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class SettingLeadingIconType(val imageVector: ImageVector) {
     NextScreen(Icons.AutoMirrored.Default.KeyboardArrowRight),
-    OpenInNew(Icons.AutoMirrored.Outlined.OpenInNew)
+    OpenInNew(Icons.AutoMirrored.Outlined.OpenInNew),
 }

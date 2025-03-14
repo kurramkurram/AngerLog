@@ -5,19 +5,18 @@ import androidx.compose.ui.graphics.Color
 import io.github.kurramkurram.angerlog.ui.theme.CustomTheme
 
 class AngerLevel {
-
     companion object {
-        private val ANGER_LEVEL: Map<AngerLevelType, IAngerLevel> = mapOf(
-            AngerLevelType.LEVEL_1 to AngerLevel1(),
-            AngerLevelType.LEVEL_2 to AngerLevel2(),
-            AngerLevelType.LEVEL_3 to AngerLevel3(),
-            AngerLevelType.LEVEL_4 to AngerLevel4(),
-            AngerLevelType.LEVEL_5 to AngerLevel5()
-        )
+        private val ANGER_LEVEL: Map<AngerLevelType, IAngerLevel> =
+            mapOf(
+                AngerLevelType.LEVEL_1 to AngerLevel1(),
+                AngerLevelType.LEVEL_2 to AngerLevel2(),
+                AngerLevelType.LEVEL_3 to AngerLevel3(),
+                AngerLevelType.LEVEL_4 to AngerLevel4(),
+                AngerLevelType.LEVEL_5 to AngerLevel5(),
+            )
     }
 
-    fun select(levelType: AngerLevelType): IAngerLevel =
-        ANGER_LEVEL[levelType] ?: throw IllegalArgumentException()
+    fun select(levelType: AngerLevelType): IAngerLevel = ANGER_LEVEL[levelType] ?: throw IllegalArgumentException()
 
     fun select(level: Int): IAngerLevel {
         ANGER_LEVEL.forEach {
@@ -26,14 +25,11 @@ class AngerLevel {
         throw IllegalArgumentException()
     }
 
-    fun getLevel(angerLevelType: AngerLevelType): Int =
-        ANGER_LEVEL[angerLevelType]?.getValue() ?: throw IllegalArgumentException()
+    fun getLevel(angerLevelType: AngerLevelType): Int = ANGER_LEVEL[angerLevelType]?.getValue() ?: throw IllegalArgumentException()
 
-    fun getMinLevel(): Int =
-        ANGER_LEVEL[AngerLevelType.entries.first()]?.getValue() ?: throw IllegalStateException()
+    fun getMinLevel(): Int = ANGER_LEVEL[AngerLevelType.entries.first()]?.getValue() ?: throw IllegalStateException()
 
-    fun getMaxLevel(): Int =
-        ANGER_LEVEL[AngerLevelType.entries.last()]?.getValue() ?: throw IllegalStateException()
+    fun getMaxLevel(): Int = ANGER_LEVEL[AngerLevelType.entries.last()]?.getValue() ?: throw IllegalStateException()
 
     fun getAngerLevelType(level: Int): AngerLevelType {
         ANGER_LEVEL.forEach {
@@ -90,5 +86,5 @@ enum class AngerLevelType {
     LEVEL_2,
     LEVEL_3,
     LEVEL_4,
-    LEVEL_5;
+    LEVEL_5,
 }

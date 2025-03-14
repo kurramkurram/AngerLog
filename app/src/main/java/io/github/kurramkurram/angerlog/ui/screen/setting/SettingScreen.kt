@@ -19,9 +19,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.KeyboardArrowRight
-import androidx.compose.material.icons.automirrored.outlined.OpenInNew
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -31,7 +28,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -42,7 +38,7 @@ import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.util.L
 import kotlinx.serialization.Serializable
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 private const val TAG = "SettingScreen"
 
@@ -54,7 +50,7 @@ fun SettingScreen(
     modifier: Modifier = Modifier,
     onItemTipsClick: () -> Unit,
     onPolicyClick: () -> Unit,
-    onLicenseClick: () -> Unit
+    onLicenseClick: () -> Unit,
 ) {
     val context = LocalContext.current
 
@@ -62,15 +58,16 @@ fun SettingScreen(
         modifier
             .padding(top = 20.dp)
             .fillMaxSize()
-            .verticalScroll(rememberScrollState())
+            .verticalScroll(rememberScrollState()),
     ) {
         Text(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
             text = stringResource(R.string.setting),
             textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge
+            style = MaterialTheme.typography.titleLarge,
         )
 
         SettingScreenSectionItem {
@@ -82,10 +79,10 @@ fun SettingScreen(
             // 通知設定
             SettingScreenItem(
                 leading = stringResource(R.string.setting_notification),
-                iconType = SettingLeadingIconType.OpenInNew
+                iconType = SettingLeadingIconType.OpenInNew,
             ) {
                 startNotificationSetting(
-                    context
+                    context,
                 )
             }
         }
@@ -94,7 +91,7 @@ fun SettingScreen(
             // アプリバージョン
             SettingScreenItem(
                 leading = stringResource(R.string.setting_application_version),
-                trailing = BuildConfig.VERSION_NAME
+                trailing = BuildConfig.VERSION_NAME,
             ) { }
             // アプリケーションプライバシーポリシー
             SettingScreenItem(leading = stringResource(R.string.setting_policy)) { onPolicyClick() }
@@ -108,16 +105,16 @@ fun SettingScreen(
             // ほかのアプリ
             SettingScreenItem(
                 leading = stringResource(R.string.setting_other_app),
-                iconType = SettingLeadingIconType.OpenInNew
+                iconType = SettingLeadingIconType.OpenInNew,
             ) {
                 startOtherApp(
-                    context
+                    context,
                 )
             }
             // アプリを評価する
             SettingScreenItem(leading = stringResource(R.string.setting_evaluate)) {
                 startReview(
-                    context
+                    context,
                 )
             }
         }
@@ -126,10 +123,10 @@ fun SettingScreen(
         SettingScreenSectionItem {
             SettingScreenItem(
                 leading = stringResource(R.string.setting_question),
-                iconType = SettingLeadingIconType.OpenInNew
+                iconType = SettingLeadingIconType.OpenInNew,
             ) {
                 startActivityQuestion(
-                    context
+                    context,
                 )
             }
         }
@@ -144,13 +141,14 @@ private fun startActivityQuestion(context: Context) {
         val subject = context.resources.getString(R.string.setting_question_mail_subject)
         putExtra(Intent.EXTRA_SUBJECT, subject)
 
-        val text = context.resources.getString(
-            R.string.setting_question_text,
-            BuildConfig.VERSION_NAME,
-            Build.VERSION.SDK_INT,
-            Build.MODEL,
-            SimpleDateFormat("yyyy/MM/dd").format(Date())
-        )
+        val text =
+            context.resources.getString(
+                R.string.setting_question_text,
+                BuildConfig.VERSION_NAME,
+                Build.VERSION.SDK_INT,
+                Build.MODEL,
+                SimpleDateFormat("yyyy/MM/dd").format(Date()),
+            )
         putExtra(Intent.EXTRA_TEXT, text)
 
         try {
@@ -214,15 +212,16 @@ private fun startReview(context: Context) {
 @Composable
 fun SettingScreenSectionItem(
     modifier: Modifier = Modifier,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     Column(
-        modifier = modifier
-            .padding(horizontal = 8.dp, vertical = 10.dp)
-            .background(
-                color = MaterialTheme.colorScheme.onPrimary,
-                shape = MaterialTheme.shapes.medium
-            )
+        modifier =
+            modifier
+                .padding(horizontal = 8.dp, vertical = 10.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    shape = MaterialTheme.shapes.medium,
+                ),
     ) { content() }
 }
 
@@ -232,41 +231,44 @@ fun SettingScreenItem(
     leading: String,
     trailing: String = "",
     iconType: SettingLeadingIconType = SettingLeadingIconType.NextScreen,
-    onItemClick: () -> Unit
+    onItemClick: () -> Unit,
 ) {
     Row(
-        modifier = modifier
-            .background(
-                color = Color.Transparent,
-                shape = MaterialTheme.shapes.medium
-            )
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null
-            ) {
-                onItemClick()
-            }
-            .padding(horizontal = 10.dp, vertical = 20.dp),
-        verticalAlignment = Alignment.CenterVertically
+        modifier =
+            modifier
+                .background(
+                    color = Color.Transparent,
+                    shape = MaterialTheme.shapes.medium,
+                )
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                ) {
+                    onItemClick()
+                }
+                .padding(horizontal = 10.dp, vertical = 20.dp),
+        verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
-            modifier = modifier
-                .weight(1f)
-                .padding(horizontal = 10.dp),
-            text = leading
+            modifier =
+                modifier
+                    .weight(1f)
+                    .padding(horizontal = 10.dp),
+            text = leading,
         )
 
         Icon(
-            modifier = modifier.graphicsLayer {
-                alpha = if (trailing.isEmpty()) 1f else 0f
-            },
+            modifier =
+                modifier.graphicsLayer {
+                    alpha = if (trailing.isEmpty()) 1f else 0f
+                },
             imageVector = iconType.imageVector,
-            contentDescription = stringResource(R.string.setting_next_cd)
+            contentDescription = stringResource(R.string.setting_next_cd),
         )
 
         Text(
             modifier = modifier.graphicsLayer { alpha = if (trailing.isNotEmpty()) 1f else 0f },
-            text = trailing
+            text = trailing,
         )
     }
 }

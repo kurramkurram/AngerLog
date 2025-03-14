@@ -27,43 +27,46 @@ fun AngerLogLinkText(
     linkColor: Color = MaterialTheme.colorScheme.primaryContainer,
 ) {
     val uriHandler = LocalUriHandler.current
-    Text(modifier = modifier,
-        text = buildAnnotatedString {
-            append(preText)
-            val l = LinkAnnotation.Url(
-                link,
-                TextLinkStyles(
-                    SpanStyle(
-                        color = linkColor,
-                        textDecoration = TextDecoration.Underline
-                    )
-                )
-            ) {
-                if (onClickLink == null) {
-                    try {
-                        val url = (it as LinkAnnotation.Url).url
-                        uriHandler.openUri(url)
-                    } catch (e: IllegalArgumentException) {
-                        L.e("$TAG#LicenseScreenLinkText $e")
+    Text(
+        modifier = modifier,
+        text =
+            buildAnnotatedString {
+                append(preText)
+                val l =
+                    LinkAnnotation.Url(
+                        link,
+                        TextLinkStyles(
+                            SpanStyle(
+                                color = linkColor,
+                                textDecoration = TextDecoration.Underline,
+                            ),
+                        ),
+                    ) {
+                        if (onClickLink == null) {
+                            try {
+                                val url = (it as LinkAnnotation.Url).url
+                                uriHandler.openUri(url)
+                            } catch (e: IllegalArgumentException) {
+                                L.e("$TAG#LicenseScreenLinkText $e")
+                            }
+                        } else {
+                            onClickLink()
+                        }
                     }
-                } else {
-                    onClickLink()
-                }
-            }
-            withLink(l) { append(linkText.ifEmpty { link }) }
-            append(suffixText)
-        }
+                withLink(l) { append(linkText.ifEmpty { link }) }
+                append(suffixText)
+            },
     )
 }
 
-//@Composable
-//@Preview
-//fun PreviewAngerLogLinkText() {
+// @Composable
+// @Preview
+// fun PreviewAngerLogLinkText() {
 //    AngerLogLinkText(
 //        modifier = Modifier.padding(10.dp),
-////        preText = "「利用を開始する」を押下すると",
-////        linkText = "利用規約",
+// //        preText = "「利用を開始する」を押下すると",
+// //        linkText = "利用規約",
 //        link = "https://example.com",
-////        postText = "に同意することになります。"
+// //        postText = "に同意することになります。"
 //    )
-//}
+// }

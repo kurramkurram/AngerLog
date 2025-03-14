@@ -6,7 +6,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 
 @Composable
 fun AngerLogBasicDialog(
@@ -16,7 +15,7 @@ fun AngerLogBasicDialog(
     confirmText: String = "",
     dismissText: String = "",
     onDismissRequest: () -> Unit,
-    onConfirmClick: () -> Unit
+    onConfirmClick: () -> Unit,
 ) {
     AlertDialog(
         modifier = modifier,
@@ -35,7 +34,7 @@ fun AngerLogBasicDialog(
                 onClick = {
                     onConfirmClick()
                     onDismissRequest()
-                }
+                },
             ) {
                 Text(confirmText)
             }
@@ -44,10 +43,10 @@ fun AngerLogBasicDialog(
             TextButton(
                 onClick = {
                     onDismissRequest()
-                }
+                },
             ) {
                 Text(dismissText)
             }
-        }
+        },
     )
 }

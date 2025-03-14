@@ -10,5 +10,5 @@ data class CustomColors(
     val angerLevel5: Color,
     val sunday: Color,
     val saturday: Color,
-    val weekDays: Color
+    val weekDays: Color,
 )

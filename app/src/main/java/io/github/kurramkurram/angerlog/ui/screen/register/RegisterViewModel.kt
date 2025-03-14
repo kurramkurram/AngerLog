@@ -18,10 +18,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 class RegisterViewModel(private val angerLogDataRepository: AngerLogDataRepository) : ViewModel() {
-
     private val _state = MutableStateFlow<RegisterUiState>(RegisterUiState.Success())
     val state = _state.asStateFlow()
 
@@ -34,8 +34,8 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
     var time by mutableStateOf(
         Time(
             currentTime.get(Calendar.HOUR_OF_DAY),
-            currentTime.get(android.icu.util.Calendar.MINUTE)
-        )
+            currentTime.get(android.icu.util.Calendar.MINUTE),
+        ),
     )
         private set
 
@@ -68,7 +68,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
         updateTime(input.hour, input.minute)
     }
 
-    private fun updateTime(hour: Int, minute: Int) {
+    private fun updateTime(
+        hour: Int,
+        minute: Int,
+    ) {
         time = Time(hour, minute)
     }
 
@@ -92,7 +95,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
         place = input
     }
 
-    fun initialize(id: Long, inputDate: Long) {
+    fun initialize(
+        id: Long,
+        inputDate: Long,
+    ) {
         this.id = id
 
         if (inputDate != -1L) {
@@ -107,7 +113,7 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                 val calendar = DateConverter.dateToCalendar(it.date)
                 updateTime(
                     calendar.get(Calendar.HOUR_OF_DAY),
-                    calendar.get(android.icu.util.Calendar.MINUTE)
+                    calendar.get(android.icu.util.Calendar.MINUTE),
                 )
                 updateAngerLevel(AngerLevel().getAngerLevelType(it.level))
                 updateEvent(it.event)
@@ -135,15 +141,16 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
      */
     fun save() {
         viewModelScope.launch {
-            val angerLog = AngerLog(
-                id = id,
-                date = DateConverter.dateTimeToDate(date, time),
-                level = AngerLevel().getLevel(angerLevel),
-                event = event,
-                detail = detail,
-                thought = thought,
-                place = place
-            )
+            val angerLog =
+                AngerLog(
+                    id = id,
+                    date = DateConverter.dateTimeToDate(date, time),
+                    level = AngerLevel().getLevel(angerLevel),
+                    event = event,
+                    detail = detail,
+                    thought = thought,
+                    place = place,
+                )
             if (angerLog.id == 0L) {
                 angerLogDataRepository.save(angerLog)
             } else {
@@ -156,9 +163,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
      * DatePickerを表示する.
      * TimePickerが表示中の場合には非表示にする
      */
-    fun showDatePicker() = _state.update {
-        RegisterUiState.Success(showDatePicker = true, showTimePicker = false)
-    }
+    fun showDatePicker() =
+        _state.update {
+            RegisterUiState.Success(showDatePicker = true, showTimePicker = false)
+        }
 
     /**
      * DatePickerを閉じる.
@@ -169,9 +177,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
      * TimePickerを表意zする.
      * DatePickerを表示中の場合には非表示にする.
      */
-    fun showTimePicker() = _state.update {
-        RegisterUiState.Success(showDatePicker = false, showTimePicker = true)
-    }
+    fun showTimePicker() =
+        _state.update {
+            RegisterUiState.Success(showDatePicker = false, showTimePicker = true)
+        }
 
     /**
      * TimePickerを閉じる.
@@ -189,15 +198,16 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
     fun closeDeleteDialog() = _state.update { RegisterUiState.Success(showDeleteDialog = false) }
 
     fun delete() {
-        val angerLog = AngerLog(
-            id = id,
-            date = DateConverter.dateTimeToDate(date, time),
-            level = AngerLevel().getLevel(angerLevel),
-            event = event,
-            detail = detail,
-            thought = thought,
-            place = place
-        )
+        val angerLog =
+            AngerLog(
+                id = id,
+                date = DateConverter.dateTimeToDate(date, time),
+                level = AngerLevel().getLevel(angerLevel),
+                event = event,
+                detail = detail,
+                thought = thought,
+                place = place,
+            )
         viewModelScope.launch {
             angerLogDataRepository.delete(angerLog = angerLog)
         }

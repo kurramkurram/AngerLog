@@ -16,9 +16,8 @@ private const val MAX_LOADING_TIME = 500
 
 class AnalysisViewModel(
     private val analysisDataUseCase: AnalysisDataUseCase,
-    yearMonth: YearMonth = YearMonth.now()
+    yearMonth: YearMonth = YearMonth.now(),
 ) : ViewModel() {
-
     private val _content: MutableStateFlow<AnalysisUiState> =
         MutableStateFlow(AnalysisUiState.Loading)
     val content = _content.asStateFlow()
@@ -67,4 +66,3 @@ class AnalysisViewModel(
         }
     }
 }
-
