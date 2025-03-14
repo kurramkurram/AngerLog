@@ -6,8 +6,9 @@ sealed class HomeUiState {
     data object Loading : HomeUiState()
 
     data class Success(
-        val angerLogList: List<AngerLog> = listOf()
-    ): HomeUiState()
+        val angerLogList: List<AngerLog> = listOf(),
+        val hasAngerLog: Boolean = angerLogList.isNotEmpty()
+    ) : HomeUiState()
 
     data object Error : HomeUiState()
 }
