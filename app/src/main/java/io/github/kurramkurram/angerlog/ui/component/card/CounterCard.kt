@@ -25,21 +25,23 @@ fun AngerLogCounterCard(
     size: Int,
     unit: String = "",
     animationDuration: Int = 1000,
-    animationEasing: Easing = LinearEasing
+    animationEasing: Easing = LinearEasing,
 ) {
     Row(
-        modifier = modifier
-            .padding(10.dp),
+        modifier =
+            modifier
+                .padding(10.dp),
         horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.Bottom
+        verticalAlignment = Alignment.Bottom,
     ) {
         var animating by remember { mutableStateOf(false) }
         val animation by animateIntAsState(
             targetValue = if (animating) size else 0,
-            animationSpec = tween(
-                durationMillis = animationDuration,
-                easing = animationEasing
-            )
+            animationSpec =
+                tween(
+                    durationMillis = animationDuration,
+                    easing = animationEasing,
+                ),
         )
 
         LaunchedEffect(Unit) {
@@ -54,7 +56,7 @@ fun AngerLogCounterCard(
         Text(
             modifier = modifier.padding(10.dp).alignByBaseline(),
             text = unit,
-            fontSize = 20.sp
+            fontSize = 20.sp,
         )
     }
 }

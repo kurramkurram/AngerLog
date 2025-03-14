@@ -17,16 +17,20 @@ import kotlinx.serialization.Serializable
 object Policy
 
 @Composable
-fun PolicyScreen(modifier: Modifier = Modifier, onClickBack: () -> Unit) {
+fun PolicyScreen(
+    modifier: Modifier = Modifier,
+    onClickBack: () -> Unit,
+) {
     AngerLogBackButtonLayout(
         onClickBack = onClickBack,
-        title = stringResource(R.string.policy)
+        title = stringResource(R.string.policy),
     ) {
         AndroidView(
             factory = { WebView(it) },
-            modifier = modifier
-                .fillMaxSize()
-                .padding(horizontal = 10.dp),
+            modifier =
+                modifier
+                    .fillMaxSize()
+                    .padding(horizontal = 10.dp),
             update = { webView ->
                 webView.webViewClient = WebViewClient()
                 webView.loadUrl("file:///android_asset/app.html")

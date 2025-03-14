@@ -19,7 +19,7 @@ sealed class AnalysisUiState {
         val transition: List<LineData>,
         val showRate: Boolean = dataCount >= SHOW_RATE_MINIMUM_COUNT,
         val showAverageOfDayWeek: Boolean = dataCount >= SHOW_AVERAGE_MINIMUM_COUNT,
-        val showTransition: Boolean = dataCount >= SHOW_TRANSITION_MINIMUM_COUNT
+        val showTransition: Boolean = dataCount >= SHOW_TRANSITION_MINIMUM_COUNT,
     ) : AnalysisUiState()
 
     data object Error : AnalysisUiState()

@@ -27,42 +27,44 @@ object Permission
 fun PermissionScreen(
     modifier: Modifier = Modifier,
     onPermissionGranted: () -> Unit,
-    onClickSkip: () -> Unit
+    onClickSkip: () -> Unit,
 ) {
-
     Column {
         // 何か表示するのでColumnでネスト
         Column(
-            modifier = modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(10.dp)
+            modifier =
+                modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(10.dp),
         ) {
             Text(
                 modifier = modifier,
-                text = stringResource(R.string.permission_description)
+                text = stringResource(R.string.permission_description),
             )
         }
 
-        val launcher = rememberLauncherForActivityResult(
-            contract = ActivityResultContracts.RequestPermission()
-        ) { onPermissionGranted() }
+        val launcher =
+            rememberLauncherForActivityResult(
+                contract = ActivityResultContracts.RequestPermission(),
+            ) { onPermissionGranted() }
 
         Button(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             onClick = {
                 launcher.launch(requestPermission)
-            }
+            },
         ) { Text(stringResource(R.string.permission_next_button)) }
 
         Button(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            onClick = onClickSkip
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+            onClick = onClickSkip,
         ) { Text(stringResource(R.string.permission_skip_button)) }
     }
 }
-

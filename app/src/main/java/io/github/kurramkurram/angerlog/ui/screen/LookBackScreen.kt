@@ -1,32 +1,32 @@
-//package io.github.kurramkurram.angerlog.ui.screen
+// package io.github.kurramkurram.angerlog.ui.screen
 //
-//import androidx.compose.foundation.BorderStroke
-//import androidx.compose.foundation.border
-//import androidx.compose.foundation.layout.Column
-//import androidx.compose.foundation.layout.fillMaxHeight
-//import androidx.compose.foundation.layout.padding
-//import androidx.compose.foundation.lazy.LazyColumn
-//import androidx.compose.foundation.shape.RoundedCornerShape
-//import androidx.compose.material3.MaterialTheme
-//import androidx.compose.material3.Text
-//import androidx.compose.runtime.Composable
-//import androidx.compose.ui.Modifier
-//import androidx.compose.ui.unit.dp
-//import io.github.kurramkurram.angerlog.model.AngerLog
-//import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
-//import io.github.kurramkurram.angerlog.ui.component.AngerLogListItem
-//import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogBackButtonLayout
-//import kotlinx.serialization.Serializable
+// import androidx.compose.foundation.BorderStroke
+// import androidx.compose.foundation.border
+// import androidx.compose.foundation.layout.Column
+// import androidx.compose.foundation.layout.fillMaxHeight
+// import androidx.compose.foundation.layout.padding
+// import androidx.compose.foundation.lazy.LazyColumn
+// import androidx.compose.foundation.shape.RoundedCornerShape
+// import androidx.compose.material3.MaterialTheme
+// import androidx.compose.material3.Text
+// import androidx.compose.runtime.Composable
+// import androidx.compose.ui.Modifier
+// import androidx.compose.ui.unit.dp
+// import io.github.kurramkurram.angerlog.model.AngerLog
+// import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
+// import io.github.kurramkurram.angerlog.ui.component.AngerLogListItem
+// import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogBackButtonLayout
+// import kotlinx.serialization.Serializable
 //
-//@Serializable
-//object LookBack
+// @Serializable
+// object LookBack
 //
-//@Composable
-//fun LookBackScreen(
+// @Composable
+// fun LookBackScreen(
 //    modifier: Modifier = Modifier,
 //    onClickBack: () -> Unit,
 //    onItemClick: (id: Long) -> Unit
-//) {
+// ) {
 //    Column(modifier = modifier) {
 //        AngerLogBackButtonLayout(
 //            onClickBack = onClickBack,
@@ -91,10 +91,10 @@
 //            }
 //        }
 //    }
-//}
+// }
 //
-////@Preview
-////@Composable
-////fun PreviewLookBackScreen() {
-////    LookBackScreen(onClickButton = {}) { }
-////}
+// //@Preview
+// //@Composable
+// //fun PreviewLookBackScreen() {
+// //    LookBackScreen(onClickButton = {}) { }
+// //}

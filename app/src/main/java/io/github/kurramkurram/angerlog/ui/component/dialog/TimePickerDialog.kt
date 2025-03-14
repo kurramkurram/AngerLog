@@ -15,12 +15,9 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TimePicker
-import androidx.compose.material3.TimePickerColors
-import androidx.compose.material3.TimePickerDefaults
 import androidx.compose.material3.TimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
@@ -30,44 +27,47 @@ fun AngerLogTimePickerDialog(
     modifier: Modifier = Modifier,
     timePickerState: TimePickerState,
     onConfirmRequest: (TimePickerState) -> Unit,
-    onDismissRequest: () -> Unit
+    onDismissRequest: () -> Unit,
 ) {
     Dialog(
-        onDismissRequest = onDismissRequest
+        onDismissRequest = onDismissRequest,
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
             tonalElevation = 6.dp,
-            modifier = modifier
-                .width(IntrinsicSize.Min)
-                .height(IntrinsicSize.Min)
-                .background(
-                    shape = MaterialTheme.shapes.extraLarge,
-                    color = MaterialTheme.colorScheme.onPrimary
-                ),
+            modifier =
+                modifier
+                    .width(IntrinsicSize.Min)
+                    .height(IntrinsicSize.Min)
+                    .background(
+                        shape = MaterialTheme.shapes.extraLarge,
+                        color = MaterialTheme.colorScheme.onPrimary,
+                    ),
         ) {
             Column(
-                modifier = modifier
-                    .background(color = MaterialTheme.colorScheme.onPrimary)
-                    .padding(30.dp)
+                modifier =
+                    modifier
+                        .background(color = MaterialTheme.colorScheme.onPrimary)
+                        .padding(30.dp),
             ) {
                 TimePicker(
-                    state = timePickerState
+                    state = timePickerState,
                 )
                 Row(
-                    modifier = Modifier
-                        .height(40.dp)
-                        .fillMaxWidth()
+                    modifier =
+                        Modifier
+                            .height(40.dp)
+                            .fillMaxWidth(),
                 ) {
                     Spacer(modifier = Modifier.weight(1f))
                     TextButton(
-                        onClick = { onDismissRequest() }
+                        onClick = { onDismissRequest() },
                     ) { Text("キャンセル") }
                     TextButton(
                         onClick = {
                             onConfirmRequest(timePickerState)
                             onDismissRequest()
-                        }
+                        },
                     ) { Text("保存") }
                 }
             }

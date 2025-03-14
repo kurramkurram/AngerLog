@@ -2,7 +2,7 @@ package io.github.kurramkurram.angerlog.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import java.util.*
+import java.util.Date
 
 @Entity(tableName = "t_anger_log")
 data class AngerLog(
@@ -15,7 +15,10 @@ data class AngerLog(
     val event: String = "",
     val detail: String = "",
     val thought: String = "",
-    val lookBackShould: String = "", // 振り返りべき
-    val lookBackLevel: Int = 0, // 振り返りの怒りレベル
-    val lookBackAdvice: String = "", // 振り返りアドバイス
+    // 振り返りべき
+    val lookBackShould: String = "",
+    // 振り返りの怒りレベル
+    val lookBackLevel: Int = 0,
+    // 振り返りアドバイス
+    val lookBackAdvice: String = "",
 )

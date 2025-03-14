@@ -7,7 +7,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.DropdownMenu
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -26,34 +25,36 @@ fun AngerLogDropDown(
     max: Int,
     expanded: Boolean,
     onDismissRequest: () -> Unit,
-    onItemSelected: (Int) -> Unit
+    onItemSelected: (Int) -> Unit,
 ) {
     DropdownMenu(
-        modifier = modifier
-            .width(200.dp)
-            .border(
-                border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primaryContainer),
-                shape = MaterialTheme.shapes.small
-            )
-            .background(
-                color = MaterialTheme.colorScheme.background,
-                shape = MaterialTheme.shapes.small
-            )
-            .padding(4.dp),
+        modifier =
+            modifier
+                .width(200.dp)
+                .border(
+                    border = BorderStroke(1.dp, color = MaterialTheme.colorScheme.primaryContainer),
+                    shape = MaterialTheme.shapes.small,
+                )
+                .background(
+                    color = MaterialTheme.colorScheme.background,
+                    shape = MaterialTheme.shapes.small,
+                )
+                .padding(4.dp),
         expanded = expanded,
-        onDismissRequest = { onDismissRequest() }
+        onDismissRequest = { onDismissRequest() },
     ) {
         (min..max).forEach {
             Text(
-                modifier = modifier
-                    .fillMaxWidth()
-                    .clickable {
-                        onItemSelected(it)
-                        onDismissRequest()
-                    }
-                    .padding(horizontal = 10.dp, vertical = 4.dp),
+                modifier =
+                    modifier
+                        .fillMaxWidth()
+                        .clickable {
+                            onItemSelected(it)
+                            onDismissRequest()
+                        }
+                        .padding(horizontal = 10.dp, vertical = 4.dp),
                 text = "$it",
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
 
             AngerLogHorizontalDivider()

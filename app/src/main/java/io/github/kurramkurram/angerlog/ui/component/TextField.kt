@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -44,26 +43,28 @@ fun AngerLogOutlinedTextField(
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     cursorBrush: Brush = SolidColor(Color.Black),
     singleLine: Boolean = false,
-    height: Dp = Dp.Unspecified
+    height: Dp = Dp.Unspecified,
 ) {
     BasicTextField(
         value = value,
         onValueChange = onValueChange,
-        modifier = modifier
-            .border(
-                border = BorderStroke(1.dp, Color.DarkGray),
-                shape = MaterialTheme.shapes.small
-            )
-            .background(
-                color = MaterialTheme.colorScheme.onPrimary,
-                shape = MaterialTheme.shapes.small
-            )
-            .padding(),
+        modifier =
+            modifier
+                .border(
+                    border = BorderStroke(1.dp, Color.DarkGray),
+                    shape = MaterialTheme.shapes.small,
+                )
+                .background(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    shape = MaterialTheme.shapes.small,
+                )
+                .padding(),
         enabled = enabled,
         readOnly = readOnly,
-        textStyle = textStyle.copy(
-            color = MaterialTheme.colorScheme.onSurface,
-        ),
+        textStyle =
+            textStyle.copy(
+                color = MaterialTheme.colorScheme.onSurface,
+            ),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation,
@@ -74,14 +75,14 @@ fun AngerLogOutlinedTextField(
         decorationBox = { innerTextField ->
 
             Row(
-                modifier = if (height != Dp.Unspecified) {
-                    modifier.height(height)
-                } else {
-                    modifier
-                },
+                modifier =
+                    if (height != Dp.Unspecified) {
+                        modifier.height(height)
+                    } else {
+                        modifier
+                    },
                 verticalAlignment = Alignment.CenterVertically,
             ) {
-
                 Box(
                     Modifier
                         .weight(1f)
@@ -91,15 +92,15 @@ fun AngerLogOutlinedTextField(
                     if (value.isEmpty()) {
                         Text(
                             text = hint,
-                            style = LocalTextStyle.current.copy(
-                                color = Color.Gray,
-                            )
+                            style =
+                                LocalTextStyle.current.copy(
+                                    color = Color.Gray,
+                                ),
                         )
                     }
                     innerTextField()
                 }
             }
-        }
+        },
     )
 }
-

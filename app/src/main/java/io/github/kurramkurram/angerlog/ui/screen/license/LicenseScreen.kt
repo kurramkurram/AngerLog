@@ -27,10 +27,13 @@ private const val TAG = "LicenseScreen"
 object License
 
 @Composable
-fun LicenseScreen(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
+fun LicenseScreen(
+    modifier: Modifier = Modifier,
+    onClickButton: () -> Unit,
+) {
     AngerLogBackButtonLayout(
         onClickBack = onClickButton,
-        title = stringResource(R.string.license)
+        title = stringResource(R.string.license),
     ) {
         var licenseState by remember { mutableStateOf(emptyList<LibraryLicenseDto>()) }
         val context = LocalContext.current
@@ -43,13 +46,14 @@ fun LicenseScreen(modifier: Modifier = Modifier, onClickButton: () -> Unit) {
             items(licenseState) {
                 Column(modifier.padding(horizontal = 5.dp)) {
                     Text(
-                        modifier = modifier.padding(
-                            start = 0.dp,
-                            top = 0.dp,
-                            end = 0.dp,
-                            bottom = 10.dp
-                        ),
-                        text = it.name
+                        modifier =
+                            modifier.padding(
+                                start = 0.dp,
+                                top = 0.dp,
+                                end = 0.dp,
+                                bottom = 10.dp,
+                            ),
+                        text = it.name,
                     )
 
                     val terms = it.terms

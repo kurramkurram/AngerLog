@@ -3,10 +3,9 @@ package io.github.kurramkurram.angerlog.util
 import android.annotation.SuppressLint
 import androidx.room.TypeConverter
 import io.github.kurramkurram.angerlog.model.Time
-import io.github.kurramkurram.angerlog.util.DateConverter.Companion.dateToString
 import java.text.SimpleDateFormat
-import java.time.YearMonth
-import java.util.*
+import java.util.Calendar
+import java.util.Date
 
 class DateConverter {
     @TypeConverter
@@ -26,7 +25,10 @@ class DateConverter {
             return calendar
         }
 
-        fun dateTimeToDate(date: Date, time: Time): Date {
+        fun dateTimeToDate(
+            date: Date,
+            time: Time,
+        ): Date {
             val calendar = Calendar.getInstance()
             calendar.time = date
             calendar.set(Calendar.HOUR_OF_DAY, time.hour)
@@ -34,7 +36,11 @@ class DateConverter {
             return calendar.time
         }
 
-        fun yearMonthDayToUnixTime(year: Int, month: Int, day: Int): Long {
+        fun yearMonthDayToUnixTime(
+            year: Int,
+            month: Int,
+            day: Int,
+        ): Long {
             val c = Calendar.getInstance()
             c.set(year, month, day)
             return c.timeInMillis

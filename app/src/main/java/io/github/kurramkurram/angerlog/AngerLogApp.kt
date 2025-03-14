@@ -33,9 +33,9 @@ import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import io.github.kurramkurram.angerlog.ui.navigation.AngerLogNavHost
 import io.github.kurramkurram.angerlog.ui.component.AngerLogFloatingActionButton
 import io.github.kurramkurram.angerlog.ui.component.ad.AngerLogBannerAd
+import io.github.kurramkurram.angerlog.ui.navigation.AngerLogNavHost
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar
 import io.github.kurramkurram.angerlog.ui.screen.home.Home
@@ -49,26 +49,28 @@ data class TopLevelRoute<T : Any>(val name: String, val route: T, val icon: Imag
  */
 @Composable
 fun AngerLogApp() {
-    val topLevelRoutes = listOf(
-        TopLevelRoute(stringResource(R.string.home), Home, Icons.Rounded.Home),
-        TopLevelRoute(stringResource(R.string.calendar), Calendar, Icons.Sharp.DateRange),
-        TopLevelRoute(stringResource(R.string.analysis), Analysis, Icons.Sharp.Build),
-        TopLevelRoute(stringResource(R.string.setting), Setting, Icons.Filled.Settings)
-    )
+    val topLevelRoutes =
+        listOf(
+            TopLevelRoute(stringResource(R.string.home), Home, Icons.Rounded.Home),
+            TopLevelRoute(stringResource(R.string.calendar), Calendar, Icons.Sharp.DateRange),
+            TopLevelRoute(stringResource(R.string.analysis), Analysis, Icons.Sharp.Build),
+            TopLevelRoute(stringResource(R.string.setting), Setting, Icons.Filled.Settings),
+        )
 
     val navController = rememberNavController()
     Scaffold(
-        modifier = Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.systemBars)
-            .background(color = MaterialTheme.colorScheme.background),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+                .background(color = MaterialTheme.colorScheme.background),
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
-                topLevelRoutes = topLevelRoutes
+                topLevelRoutes = topLevelRoutes,
             )
         },
-        floatingActionButton = { FloatingActionButton(navController = navController) }
+        floatingActionButton = { FloatingActionButton(navController = navController) },
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
@@ -89,7 +91,7 @@ fun AngerLogApp() {
 private fun BottomNavigationBar(
     modifier: Modifier = Modifier,
     navController: NavController,
-    topLevelRoutes: List<TopLevelRoute<out Any>>
+    topLevelRoutes: List<TopLevelRoute<out Any>>,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -97,7 +99,7 @@ private fun BottomNavigationBar(
     if (isShow) {
         BottomNavigation(
             modifier = modifier,
-            backgroundColor = MaterialTheme.colorScheme.primaryContainer
+            backgroundColor = MaterialTheme.colorScheme.primaryContainer,
         ) {
             topLevelRoutes.forEach { route ->
                 BottomNavigationItem(
@@ -106,12 +108,13 @@ private fun BottomNavigationBar(
                         Text(
                             modifier = modifier.padding(vertical = 5.dp),
                             text = route.name,
-                            fontSize = 10.sp
+                            fontSize = 10.sp,
                         )
                     },
-                    selected = currentDestination?.hierarchy?.any {
-                        it.hasRoute(route.route::class)
-                    } == true,
+                    selected =
+                        currentDestination?.hierarchy?.any {
+                            it.hasRoute(route.route::class)
+                        } == true,
                     onClick = {
                         navController.navigate(route.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
@@ -120,7 +123,7 @@ private fun BottomNavigationBar(
                             launchSingleTop = true
                             restoreState = true
                         }
-                    }
+                    },
                 )
             }
         }
@@ -133,7 +136,7 @@ private fun BottomNavigationBar(
 @Composable
 fun FloatingActionButton(
     modifier: Modifier = Modifier,
-    navController: NavController
+    navController: NavController,
 ) {
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = navBackStackEntry?.destination
@@ -163,7 +166,7 @@ fun FloatingActionButton(
  */
 private fun isShowBottomBar(
     currentDestination: NavDestination?,
-    topLevelRoutes: List<TopLevelRoute<out Any>>
+    topLevelRoutes: List<TopLevelRoute<out Any>>,
 ): Boolean {
     val currentRoute = currentDestination?.route ?: return false
     topLevelRoutes.forEach {
@@ -180,16 +183,18 @@ private fun isShowBottomBar(
  */
 private fun isShowFloatingActionButton(currentDestination: NavDestination?): FloatingType {
     val currentRoute = currentDestination?.route ?: return FloatingType.NONE
-    val register = listOf(
-        Home::class.java.name
-    )
+    val register =
+        listOf(
+            Home::class.java.name,
+        )
     register.forEach {
         if (currentRoute.contains(it)) return FloatingType.REGISTER
     }
 
-    val lookBack = listOf(
-        Analysis::class.java.name
-    )
+    val lookBack =
+        listOf(
+            Analysis::class.java.name,
+        )
     lookBack.forEach {
         if (currentRoute.contains(it)) return FloatingType.LOOK_BACK
     }
@@ -200,5 +205,5 @@ private fun isShowFloatingActionButton(currentDestination: NavDestination?): Flo
 enum class FloatingType {
     REGISTER, // 登録画面
     LOOK_BACK, // 振り返り画面
-    NONE // 表示なし
+    NONE, // 表示なし
 }

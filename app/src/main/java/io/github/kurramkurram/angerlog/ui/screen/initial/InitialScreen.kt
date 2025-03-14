@@ -25,19 +25,20 @@ fun InitialScreen(
     modifier: Modifier = Modifier,
     onClickLicense: () -> Unit,
     onClick: () -> Unit,
-    viewModel: InitialViewModel = koinViewModel()
+    viewModel: InitialViewModel = koinViewModel(),
 ) {
     Column {
         // 何か表示するのでColumnでネスト
         Column(
-            modifier = modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(10.dp)
+            modifier =
+                modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(10.dp),
         ) {
             Text(
                 modifier = modifier,
-                text = stringResource(R.string.initial_description)
+                text = stringResource(R.string.initial_description),
             )
         }
 
@@ -47,13 +48,14 @@ fun InitialScreen(
             linkText = stringResource(R.string.initial_policy_link_text),
             link = "",
             onClickLink = onClickLicense,
-            suffixText = stringResource(R.string.initial_policy_suffix_text)
+            suffixText = stringResource(R.string.initial_policy_suffix_text),
         )
         Button(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(10.dp),
-            onClick = onClick
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+            onClick = onClick,
         ) {
             Text(stringResource(R.string.initial_button_text))
             viewModel.agree(LocalContext.current)

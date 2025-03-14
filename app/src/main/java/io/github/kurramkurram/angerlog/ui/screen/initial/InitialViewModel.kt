@@ -6,7 +6,6 @@ import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 
 class InitialViewModel(private val agreementPolicyRepository: AgreementPolicyRepository) :
     ViewModel() {
-
     fun agree(context: Context) {
         agreementPolicyRepository.agree(context)
     }

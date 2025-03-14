@@ -5,7 +5,6 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
@@ -27,15 +26,16 @@ fun AngerLogBarChart(
     animationDuration: Int = 1000,
     animationEasing: Easing = LinearEasing,
     barWidth: Float? = null,
-    barSpacing: Float? = null
+    barSpacing: Float? = null,
 ) {
     var animating by remember { mutableStateOf(false) }
     val animation by animateFloatAsState(
         targetValue = if (animating) 1f else 0f,
-        animationSpec = tween(
-            durationMillis = animationDuration,
-            easing = animationEasing
-        )
+        animationSpec =
+            tween(
+                durationMillis = animationDuration,
+                easing = animationEasing,
+            ),
     )
 
     // 棒グラフ
@@ -61,14 +61,15 @@ fun AngerLogBarChart(
                 color = Color.DarkGray,
                 start = Offset(startX, baseLine),
                 end = Offset(endX, baseLine),
-                strokeWidth = 2f
+                strokeWidth = 2f,
             )
 
-            val paint = android.graphics.Paint().apply {
-                color = android.graphics.Color.GRAY
-                textAlign = android.graphics.Paint.Align.CENTER
-                textSize = 32f
-            }
+            val paint =
+                android.graphics.Paint().apply {
+                    color = android.graphics.Color.GRAY
+                    textAlign = android.graphics.Paint.Align.CENTER
+                    textSize = 32f
+                }
 
             // データ最大値
             val maxBarData = data.maxOf { it.size }
@@ -80,14 +81,14 @@ fun AngerLogBarChart(
                 drawRect(
                     topLeft = Offset(offsetX, size.height),
                     color = d.backgroundColor,
-                    size = Size(bWidth, barHeight * animation)
+                    size = Size(bWidth, barHeight * animation),
                 )
 
                 drawContext.canvas.nativeCanvas.drawText(
                     d.label,
                     offsetX + bWidth / 2,
                     baseLine + 40f,
-                    paint
+                    paint,
                 )
             }
         },
@@ -98,5 +99,5 @@ data class BarData(
     val size: Float,
     val label: String,
     val labelColor: Color,
-    val backgroundColor: Color = Color.Red
+    val backgroundColor: Color = Color.Red,
 )

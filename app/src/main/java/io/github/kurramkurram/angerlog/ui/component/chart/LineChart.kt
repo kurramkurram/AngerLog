@@ -1,7 +1,6 @@
 package io.github.kurramkurram.angerlog.ui.component.chart
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
@@ -23,7 +22,7 @@ fun AngerLogLineChart(
     maxX: Float? = null,
     maxY: Int? = null,
     lineColor: Color = Color.LightGray,
-    lineStroke: Stroke = Stroke(5f)
+    lineStroke: Stroke = Stroke(5f),
 ) {
     Canvas(
         modifier = modifier.padding(20.dp),
@@ -35,9 +34,9 @@ fun AngerLogLineChart(
                 fixedMaxPoint = maxX,
                 fixedMaxY = maxY,
                 lineColor = lineColor,
-                lineStroke = lineStroke
+                lineStroke = lineStroke,
             )
-        }
+        },
     )
 }
 
@@ -48,7 +47,7 @@ private fun DrawScope.drawBezierCurve(
     fixedMaxPoint: Float? = null,
     fixedMaxY: Int? = null,
     lineColor: Color,
-    lineStroke: Stroke
+    lineStroke: Stroke,
 ) {
     val maxPoint = fixedMaxPoint ?: lineData.maxOf { it.y }
     val minPoint = fixedMinPoint ?: lineData.minOf { it.y }
@@ -74,7 +73,7 @@ private fun DrawScope.drawBezierCurve(
     drawPath(
         path = path,
         color = lineColor,
-        style = lineStroke
+        style = lineStroke,
     )
 
     val baseLine = size.height
@@ -82,33 +81,40 @@ private fun DrawScope.drawBezierCurve(
         color = Color.DarkGray,
         start = Offset(0f, baseLine),
         end = Offset(size.width, baseLine),
-        strokeWidth = 2f
+        strokeWidth = 2f,
     )
 
-    val paint = android.graphics.Paint().apply {
-        color = android.graphics.Color.GRAY
-        textAlign = android.graphics.Paint.Align.CENTER
-        textSize = 32f
-    }
+    val paint =
+        android.graphics.Paint().apply {
+            color = android.graphics.Color.GRAY
+            textAlign = android.graphics.Paint.Align.CENTER
+            textSize = 32f
+        }
     for (i in 1..maxY step 5) {
         drawContext.canvas.nativeCanvas.drawText(
             i.toString(),
             i * xSpacing,
             baseLine + 40f,
-            paint
+            paint,
         )
     }
 }
 
-private fun buildCurveLine(path: Path, startPoint: Offset, endPoint: Offset) {
-    val firstControlPoint = Offset(
-        x = startPoint.x + (endPoint.x - startPoint.x) / 2F,
-        y = startPoint.y,
-    )
-    val secondControlPoint = Offset(
-        x = startPoint.x + (endPoint.x - startPoint.x) / 2F,
-        y = endPoint.y,
-    )
+private fun buildCurveLine(
+    path: Path,
+    startPoint: Offset,
+    endPoint: Offset,
+) {
+    val firstControlPoint =
+        Offset(
+            x = startPoint.x + (endPoint.x - startPoint.x) / 2F,
+            y = startPoint.y,
+        )
+    val secondControlPoint =
+        Offset(
+            x = startPoint.x + (endPoint.x - startPoint.x) / 2F,
+            y = endPoint.y,
+        )
     path.cubicTo(
         x1 = firstControlPoint.x,
         y1 = firstControlPoint.y,

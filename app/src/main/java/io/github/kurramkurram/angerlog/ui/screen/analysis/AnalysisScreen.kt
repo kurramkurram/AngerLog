@@ -26,7 +26,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -54,11 +53,15 @@ private const val OFFSET_BOTTOM_OF_LINE_CHART = -0.2f
 object Analysis
 
 @Composable
-fun AnalysisScreen(modifier: Modifier = Modifier, viewModel: AnalysisViewModel = koinViewModel()) {
+fun AnalysisScreen(
+    modifier: Modifier = Modifier,
+    viewModel: AnalysisViewModel = koinViewModel(),
+) {
     Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(top = 20.dp),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val calendarState by viewModel.yearMonthState.collectAsStateWithLifecycle()
@@ -88,12 +91,12 @@ fun AnalysisScreen(modifier: Modifier = Modifier, viewModel: AnalysisViewModel =
             onSelectMonth = {
                 viewModel.selectMonth(it)
                 viewModel.updateAngerLogByMonth()
-            }
+            },
         )
 
         AngerLogHorizontalDivider(
             modifier = modifier.padding(horizontal = 5.dp),
-            color = MaterialTheme.colorScheme.primaryContainer
+            color = MaterialTheme.colorScheme.primaryContainer,
         )
 
         val state by viewModel.content.collectAsStateWithLifecycle()
@@ -101,7 +104,7 @@ fun AnalysisScreen(modifier: Modifier = Modifier, viewModel: AnalysisViewModel =
             is AnalysisUiState.Success -> {
                 AnalysisScreenContent(
                     modifier = modifier,
-                    state = state as AnalysisUiState.Success
+                    state = state as AnalysisUiState.Success,
                 )
             }
 
@@ -116,45 +119,44 @@ fun AnalysisScreen(modifier: Modifier = Modifier, viewModel: AnalysisViewModel =
     }
 }
 
-
 @Composable
 fun AnalysisScreenContent(
     modifier: Modifier = Modifier,
-    state: AnalysisUiState.Success
+    state: AnalysisUiState.Success,
 ) {
     Column(
         modifier
             .padding(top = 20.dp)
             .fillMaxSize()
             .verticalScroll(rememberScrollState()),
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-
         Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.SpaceEvenly
+            modifier =
+                Modifier
+                    .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             AnalysisScreenElevatedCard(
                 modifier = modifier.weight(1f),
                 title = stringResource(R.string.analysis_record_count_title),
-                description = stringResource(R.string.analysis_record_count_description)
+                description = stringResource(R.string.analysis_record_count_description),
             ) {
                 AngerLogCounterCard(
                     modifier = modifier,
                     size = state.recordCount,
-                    unit = stringResource(R.string.analysis_record_count_unit)
+                    unit = stringResource(R.string.analysis_record_count_unit),
                 )
             }
             AnalysisScreenElevatedCard(
                 modifier = modifier.weight(1f),
                 title = stringResource(R.string.analysis_look_back_count_title),
-                description = stringResource(R.string.analysis_look_back_count_description)
+                description = stringResource(R.string.analysis_look_back_count_description),
             ) {
                 AngerLogCounterCard(
                     modifier = modifier,
                     size = state.lookBackCount,
-                    unit = stringResource(R.string.analysis_look_back_count_unit)
+                    unit = stringResource(R.string.analysis_look_back_count_unit),
                 )
             }
         }
@@ -162,7 +164,7 @@ fun AnalysisScreenContent(
         // スコアの割合 -> 円グラフ
         AnalysisScreenElevatedCard(
             title = stringResource(R.string.analysis_anger_rate_title),
-            description = stringResource(R.string.analysis_anger_rate_description)
+            description = stringResource(R.string.analysis_anger_rate_description),
         ) {
             if (state.showRate) {
                 val angerLevel = AngerLevel()
@@ -174,17 +176,18 @@ fun AnalysisScreenContent(
                         PiePiece(
                             rate = rate ?: 0f,
                             label = level.getValue().toString(),
-                            backgroundColor = level.getColor()
-                        )
+                            backgroundColor = level.getColor(),
+                        ),
                     )
                 }
                 AngerLogPieChart(modifier = Modifier.size(150.dp), pieces = pieces)
             } else {
                 AnalysisScreenLockedCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .size(150.dp),
-                    message = stringResource(R.string.analysis_anger_rate_count_notice)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .size(150.dp),
+                    message = stringResource(R.string.analysis_anger_rate_count_notice),
                 )
             }
         }
@@ -198,8 +201,8 @@ fun AnalysisScreenContent(
                     size = state.averageOfDayOfWeek[index],
                     label = iDayOfWeek.getString(),
                     labelColor = iDayOfWeek.getColor(),
-                    backgroundColor = MaterialTheme.colorScheme.primaryContainer
-                )
+                    backgroundColor = MaterialTheme.colorScheme.primaryContainer,
+                ),
             )
         }
 
@@ -210,18 +213,20 @@ fun AnalysisScreenContent(
         ) {
             if (state.showAverageOfDayWeek) {
                 AngerLogBarChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .size(150.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .size(150.dp),
                     data = barData,
-                    animationEasing = FastOutSlowInEasing
+                    animationEasing = FastOutSlowInEasing,
                 )
             } else {
                 AnalysisScreenLockedCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .size(150.dp),
-                    message = stringResource(R.string.analysis_average_per_day_of_week_notice)
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .size(150.dp),
+                    message = stringResource(R.string.analysis_average_per_day_of_week_notice),
                 )
             }
         }
@@ -235,24 +240,27 @@ fun AnalysisScreenContent(
                 val angerLevel = AngerLevel()
                 // 上下に余白を持たせるためにOFFSET_TOP_OF_LINE_CHART/OFFSET_BOTTOM_OF_LINE_CHART分オフセットを追加する
                 AngerLogLineChart(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .size(150.dp),
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .size(150.dp),
                     lineData = state.transition,
                     maxX = angerLevel.getMaxLevel() + OFFSET_TOP_OF_LINE_CHART,
                     minX = angerLevel.getMinLevel() + OFFSET_BOTTOM_OF_LINE_CHART,
                     maxY = MAX_DAY_OF_MONTH,
-                    lineColor = MaterialTheme.colorScheme.primaryContainer
+                    lineColor = MaterialTheme.colorScheme.primaryContainer,
                 )
             } else {
                 AnalysisScreenLockedCard(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .size(150.dp),
-                    message = stringResource(
-                        R.string.analysis_transition_notice,
-                        3 - state.dataCount
-                    )
+                    modifier =
+                        Modifier
+                            .fillMaxWidth()
+                            .size(150.dp),
+                    message =
+                        stringResource(
+                            R.string.analysis_transition_notice,
+                            3 - state.dataCount,
+                        ),
                 )
             }
         }
@@ -264,21 +272,24 @@ fun AnalysisScreenElevatedCard(
     modifier: Modifier = Modifier,
     title: String = "",
     description: String = "",
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
     ElevatedCard(
-        modifier = modifier
-            .padding(10.dp),
-        elevation = CardDefaults.cardElevation(
-            defaultElevation = 6.dp
-        )
+        modifier =
+            modifier
+                .padding(10.dp),
+        elevation =
+            CardDefaults.cardElevation(
+                defaultElevation = 6.dp,
+            ),
     ) {
         Column(
-            modifier = Modifier
-                .background(color = MaterialTheme.colorScheme.onPrimary)
-                .fillMaxSize()
-                .padding(10.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .background(color = MaterialTheme.colorScheme.onPrimary)
+                    .fillMaxSize()
+                    .padding(10.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // タイトル
             Text(text = title, style = MaterialTheme.typography.titleMedium)
@@ -291,24 +302,27 @@ fun AnalysisScreenElevatedCard(
 }
 
 @Composable
-fun AnalysisScreenLockedCard(modifier: Modifier = Modifier, message: String) {
+fun AnalysisScreenLockedCard(
+    modifier: Modifier = Modifier,
+    message: String,
+) {
     Box(
-        modifier = modifier
-            .padding(10.dp)
-            .background(
-                color = MaterialTheme.colorScheme.secondary,
-                shape = MaterialTheme.shapes.small
-            ),
-        contentAlignment = Alignment.Center
+        modifier =
+            modifier
+                .padding(10.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.secondary,
+                    shape = MaterialTheme.shapes.small,
+                ),
+        contentAlignment = Alignment.Center,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Filled.Lock,
-                contentDescription = stringResource(R.string.analysis_lock_cd)
+                contentDescription = stringResource(R.string.analysis_lock_cd),
             )
             Spacer(Modifier.width(10.dp))
             Text(text = message)
         }
-
     }
 }

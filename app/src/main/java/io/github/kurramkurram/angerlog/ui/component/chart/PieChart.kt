@@ -29,7 +29,7 @@ fun AngerLogPieChart(
     modifier: Modifier = Modifier,
     pieces: List<PiePiece>,
     animationDuration: Int = 1000,
-    animationEasing: Easing = LinearEasing
+    animationEasing: Easing = LinearEasing,
 ) {
     val animationList = remember { List(pieces.size) { Animatable(0f) } }
     val coroutineScope = rememberCoroutineScope()
@@ -41,10 +41,11 @@ fun AngerLogPieChart(
             coroutineScope.launch {
                 progress.animateTo(
                     targetValue = 360 * rate,
-                    animationSpec = tween(
-                        durationMillis = (animationDuration * rate).toInt(),
-                        easing = animationEasing
-                    )
+                    animationSpec =
+                        tween(
+                            durationMillis = (animationDuration * rate).toInt(),
+                            easing = animationEasing,
+                        ),
                 )
             }
             delay((animationDuration * rate).toLong())
@@ -62,7 +63,7 @@ fun AngerLogPieChart(
                     color = pieces[index].backgroundColor,
                     startAngle = startAngle,
                     sweepAngle = sweepAngle,
-                    useCenter = true
+                    useCenter = true,
                 )
                 startAngle += sweepAngle
             }
@@ -71,18 +72,20 @@ fun AngerLogPieChart(
 
     // 凡例
     Row(
-        modifier = Modifier
-            .padding(horizontal = 30.dp)
-            .fillMaxWidth(),
-        horizontalArrangement = Arrangement.SpaceEvenly
+        modifier =
+            Modifier
+                .padding(horizontal = 30.dp)
+                .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         pieces.forEach {
             Text(
-                modifier = Modifier
-                    .clip(CircleShape)
-                    .background(color = it.backgroundColor)
-                    .padding(horizontal = 20.dp, vertical = 5.dp),
-                text = it.label
+                modifier =
+                    Modifier
+                        .clip(CircleShape)
+                        .background(color = it.backgroundColor)
+                        .padding(horizontal = 20.dp, vertical = 5.dp),
+                text = it.label,
             )
         }
     }
@@ -91,5 +94,5 @@ fun AngerLogPieChart(
 data class PiePiece(
     val rate: Float,
     val label: String = "",
-    val backgroundColor: Color
+    val backgroundColor: Color,
 )

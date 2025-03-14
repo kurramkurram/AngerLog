@@ -9,39 +9,44 @@ import kotlinx.coroutines.flow.Flow
 import java.time.YearMonth
 import java.time.ZoneId
 
-
 interface AngerLogDataRepository {
     fun getAll(): Flow<List<AngerLog>>
+
     fun getLimited(limit: Int): Flow<List<AngerLog>>
+
     fun getCalenderItemByMonth(yearMonth: YearMonth): Flow<List<AngerIdOfDayDto>>
+
     fun getById(id: Long): Flow<AngerLog?>
 
     suspend fun save(angerLog: AngerLog)
+
     suspend fun update(angerLog: AngerLog)
+
     suspend fun delete(angerLog: AngerLog)
 }
 
 class AngerLogDataRepositoryImpl(
     private val context: Context,
     private val db: AngerLogDatabase = AngerLogDatabase.getDatabases(context),
-    private val dao: AngerLogDao = db.angerLogDao()
+    private val dao: AngerLogDao = db.angerLogDao(),
 ) : AngerLogDataRepository {
-
     override fun getAll(): Flow<List<AngerLog>> = dao.select()
 
     override fun getLimited(limit: Int): Flow<List<AngerLog>> = dao.selectLimited(limit)
 
     override fun getCalenderItemByMonth(yearMonth: YearMonth): Flow<List<AngerIdOfDayDto>> {
         val zoneId = ZoneId.systemDefault()
-        val begin = yearMonth.atDay(1)
-            .atTime(0, 0)
-            .atZone(zoneId)
-            .toEpochSecond() * 1000
-        val end = yearMonth
-            .atDay(yearMonth.lengthOfMonth())
-            .atTime(23, 59)
-            .atZone(zoneId)
-            .toEpochSecond() * 1000 + 999
+        val begin =
+            yearMonth.atDay(1)
+                .atTime(0, 0)
+                .atZone(zoneId)
+                .toEpochSecond() * 1000
+        val end =
+            yearMonth
+                .atDay(yearMonth.lengthOfMonth())
+                .atTime(23, 59)
+                .atZone(zoneId)
+                .toEpochSecond() * 1000 + 999
         return dao.selectIdByPeriod(begin, end)
     }
 

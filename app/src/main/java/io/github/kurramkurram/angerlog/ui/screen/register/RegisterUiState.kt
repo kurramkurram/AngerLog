@@ -5,6 +5,6 @@ sealed class RegisterUiState {
         val showDatePicker: Boolean = false,
         val showTimePicker: Boolean = false,
         val showBackDialog: Boolean = false,
-        val showDeleteDialog: Boolean = false
+        val showDeleteDialog: Boolean = false,
     ) : RegisterUiState()
 }

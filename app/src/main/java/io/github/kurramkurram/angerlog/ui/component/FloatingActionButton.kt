@@ -2,10 +2,10 @@ package io.github.kurramkurram.angerlog.ui.component
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -16,15 +16,15 @@ import androidx.compose.ui.unit.dp
 fun AngerLogFloatingActionButton(
     modifier: Modifier = Modifier,
     title: String = "",
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     FloatingActionButton(
         modifier = modifier,
-        onClick = { onClick() }
+        onClick = { onClick() },
     ) {
         Row(
             modifier = modifier,
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Icon(Icons.Filled.Edit, contentDescription = "編集")
             if (title.isNotBlank()) {
@@ -34,8 +34,8 @@ fun AngerLogFloatingActionButton(
     }
 }
 //
-//@Preview
-//@Composable
-//fun PreviewAngerLogFloatingActionButton() {
+// @Preview
+// @Composable
+// fun PreviewAngerLogFloatingActionButton() {
 //    AngerLogFloatingActionButton(onClick = {}, title = "振り返り")
-//}
+// }

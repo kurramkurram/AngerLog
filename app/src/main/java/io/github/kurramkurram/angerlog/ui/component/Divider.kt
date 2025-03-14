@@ -7,6 +7,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun AngerLogHorizontalDivider(modifier: Modifier = Modifier, color: Color = Color.Gray) {
+fun AngerLogHorizontalDivider(
+    modifier: Modifier = Modifier,
+    color: Color = Color.Gray,
+) {
     HorizontalDivider(modifier = modifier, thickness = 1.dp, color = color)
 }
