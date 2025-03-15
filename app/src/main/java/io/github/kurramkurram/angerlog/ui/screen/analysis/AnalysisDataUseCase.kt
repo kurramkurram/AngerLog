@@ -62,7 +62,8 @@ class AnalysisDataUseCaseImpl(
             }
             AnalysisUiState.Success(
                 recordCount = it.size,
-                lookBackCount = 10, // TODO
+                // TODO
+                lookBackCount = 10,
                 rate = rate,
                 dataCount = it.size,
                 averageOfDayOfWeek = averageAngerOfDayOfWeek,

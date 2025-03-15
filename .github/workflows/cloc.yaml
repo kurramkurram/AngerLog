@@ -7,12 +7,10 @@ on:
       - "docs/actions"
     paths-ignore:
       - README.md
-      - xd/**
   pull_request:
     branches: [ "master" ]
     paths-ignore:
       - README.md
-      - xd/**
 
 jobs:
   lines-of-code:

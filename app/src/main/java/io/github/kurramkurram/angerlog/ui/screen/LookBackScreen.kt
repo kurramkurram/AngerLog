@@ -1,4 +1,7 @@
-// package io.github.kurramkurram.angerlog.ui.screen
+package io.github.kurramkurram.angerlog.ui.screen
+
+import androidx.compose.runtime.Composable
+
 //
 // import androidx.compose.foundation.BorderStroke
 // import androidx.compose.foundation.border
@@ -21,8 +24,8 @@
 // @Serializable
 // object LookBack
 //
-// @Composable
-// fun LookBackScreen(
+@Composable
+fun LookBackScreen() {
 //    modifier: Modifier = Modifier,
 //    onClickBack: () -> Unit,
 //    onItemClick: (id: Long) -> Unit
@@ -91,7 +94,7 @@
 //            }
 //        }
 //    }
-// }
+}
 //
 // //@Preview
 // //@Composable

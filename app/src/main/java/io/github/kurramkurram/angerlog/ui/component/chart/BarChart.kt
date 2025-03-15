@@ -22,7 +22,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AngerLogBarChart(
     modifier: Modifier = Modifier,
-    data: List<BarData>, // TODO クラス化する
+    // TODO クラス化する
+    data: List<BarData>,
     animationDuration: Int = 1000,
     animationEasing: Easing = LinearEasing,
     barWidth: Float? = null,
