@@ -18,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -41,10 +40,10 @@ fun AngerLogPieChart(
                 progress.animateTo(
                     targetValue = 360 * rate,
                     animationSpec =
-                    tween(
-                        durationMillis = (animationDuration * rate).toInt(),
-                        easing = animationEasing,
-                    ),
+                        tween(
+                            durationMillis = (animationDuration * rate).toInt(),
+                            easing = animationEasing,
+                        ),
                 )
             }
             delay((animationDuration * rate).toLong())
@@ -72,22 +71,20 @@ fun AngerLogPieChart(
     // 凡例
     Row(
         modifier =
-        Modifier
-            .padding(horizontal = 30.dp)
-            .fillMaxWidth(),
+            Modifier
+                .padding(horizontal = 30.dp)
+                .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
         pieData.getItems().forEach {
             Text(
                 modifier =
-                Modifier
-                    .clip(CircleShape)
-                    .background(color = it.backgroundColor)
-                    .padding(horizontal = 20.dp, vertical = 5.dp),
+                    Modifier
+                        .clip(CircleShape)
+                        .background(color = it.backgroundColor)
+                        .padding(horizontal = 20.dp, vertical = 5.dp),
                 text = it.label,
             )
         }
     }
 }
-
-
