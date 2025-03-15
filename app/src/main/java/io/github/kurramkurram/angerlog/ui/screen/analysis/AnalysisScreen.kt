@@ -37,11 +37,13 @@ import io.github.kurramkurram.angerlog.ui.DayOfWeekType
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 import io.github.kurramkurram.angerlog.ui.component.calendarpicker.AngerLogCalendarPicker
 import io.github.kurramkurram.angerlog.ui.component.card.AngerLogCounterCard
-import io.github.kurramkurram.angerlog.ui.component.chart.AngerLogBarChart
-import io.github.kurramkurram.angerlog.ui.component.chart.AngerLogLineChart
-import io.github.kurramkurram.angerlog.ui.component.chart.AngerLogPieChart
-import io.github.kurramkurram.angerlog.ui.component.chart.BarData
-import io.github.kurramkurram.angerlog.ui.component.chart.PiePiece
+import io.github.kurramkurram.angerlog.ui.component.chart.line.AngerLogLineChart
+import io.github.kurramkurram.angerlog.ui.component.chart.pie.AngerLogPieChart
+import io.github.kurramkurram.angerlog.ui.component.chart.pie.PieData
+import io.github.kurramkurram.angerlog.ui.component.chart.pie.PieItemDto
+import io.github.kurramkurram.angerlog.ui.component.chart.bar.AngerLogBarChart
+import io.github.kurramkurram.angerlog.ui.component.chart.bar.BarData
+import io.github.kurramkurram.angerlog.ui.component.chart.bar.BarItemDto
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
@@ -168,19 +170,20 @@ fun AnalysisScreenContent(
         ) {
             if (state.showRate) {
                 val angerLevel = AngerLevel()
-                val pieces = mutableListOf<PiePiece>()
+                val pieces = mutableListOf<PieItemDto>()
                 AngerLevelType.entries.forEach {
                     val rate = state.rate[it]
                     val level = angerLevel.select(it)
                     pieces.add(
-                        PiePiece(
+                        PieItemDto(
                             rate = rate ?: 0f,
                             label = level.getValue().toString(),
                             backgroundColor = level.getColor(),
                         ),
                     )
                 }
-                AngerLogPieChart(modifier = Modifier.size(150.dp), pieces = pieces)
+                val pieData = PieData(pieItems = pieces)
+                AngerLogPieChart(modifier = Modifier.size(150.dp), pieData = pieData)
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
@@ -192,19 +195,19 @@ fun AnalysisScreenContent(
             }
         }
 
-        val barData = mutableListOf<BarData>()
+        val barItem = mutableListOf<BarItemDto>()
         val customDayOfWeek = CustomDayOfWeek()
         DayOfWeekType.entries.forEachIndexed { index, dayOfWeek ->
             val iDayOfWeek = customDayOfWeek.select(dayOfWeek)
-            barData.add(
-                BarData(
+            barItem.add(
+                BarItemDto(
                     size = state.averageOfDayOfWeek[index],
                     label = iDayOfWeek.getString(),
-                    labelColor = iDayOfWeek.getColor(),
                     backgroundColor = MaterialTheme.colorScheme.primaryContainer,
                 ),
             )
         }
+        val barData = BarData(barItem)
 
         // 曜日別の平均　-> 棒グラフ
         AnalysisScreenElevatedCard(

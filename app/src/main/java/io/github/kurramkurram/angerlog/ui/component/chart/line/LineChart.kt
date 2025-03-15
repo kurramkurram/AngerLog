@@ -1,7 +1,6 @@
-package io.github.kurramkurram.angerlog.ui.component.chart
+package io.github.kurramkurram.angerlog.ui.component.chart.line
 
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -17,7 +16,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AngerLogLineChart(
     modifier: Modifier = Modifier,
-    lineData: List<LineData>,
+    lineData: LineData,
     minX: Float? = null,
     maxX: Float? = null,
     maxY: Int? = null,
@@ -42,23 +41,23 @@ fun AngerLogLineChart(
 
 private fun DrawScope.drawBezierCurve(
     size: Size,
-    lineData: List<LineData>,
+    lineData: LineData,
     fixedMinPoint: Float? = null,
     fixedMaxPoint: Float? = null,
     fixedMaxY: Int? = null,
     lineColor: Color,
     lineStroke: Stroke,
 ) {
-    val maxPoint = fixedMaxPoint ?: lineData.maxOf { it.y }
-    val minPoint = fixedMinPoint ?: lineData.minOf { it.y }
+    val maxPoint = fixedMaxPoint ?: lineData.getMaxY()
+    val minPoint = fixedMinPoint ?: lineData.getMinY()
     val total = maxPoint - minPoint
     val height = size.height
     val width = size.width
-    val maxY = (fixedMaxY ?: lineData.size)
+    val maxY = (fixedMaxY ?: lineData.getItemCount())
     val xSpacing = width / maxY
     var lastPoint: Offset? = null
     val path = Path()
-    for ((index, data) in lineData.withIndex()) {
+    for ((index, data) in lineData.getItems().withIndex()) {
         val x = data.x * xSpacing
         val y = height - height * ((data.y - minPoint) / total)
         if (lastPoint != null) {
@@ -124,5 +123,3 @@ private fun buildCurveLine(
         y3 = endPoint.y,
     )
 }
-
-data class LineData(val x: Int, val y: Float)
