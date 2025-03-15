@@ -27,6 +27,15 @@ class AnalysisDataUseCaseImpl(
             val dataOfDay = mutableListOf<Int>()
             var day = 0
             val angerLevel = AngerLevel()
+
+            fun updateTransition() {
+                if (dataOfDay.size > 0) {
+                    val averageOfDay = dataOfDay.average().toFloat()
+                    transition.add(LineItemDto(day, averageOfDay))
+                    dataOfDay.clear()
+                }
+            }
+
             it.forEach { item ->
                 val level = item.level
 
@@ -38,15 +47,12 @@ class AnalysisDataUseCaseImpl(
                 dataOfDayOfWeek[dayOfWeek].add(level)
 
                 if (day != item.day) {
-                    if (dataOfDay.size > 0) {
-                        val averageOfDay = dataOfDay.average().toFloat()
-                        transition.add(LineItemDto(day, averageOfDay))
-                        dataOfDay.clear()
-                    }
+                    updateTransition()
                     day = item.day
                 }
                 dataOfDay.add(level)
             }
+            updateTransition()
 
             val sum = map.values.sum()
             val rate: MutableMap<AngerLevelType, Float> = mutableMapOf()
