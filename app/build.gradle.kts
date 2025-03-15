@@ -32,7 +32,7 @@ android {
         resValue(
             "string",
             "ad_application_id",
-            "\"${properties.getProperty("AD_APPLICATION_ID")}\""
+            "\"${properties.getProperty("AD_APPLICATION_ID")}\"",
         )
         resValue("string", "ad_unit_id", "\"${properties.getProperty("AD_UNIT_ID")}\"")
     }
@@ -42,7 +42,7 @@ android {
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
+                "proguard-rules.pro",
             )
         }
     }
