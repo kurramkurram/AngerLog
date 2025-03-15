@@ -1,4 +1,4 @@
-package io.github.kurramkurram.angerlog.ui.component.chart
+package io.github.kurramkurram.angerlog.ui.component.chart.bar
 
 import androidx.compose.animation.core.Easing
 import androidx.compose.animation.core.LinearEasing
@@ -6,7 +6,6 @@ import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -22,8 +21,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun AngerLogBarChart(
     modifier: Modifier = Modifier,
-    // TODO クラス化する
-    data: List<BarData>,
+    data: BarData,
     animationDuration: Int = 1000,
     animationEasing: Easing = LinearEasing,
     barWidth: Float? = null,
@@ -45,11 +43,11 @@ fun AngerLogBarChart(
         onDraw = {
             animating = true
 
-            val bWidth = barWidth ?: (size.width / (data.size + 3)) // +3した等分を棒グラフの横幅にする
+            val bWidth = barWidth ?: (size.width / (data.getItemCount() + 3)) // +3した等分を棒グラフの横幅にする
             val bSpacing = barSpacing ?: (bWidth * 0.2f) // 棒の横幅の20%をスペースにする
 
             // 棒と間隔の全体の幅
-            val totalBarsWidth = data.size * bWidth + (data.size - 1) * bSpacing
+            val totalBarsWidth = data.getItemCount() * bWidth + (data.getItemCount() - 1) * bSpacing
             // キャンバスの中心
             val centerX = size.width / 2f
             // 棒グラフ全体の左端
@@ -73,8 +71,8 @@ fun AngerLogBarChart(
                 }
 
             // データ最大値
-            val maxBarData = data.maxOf { it.size }
-            for ((i, d) in data.withIndex()) {
+            val maxBarData = data.getMaxSize()
+            for ((i, d) in data.getItems().withIndex()) {
                 // 棒の左端からの位置
                 val offsetX = startX + i * (bWidth + bSpacing)
                 // 棒の高さ
@@ -95,10 +93,3 @@ fun AngerLogBarChart(
         },
     )
 }
-
-data class BarData(
-    val size: Float,
-    val label: String,
-    val labelColor: Color,
-    val backgroundColor: Color = Color.Red,
-)

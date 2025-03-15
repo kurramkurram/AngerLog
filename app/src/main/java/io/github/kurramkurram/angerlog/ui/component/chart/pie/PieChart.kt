@@ -1,4 +1,4 @@
-package io.github.kurramkurram.angerlog.ui.component.chart
+package io.github.kurramkurram.angerlog.ui.component.chart.pie
 
 import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.Easing
@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -19,7 +18,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -27,17 +25,17 @@ import kotlinx.coroutines.launch
 @Composable
 fun AngerLogPieChart(
     modifier: Modifier = Modifier,
-    pieces: List<PiePiece>,
+    pieData: PieData,
     animationDuration: Int = 1000,
     animationEasing: Easing = LinearEasing,
 ) {
-    val animationList = remember { List(pieces.size) { Animatable(0f) } }
+    val animationList = remember { List(pieData.getItemCount()) { Animatable(0f) } }
     val coroutineScope = rememberCoroutineScope()
 
     // アニメーションを順番にスタート
     LaunchedEffect(Unit) {
         for ((index, progress) in animationList.withIndex()) {
-            val rate = pieces[index].rate / 100
+            val rate = pieData.getItem(index).rate / 100
             coroutineScope.launch {
                 progress.animateTo(
                     targetValue = 360 * rate,
@@ -60,7 +58,7 @@ fun AngerLogPieChart(
             for ((index, progress) in animationList.withIndex()) {
                 val sweepAngle = progress.value
                 drawArc(
-                    color = pieces[index].backgroundColor,
+                    color = pieData.getItem(index).backgroundColor,
                     startAngle = startAngle,
                     sweepAngle = sweepAngle,
                     useCenter = true,
@@ -78,7 +76,7 @@ fun AngerLogPieChart(
                 .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceEvenly,
     ) {
-        pieces.forEach {
+        pieData.getItems().forEach {
             Text(
                 modifier =
                     Modifier
@@ -90,9 +88,3 @@ fun AngerLogPieChart(
         }
     }
 }
-
-data class PiePiece(
-    val rate: Float,
-    val label: String = "",
-    val backgroundColor: Color,
-)

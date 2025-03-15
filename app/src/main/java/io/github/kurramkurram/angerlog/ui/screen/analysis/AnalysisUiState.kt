@@ -1,7 +1,7 @@
 package io.github.kurramkurram.angerlog.ui.screen.analysis
 
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
-import io.github.kurramkurram.angerlog.ui.component.chart.LineData
+import io.github.kurramkurram.angerlog.ui.component.chart.line.LineData
 
 private const val SHOW_RATE_MINIMUM_COUNT = 1
 private const val SHOW_AVERAGE_MINIMUM_COUNT = 1
@@ -16,7 +16,7 @@ sealed class AnalysisUiState {
         val rate: Map<AngerLevelType, Float> = emptyMap(),
         val dataCount: Int,
         val averageOfDayOfWeek: List<Float>,
-        val transition: List<LineData>,
+        val transition: LineData,
         val showRate: Boolean = dataCount >= SHOW_RATE_MINIMUM_COUNT,
         val showAverageOfDayWeek: Boolean = dataCount >= SHOW_AVERAGE_MINIMUM_COUNT,
         val showTransition: Boolean = dataCount >= SHOW_TRANSITION_MINIMUM_COUNT,

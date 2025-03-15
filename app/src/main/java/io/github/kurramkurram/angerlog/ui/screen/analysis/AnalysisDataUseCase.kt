@@ -3,7 +3,8 @@ package io.github.kurramkurram.angerlog.ui.screen.analysis
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepository
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
-import io.github.kurramkurram.angerlog.ui.component.chart.LineData
+import io.github.kurramkurram.angerlog.ui.component.chart.line.LineData
+import io.github.kurramkurram.angerlog.ui.component.chart.line.LineItemDto
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.YearMonth
@@ -22,7 +23,7 @@ class AnalysisDataUseCaseImpl(
 
             val dataOfDayOfWeek = MutableList<MutableList<Int>>(7) { mutableListOf() }
 
-            val transition = mutableListOf<LineData>()
+            val transition = mutableListOf<LineItemDto>()
             val dataOfDay = mutableListOf<Int>()
             var day = 0
             val angerLevel = AngerLevel()
@@ -39,7 +40,7 @@ class AnalysisDataUseCaseImpl(
                 if (day != item.day) {
                     if (dataOfDay.size > 0) {
                         val averageOfDay = dataOfDay.average().toFloat()
-                        transition.add(LineData(day, averageOfDay))
+                        transition.add(LineItemDto(day, averageOfDay))
                         dataOfDay.clear()
                     }
                     day = item.day
@@ -67,7 +68,7 @@ class AnalysisDataUseCaseImpl(
                 rate = rate,
                 dataCount = it.size,
                 averageOfDayOfWeek = averageAngerOfDayOfWeek,
-                transition = transition,
+                transition = LineData(transition),
             )
         }
 }
