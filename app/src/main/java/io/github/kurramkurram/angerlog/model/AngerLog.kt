@@ -16,7 +16,7 @@ data class AngerLog(
     val detail: String = "",
     val thought: String = "",
     // 振り返りべき
-    val lookBackShould: String = "",
+    val lookBackWhyAnger: String = "",
     // 振り返りの怒りレベル
     val lookBackLevel: Int = 0,
     // 振り返りアドバイス

@@ -45,7 +45,7 @@ val LightColorScheme =
         onBackground = Gray90,
         surface = Blue20,
         onSurface = Gray90,
-        error = Red40,
+        error = Red80,
         onError = White100,
     )
 

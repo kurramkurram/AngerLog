@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
+import java.util.*
 
 private const val SHOW_LIMIT_ITEM_COUNT = 20
 private const val STOP_TIME_OUT_MILLIS = 500L
@@ -14,7 +15,13 @@ private const val STOP_TIME_OUT_MILLIS = 500L
 class HomeViewModel(angerLogDataRepository: AngerLogDataRepository) : ViewModel() {
     val state: StateFlow<HomeUiState> =
         angerLogDataRepository.getLimited(SHOW_LIMIT_ITEM_COUNT).map { data ->
-            HomeUiState.Success(angerLogList = data)
+            val calendar = Calendar.getInstance()
+            val angerLogList = mutableListOf<HomeAngerLogDto>()
+            data.forEach {
+                val homeAngerLog = HomeAngerLogDto(angerLog = it, now = calendar.timeInMillis)
+                angerLogList.add(homeAngerLog)
+            }
+            HomeUiState.Success(angerLogList = angerLogList)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(STOP_TIME_OUT_MILLIS),

@@ -3,10 +3,13 @@ package io.github.kurramkurram.angerlog.ui.screen.calendar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.angerlog.ui.component.calendarpicker.CalendarPickerUiState
+import io.github.kurramkurram.angerlog.util.L
+import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -74,6 +77,7 @@ class CalendarViewModel(
 
     fun updateAngerLogByMonth() {
         val yearMonth = _yearMonthState.value.yearMonth
+        L.d("updateAngerLogByMonth yearMonth = $yearMonth")
 
         viewModelScope.launch {
             _state.value = CalendarUiState.Loading
@@ -87,6 +91,7 @@ class CalendarViewModel(
                     delay(MAX_LOADING_TIME - diff)
                 }
                 _state.value = it
+                cancel()
             }
         }
     }

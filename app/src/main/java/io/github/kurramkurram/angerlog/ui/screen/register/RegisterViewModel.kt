@@ -14,8 +14,10 @@ import io.github.kurramkurram.angerlog.model.Time
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.util.DateConverter
+import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -26,6 +28,9 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
     val state = _state.asStateFlow()
 
     private var id: Long = 0
+
+    var showLookBackButton: Boolean = false
+        private set
 
     private val currentTime = Calendar.getInstance()
     var date: Date by mutableStateOf(currentTime.time)
@@ -52,6 +57,15 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
         private set
 
     var place by mutableStateOf("")
+        private set
+
+    var lookBackAngerLevel by mutableStateOf(angerLevel)
+        private set
+
+    var lookBackWhyFeelAnger by mutableStateOf("")
+        private set
+
+    var lookBackAdvice by mutableStateOf("")
         private set
 
     @OptIn(ExperimentalMaterial3Api::class)
@@ -95,6 +109,19 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
         place = input
     }
 
+    fun updateLookBackAngerLevel(input: AngerLevelType) {
+        lookBackAngerLevel = input
+    }
+
+    fun updateLookBackWhyFeelAnger(input: String) {
+        L.d("input = $input")
+        lookBackWhyFeelAnger = input
+    }
+
+    fun updateLookBackAdvice(input: String) {
+        lookBackAdvice = input
+    }
+
     fun initialize(
         id: Long,
         inputDate: Long,
@@ -115,11 +142,23 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                     calendar.get(Calendar.HOUR_OF_DAY),
                     calendar.get(android.icu.util.Calendar.MINUTE),
                 )
-                updateAngerLevel(AngerLevel().getAngerLevelType(it.level))
+                val angerLevel = AngerLevel()
+                updateAngerLevel(angerLevel.getAngerLevelType(it.level))
                 updateEvent(it.event)
                 updateDetail(it.detail)
                 updateThought(it.thought)
                 updatePlace(it.place)
+                updateLookBackAngerLevel(angerLevel.getAngerLevelType(it.lookBackLevel))
+                if (lookBackWhyFeelAnger.isEmpty()) {
+                    updateLookBackWhyFeelAnger(it.lookBackWhyAnger)
+                }
+                if (lookBackAdvice.isEmpty()) {
+                    updateLookBackAdvice(it.lookBackAdvice)
+                }
+
+                val now = Calendar.getInstance()
+                val diff = now.timeInMillis - calendar.timeInMillis
+                showLookBackButton = diff / (24 * 60 * 60 * 1000) > 3
             }
         }
     }
@@ -156,6 +195,26 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
             } else {
                 angerLogDataRepository.update(angerLog)
             }
+        }
+    }
+
+    fun saveLookBack() {
+        val anger = AngerLevel()
+        val angerLog =
+            AngerLog(
+                id = id,
+                date = DateConverter.dateTimeToDate(date, time),
+                level = anger.getLevel(angerLevel),
+                event = event,
+                detail = detail,
+                thought = thought,
+                place = place,
+                lookBackLevel = anger.getLevel(lookBackAngerLevel),
+                lookBackWhyAnger = lookBackWhyFeelAnger,
+                lookBackAdvice = lookBackAdvice
+            )
+        viewModelScope.launch {
+            angerLogDataRepository.update(angerLog)
         }
     }
 
@@ -196,6 +255,11 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
      * 削除ダイアログを閉じる.
      */
     fun closeDeleteDialog() = _state.update { RegisterUiState.Success(showDeleteDialog = false) }
+
+    fun showBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = true) }
+
+    fun closeBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = false) }
 
     fun delete() {
         val angerLog =

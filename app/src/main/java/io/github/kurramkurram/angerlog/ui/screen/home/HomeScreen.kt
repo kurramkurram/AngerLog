@@ -24,8 +24,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.kurramkurram.angerlog.R
-import io.github.kurramkurram.angerlog.model.AngerLog
-import io.github.kurramkurram.angerlog.ui.component.AngerLogListItem
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
@@ -40,17 +38,17 @@ fun HomeScreen(
 ) {
     Column(
         modifier =
-            modifier
-                .padding(top = 20.dp)
-                .fillMaxSize(),
+        modifier
+            .padding(top = 20.dp)
+            .fillMaxSize(),
     ) {
         val state by viewModel.state.collectAsStateWithLifecycle()
 
         Text(
             modifier =
-                modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 20.dp),
+            modifier
+                .fillMaxWidth()
+                .padding(bottom = 20.dp),
             text = stringResource(R.string.home_title),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
@@ -58,15 +56,16 @@ fun HomeScreen(
 
         when (state) {
             is HomeUiState.Success -> {
-                if ((state as HomeUiState.Success).hasAngerLog) {
+                val success = state as HomeUiState.Success
+                if (success.hasAngerLog) {
                     LazyColumn(
                         modifier =
-                            modifier
-                                .padding(10.dp)
-                                .fillMaxHeight(),
+                        modifier
+                            .padding(10.dp)
+                            .fillMaxHeight(),
                     ) {
-                        items((state as HomeUiState.Success).angerLogList) { angerLog ->
-                            HomeListItem(angerLog = angerLog, onClick = { id -> onClick(id) })
+                        items(success.angerLogList) { angerLog ->
+                            HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
                         }
                     }
                 } else {
@@ -91,25 +90,28 @@ fun HomeScreen(
     }
 }
 
-@Composable
-fun HomeListItem(
-    modifier: Modifier = Modifier,
-    angerLog: AngerLog,
-    onClick: (id: Long) -> Unit,
-) {
-    ElevatedCard(
-        modifier =
-            modifier
-                .padding(10.dp)
-                .clickable { onClick(angerLog.id) },
-        elevation =
-            CardDefaults.cardElevation(
-                defaultElevation = 6.dp,
-            ),
-    ) {
-        AngerLogListItem(modifier = modifier, item = angerLog, onItemClick = { onClick(it) })
-    }
-}
+//@Composable
+//fun HomeListItem(
+//    modifier: Modifier = Modifier,
+//    homeAngerLog: HomeAngerLogDto,
+//    onClick: (id: Long) -> Unit,
+//) {
+//    ElevatedCard(
+//        modifier =
+//        modifier
+//            .padding(10.dp)
+//            .clickable { onClick(homeAngerLog.getId()) },
+//        elevation =
+//        CardDefaults.cardElevation(
+//            defaultElevation = 6.dp,
+//        ),
+//    ) {
+//        HomeListItem(
+//            modifier = modifier,
+//            item = homeAngerLog,
+//            onItemClick = { onClick(it) })
+//    }
+//}
 
 //
 // @Preview
