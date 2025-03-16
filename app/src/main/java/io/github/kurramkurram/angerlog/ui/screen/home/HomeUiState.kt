@@ -16,7 +16,7 @@ sealed class HomeUiState {
 
 class HomeAngerLogDto(
     val angerLog: AngerLog,
-    now: Long
+    now: Long,
 ) {
     val showLookBackIcon: Boolean
 

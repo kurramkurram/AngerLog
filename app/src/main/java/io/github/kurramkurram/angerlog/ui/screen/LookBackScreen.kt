@@ -12,30 +12,19 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
-import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.Whatshot
 import androidx.compose.material.icons.sharp.CheckCircle
-import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.ModalBottomSheet
-import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -62,32 +51,33 @@ fun LookBackScreen(
     onClickSave: () -> Unit,
 ) {
     Column(
-        modifier = Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 5.dp),
+        modifier =
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 5.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp, horizontal = 20.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp, horizontal = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                modifier = modifier
-                    .clickable { onClickClose() },
-                text = stringResource(R.string.look_back_close)
+                modifier = modifier.clickable { onClickClose() },
+                text = stringResource(R.string.look_back_close),
             )
             Text(
                 modifier = modifier.weight(1f),
                 text = stringResource(R.string.look_back),
                 style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center
+                textAlign = TextAlign.Center,
             )
             Text(
                 modifier = modifier.clickable { onClickSave() },
-                text = stringResource(R.string.look_back_save)
+                text = stringResource(R.string.look_back_save),
             )
         }
 
@@ -99,7 +89,7 @@ fun LookBackScreen(
         Text(
             modifier = modifier.fillMaxWidth(),
             text = stringResource(R.string.look_back_description),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         LookBackScreenItem(
@@ -109,7 +99,7 @@ fun LookBackScreen(
                     imageVector = Icons.Filled.Whatshot,
                     contentDescription = stringResource(R.string.look_back_anger_level_title),
                 )
-            }
+            },
         ) { LookBackScreenAngerLevel(selected = selectedAngerLevel) { onSelectedAngerLevel(it) } }
 
         LookBackScreenItem(
@@ -119,7 +109,7 @@ fun LookBackScreen(
                     imageVector = Icons.Filled.QuestionMark,
                     contentDescription = stringResource(R.string.look_back_why_anger_title),
                 )
-            }
+            },
         ) {
             AngerLogOutlinedTextField(
                 value = whyAngerText,
@@ -136,7 +126,7 @@ fun LookBackScreen(
                     imageVector = Icons.Filled.Lightbulb,
                     contentDescription = stringResource(R.string.look_back_advice_hint),
                 )
-            }
+            },
         ) {
             AngerLogOutlinedTextField(
                 value = adviceText,
@@ -204,30 +194,29 @@ fun LookBackScreenAngerLevel(
             Box(modifier = modifier.clickable { onSelected(level) }) {
                 Text(
                     modifier =
-                    modifier
-                        .clip(CircleShape)
-                        .border(
-                            border =
-                            BorderStroke(
-                                width = 2.dp,
-                                color =
-                                if (selected == level) {
-                                    MaterialTheme.colorScheme.primaryContainer
-                                } else {
-                                    Color.Transparent
-                                },
-                            ),
-                            shape = CircleShape,
-                        )
-                        .background(color = AngerLevel().select(level).getColor())
-                        .padding(horizontal = 20.dp, vertical = 5.dp),
+                        modifier
+                            .clip(CircleShape)
+                            .border(
+                                border =
+                                    BorderStroke(
+                                        width = 2.dp,
+                                        color =
+                                            if (selected == level) {
+                                                MaterialTheme.colorScheme.primaryContainer
+                                            } else {
+                                                Color.Transparent
+                                            },
+                                    ),
+                                shape = CircleShape,
+                            )
+                            .background(color = AngerLevel().select(level).getColor())
+                            .padding(horizontal = 20.dp, vertical = 5.dp),
                     text = "${index + 1}",
                 )
             }
         }
     }
 }
-
 
 //
 // //@Preview

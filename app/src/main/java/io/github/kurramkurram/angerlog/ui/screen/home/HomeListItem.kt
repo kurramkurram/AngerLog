@@ -33,13 +33,13 @@ fun HomeListItem(
 ) {
     ElevatedCard(
         modifier =
-        modifier
-            .padding(10.dp)
-            .clickable { onItemClick(item.getId()) },
+            modifier
+                .padding(10.dp)
+                .clickable { onItemClick(item.getId()) },
         elevation =
-        CardDefaults.cardElevation(
-            defaultElevation = 6.dp,
-        ),
+            CardDefaults.cardElevation(
+                defaultElevation = 6.dp,
+            ),
     ) {
         Column {
             val shape =
@@ -54,10 +54,10 @@ fun HomeListItem(
                 }
             Row(
                 modifier =
-                modifier
-                    .fillMaxWidth()
-                    .background(color = MaterialTheme.colorScheme.onPrimary, shape = shape)
-                    .padding(horizontal = 15.dp, vertical = 8.dp),
+                    modifier
+                        .fillMaxWidth()
+                        .background(color = MaterialTheme.colorScheme.onPrimary, shape = shape)
+                        .padding(horizontal = 15.dp, vertical = 8.dp),
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Column(modifier = modifier.weight(1f)) {
@@ -69,16 +69,16 @@ fun HomeListItem(
                     Icon(
                         modifier = modifier.padding(horizontal = 20.dp),
                         imageVector = Icons.Outlined.Reviews,
-                        contentDescription = "振り返りができます"
+                        contentDescription = "振り返りができます",
                     )
                 }
 
                 Text(
                     modifier =
-                    modifier
-                        .clip(CircleShape)
-                        .background(color = AngerLevel().select(level = item.getLevel()).getColor())
-                        .padding(horizontal = 20.dp, vertical = 5.dp),
+                        modifier
+                            .clip(CircleShape)
+                            .background(color = AngerLevel().select(level = item.getLevel()).getColor())
+                            .padding(horizontal = 20.dp, vertical = 5.dp),
                     text = "${item.getLevel()}",
                 )
             }

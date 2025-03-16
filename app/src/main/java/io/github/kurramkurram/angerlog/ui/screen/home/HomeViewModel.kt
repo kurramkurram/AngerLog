@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
-import java.util.*
+import java.util.Calendar
 
 private const val SHOW_LIMIT_ITEM_COUNT = 20
 private const val STOP_TIME_OUT_MILLIS = 500L

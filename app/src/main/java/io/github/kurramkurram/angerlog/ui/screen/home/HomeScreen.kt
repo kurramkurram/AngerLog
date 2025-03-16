@@ -1,6 +1,5 @@
 package io.github.kurramkurram.angerlog.ui.screen.home
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -10,9 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.ElevatedCard
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -38,17 +35,17 @@ fun HomeScreen(
 ) {
     Column(
         modifier =
-        modifier
-            .padding(top = 20.dp)
-            .fillMaxSize(),
+            modifier
+                .padding(top = 20.dp)
+                .fillMaxSize(),
     ) {
         val state by viewModel.state.collectAsStateWithLifecycle()
 
         Text(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
             text = stringResource(R.string.home_title),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
@@ -60,9 +57,9 @@ fun HomeScreen(
                 if (success.hasAngerLog) {
                     LazyColumn(
                         modifier =
-                        modifier
-                            .padding(10.dp)
-                            .fillMaxHeight(),
+                            modifier
+                                .padding(10.dp)
+                                .fillMaxHeight(),
                     ) {
                         items(success.angerLogList) { angerLog ->
                             HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
@@ -90,12 +87,12 @@ fun HomeScreen(
     }
 }
 
-//@Composable
-//fun HomeListItem(
+// @Composable
+// fun HomeListItem(
 //    modifier: Modifier = Modifier,
 //    homeAngerLog: HomeAngerLogDto,
 //    onClick: (id: Long) -> Unit,
-//) {
+// ) {
 //    ElevatedCard(
 //        modifier =
 //        modifier
@@ -111,7 +108,7 @@ fun HomeScreen(
 //            item = homeAngerLog,
 //            onItemClick = { onClick(it) })
 //    }
-//}
+// }
 
 //
 // @Preview

@@ -16,8 +16,7 @@ class AngerLevel {
             )
     }
 
-    fun select(levelType: AngerLevelType): IAngerLevel =
-        ANGER_LEVEL[levelType] ?: throw IllegalArgumentException()
+    fun select(levelType: AngerLevelType): IAngerLevel = ANGER_LEVEL[levelType] ?: throw IllegalArgumentException()
 
     fun select(level: Int): IAngerLevel {
         ANGER_LEVEL.forEach {
@@ -26,14 +25,11 @@ class AngerLevel {
         throw IllegalArgumentException()
     }
 
-    fun getLevel(angerLevelType: AngerLevelType): Int =
-        ANGER_LEVEL[angerLevelType]?.getValue() ?: throw IllegalArgumentException()
+    fun getLevel(angerLevelType: AngerLevelType): Int = ANGER_LEVEL[angerLevelType]?.getValue() ?: throw IllegalArgumentException()
 
-    fun getMinLevel(): Int =
-        ANGER_LEVEL[AngerLevelType.entries.first()]?.getValue() ?: throw IllegalStateException()
+    fun getMinLevel(): Int = ANGER_LEVEL[AngerLevelType.entries.first()]?.getValue() ?: throw IllegalStateException()
 
-    fun getMaxLevel(): Int =
-        ANGER_LEVEL[AngerLevelType.entries.last()]?.getValue() ?: throw IllegalStateException()
+    fun getMaxLevel(): Int = ANGER_LEVEL[AngerLevelType.entries.last()]?.getValue() ?: throw IllegalStateException()
 
     fun getAngerLevelType(level: Int): AngerLevelType {
         if (level == 0) return AngerLevelType.LEVEL_1

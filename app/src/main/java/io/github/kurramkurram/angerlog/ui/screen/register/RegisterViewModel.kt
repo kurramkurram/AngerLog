@@ -17,7 +17,6 @@ import io.github.kurramkurram.angerlog.util.DateConverter
 import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.util.Calendar
@@ -211,7 +210,7 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                 place = place,
                 lookBackLevel = anger.getLevel(lookBackAngerLevel),
                 lookBackWhyAnger = lookBackWhyFeelAnger,
-                lookBackAdvice = lookBackAdvice
+                lookBackAdvice = lookBackAdvice,
             )
         viewModelScope.launch {
             angerLogDataRepository.update(angerLog)
@@ -256,8 +255,7 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
      */
     fun closeDeleteDialog() = _state.update { RegisterUiState.Success(showDeleteDialog = false) }
 
-    fun showBottomSheet() =
-        _state.update { RegisterUiState.Success(showBottomSheet = true) }
+    fun showBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = true) }
 
     fun closeBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = false) }
 
