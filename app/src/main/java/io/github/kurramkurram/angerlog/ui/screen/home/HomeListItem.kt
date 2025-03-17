@@ -65,7 +65,7 @@ fun HomeListItem(
                     Text(text = item.getEvent(), maxLines = 1, overflow = TextOverflow.Ellipsis)
                 }
 
-                if (item.showLookBackIcon) {
+                if (item.canShowLookBack()) {
                     Icon(
                         modifier = modifier.padding(horizontal = 20.dp),
                         imageVector = Icons.Outlined.Reviews,

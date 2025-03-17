@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepository
 import io.github.kurramkurram.angerlog.model.AngerLog
+import io.github.kurramkurram.angerlog.model.ShowLookBack
 import io.github.kurramkurram.angerlog.model.Time
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
@@ -154,8 +155,11 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                 }
 
                 val now = Calendar.getInstance()
-                val diff = now.timeInMillis - calendar.timeInMillis
-                showLookBackButton = diff / (24 * 60 * 60 * 1000) > 3
+                showLookBackButton =
+                    ShowLookBack(
+                        now = now.timeInMillis,
+                        logDate = calendar.timeInMillis
+                    ).showLookBack
             }
         }
     }
