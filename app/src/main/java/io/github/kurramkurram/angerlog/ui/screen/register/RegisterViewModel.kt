@@ -158,7 +158,7 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                 showLookBackButton =
                     ShowLookBack(
                         now = now.timeInMillis,
-                        logDate = calendar.timeInMillis
+                        logDate = calendar.timeInMillis,
                     ).showLookBack
             }
         }
