@@ -58,6 +58,7 @@
     <string name="setting_next_cd">次へ</string>
 
     <string name="register">登録</string>
+    <string name="register_look_back_button">振り返りをする</string>
     <string name="register_back_dialog_description">編集内容が保存されていません。このまま終了しますか？</string>
     <string name="register_back_dialog_positive_button">終了する</string>
     <string name="register_back_dialog_negative_button">編集に戻る</string>
@@ -75,6 +76,16 @@
     <string name="register_delete_dialog_description">この怒りを削除しますか？</string>
     <string name="register_delete_dialog_positive_button">削除する</string>
     <string name="register_delete_dialog_negative_button">削除しない</string>
+
+    <string name="look_back">振り返り</string>
+    <string name="look_back_save">保存する</string>
+    <string name="look_back_close">閉じる</string>
+    <string name="look_back_description">当時の出来事を振り返って、\n自分が感じた怒りを整理しましょう</string>
+    <string name="look_back_anger_level_title">改めて怒りの強さはどのくらいですか？</string>
+    <string name="look_back_why_anger_title">なぜ怒りを感じたのでしょうか？\nこうするべきだという固定観念に縛られてませんか？</string>
+    <string name="look_back_why_anger_hint">例）\n・「人を待たせるべきではない」といった考え\n・「時間は守るべき」といった考え</string>
+    <string name="look_back_advice_title">当時の自分へアドバイスしてみましょう</string>
+    <string name="look_back_advice_hint">例）急な用事ができなのかもしれない、連絡してみたらよかった</string>
 
     <string name="tips">お役立ちTips</string>
     <string name="tips_description">怒りをコントロールするためのお役立ち情報を紹介\n怒りを感じたら次のことをやってみましょう。</string>

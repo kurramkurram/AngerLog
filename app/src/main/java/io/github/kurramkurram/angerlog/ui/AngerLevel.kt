@@ -32,6 +32,7 @@ class AngerLevel {
     fun getMaxLevel(): Int = ANGER_LEVEL[AngerLevelType.entries.last()]?.getValue() ?: throw IllegalStateException()
 
     fun getAngerLevelType(level: Int): AngerLevelType {
+        if (level == 0) return AngerLevelType.LEVEL_1
         ANGER_LEVEL.forEach {
             if (it.value.getValue() == level) return it.key
         }

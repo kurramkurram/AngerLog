@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.imePadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -24,15 +25,21 @@ import androidx.compose.material.icons.filled.Place
 import androidx.compose.material.icons.filled.Psychology
 import androidx.compose.material.icons.filled.Whatshot
 import androidx.compose.material.icons.outlined.Event
+import androidx.compose.material.icons.outlined.Reviews
 import androidx.compose.material.icons.sharp.CheckCircle
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.SheetValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberDatePickerState
+import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,12 +51,15 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
+import io.github.kurramkurram.angerlog.ui.component.AngerLogModalBottomSheet
 import io.github.kurramkurram.angerlog.ui.component.AngerLogOutlinedTextField
 import io.github.kurramkurram.angerlog.ui.component.AngerLogVerticalDate
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogBasicDialog
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogDatePickerDialog
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogTimePickerDialog
 import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogBackButtonLayout
+import io.github.kurramkurram.angerlog.ui.screen.LookBackScreen
+import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
@@ -113,13 +123,31 @@ fun RegisterScreenContent(
             modifier =
                 Modifier
                     .verticalScroll(rememberScrollState())
+                    .imePadding()
                     .padding(horizontal = 5.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
+            if (viewModel.showLookBackButton) {
+                Button(
+                    modifier =
+                        modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp),
+                    onClick = { viewModel.showBottomSheet() },
+                ) {
+                    Row(verticalAlignment = Alignment.CenterVertically) {
+                        Icon(
+                            modifier = modifier.padding(horizontal = 5.dp),
+                            imageVector = Icons.Outlined.Reviews,
+                            contentDescription = stringResource(R.string.register_look_back_button),
+                        )
+                        Text(stringResource(R.string.register_look_back_button))
+                    }
+                }
+            }
+
             val date = viewModel.date
             val time = viewModel.time
-
-            Spacer(Modifier.height(10.dp))
 
             AngerLogVerticalDate(
                 date = date,
@@ -275,6 +303,42 @@ fun RegisterScreenContent(
             }
 
             Spacer(Modifier.height(20.dp))
+
+            if (state.showBottomSheet) {
+                val sheetState =
+                    rememberModalBottomSheetState(
+                        skipPartiallyExpanded = true,
+                        confirmValueChange = { newValue ->
+                            // Hidden状態への遷移を禁止
+                            newValue != SheetValue.Hidden
+                        },
+                    )
+                val scope = rememberCoroutineScope()
+                val close = {
+                    scope.launch {
+                        sheetState.hide()
+                    }.invokeOnCompletion { viewModel.closeBottomSheet() }
+                }
+                AngerLogModalBottomSheet(
+                    modifier = modifier.imePadding(),
+                    onDismissRequest = { viewModel.closeBottomSheet() },
+                    sheetState = sheetState,
+                ) {
+                    LookBackScreen(
+                        modifier = modifier,
+                        onClickClose = { close() },
+                        selectedAngerLevel = viewModel.lookBackAngerLevel,
+                        onSelectedAngerLevel = { viewModel.updateLookBackAngerLevel(it) },
+                        whyAngerText = viewModel.lookBackWhyFeelAnger,
+                        onWhyAngerChanged = { viewModel.updateLookBackWhyFeelAnger(it) },
+                        adviceText = viewModel.lookBackAdvice,
+                        onAdviceChanged = { viewModel.updateLookBackAdvice(it) },
+                    ) {
+                        viewModel.saveLookBack()
+                        close()
+                    }
+                }
+            }
         }
     }
 }
