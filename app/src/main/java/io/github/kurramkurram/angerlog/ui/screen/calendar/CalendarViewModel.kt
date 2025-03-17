@@ -28,7 +28,7 @@ class CalendarViewModel(
     val yearMonthState = _yearMonthState.asStateFlow()
 
     init {
-        updateAngerLogByMonth()
+        initAngerLogByMonth()
     }
 
     fun minusMonths() = _yearMonthState.update { it.minusMonths() }
@@ -73,7 +73,15 @@ class CalendarViewModel(
         }
     }
 
+    private fun initAngerLogByMonth() {
+        fetchAngerLogDataByMonth(false)
+    }
+
     fun updateAngerLogByMonth() {
+        fetchAngerLogDataByMonth(true)
+    }
+
+    private fun fetchAngerLogDataByMonth(oneShot: Boolean) {
         val yearMonth = _yearMonthState.value.yearMonth
 
         viewModelScope.launch {
@@ -88,7 +96,9 @@ class CalendarViewModel(
                     delay(MAX_LOADING_TIME - diff)
                 }
                 _state.value = it
-                cancel()
+                if (oneShot) {
+                    cancel()
+                }
             }
         }
     }
