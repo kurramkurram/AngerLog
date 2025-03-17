@@ -4,13 +4,19 @@ import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.kurramkurram.angerlog.R
@@ -30,17 +36,31 @@ fun PermissionScreen(
     onClickSkip: () -> Unit,
 ) {
     Column {
-        // 何か表示するのでColumnでネスト
         Column(
             modifier =
-                modifier
-                    .weight(1f)
-                    .fillMaxWidth()
-                    .padding(10.dp),
+            modifier
+                .weight(1f)
+                .fillMaxWidth()
+                .padding(10.dp),
+            verticalArrangement = Arrangement.Center,
         ) {
             Text(
-                modifier = modifier,
+                modifier = modifier.padding(vertical = 10.dp),
                 text = stringResource(R.string.permission_description),
+                style = MaterialTheme.typography.bodyLarge
+            )
+
+            Text(
+                text = stringResource(R.string.permission_description_notice),
+                style = MaterialTheme.typography.bodySmall
+            )
+
+            Spacer(Modifier.height(20.dp))
+
+            Image(
+                modifier = modifier.padding(horizontal = 20.dp),
+                painter = painterResource(R.drawable.permission),
+                contentDescription = stringResource(R.string.permission_screenshot_cd)
             )
         }
 
@@ -51,9 +71,9 @@ fun PermissionScreen(
 
         Button(
             modifier =
-                modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
+            modifier
+                .fillMaxWidth()
+                .padding(10.dp),
             onClick = {
                 launcher.launch(requestPermission)
             },
@@ -61,9 +81,9 @@ fun PermissionScreen(
 
         Button(
             modifier =
-                modifier
-                    .fillMaxWidth()
-                    .padding(10.dp),
+            modifier
+                .fillMaxWidth()
+                .padding(10.dp),
             onClick = onClickSkip,
         ) { Text(stringResource(R.string.permission_skip_button)) }
     }
