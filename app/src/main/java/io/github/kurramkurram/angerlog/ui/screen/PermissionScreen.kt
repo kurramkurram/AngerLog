@@ -38,21 +38,21 @@ fun PermissionScreen(
     Column {
         Column(
             modifier =
-            modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .padding(10.dp),
+                modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .padding(10.dp),
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
                 modifier = modifier.padding(vertical = 10.dp),
                 text = stringResource(R.string.permission_description),
-                style = MaterialTheme.typography.bodyLarge
+                style = MaterialTheme.typography.bodyLarge,
             )
 
             Text(
                 text = stringResource(R.string.permission_description_notice),
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
             )
 
             Spacer(Modifier.height(20.dp))
@@ -60,7 +60,7 @@ fun PermissionScreen(
             Image(
                 modifier = modifier.padding(horizontal = 20.dp),
                 painter = painterResource(R.drawable.permission),
-                contentDescription = stringResource(R.string.permission_screenshot_cd)
+                contentDescription = stringResource(R.string.permission_screenshot_cd),
             )
         }
 
@@ -71,9 +71,9 @@ fun PermissionScreen(
 
         Button(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             onClick = {
                 launcher.launch(requestPermission)
             },
@@ -81,9 +81,9 @@ fun PermissionScreen(
 
         Button(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             onClick = onClickSkip,
         ) { Text(stringResource(R.string.permission_skip_button)) }
     }
