@@ -17,7 +17,7 @@ class AnalysisDataUseCaseImpl(
     private val angerLogDataRepository: AngerLogDataRepository,
 ) : AnalysisDataUseCase() {
     override fun execute(yearMonth: YearMonth): Flow<AnalysisUiState.Success> =
-        angerLogDataRepository.getCalenderItemByMonth(yearMonth = yearMonth).map {
+        angerLogDataRepository.getAnalysisItemByMonth(yearMonth = yearMonth).map {
             val map: MutableMap<AngerLevelType, Int> = mutableMapOf()
             AngerLevelType.entries.forEach { type -> map[type] = 0 }
 
@@ -67,10 +67,12 @@ class AnalysisDataUseCaseImpl(
                 val size = if (dayOfWeek.size == 0) 0f else dayOfWeek.average().toFloat()
                 averageAngerOfDayOfWeek.add(size)
             }
+
+            val lookBackCount = it.filter { log -> log.lookBackLevel > 0 }.size
+
             AnalysisUiState.Success(
                 recordCount = it.size,
-                // TODO
-                lookBackCount = 10,
+                lookBackCount = lookBackCount,
                 rate = rate,
                 dataCount = it.size,
                 averageOfDayOfWeek = averageAngerOfDayOfWeek,

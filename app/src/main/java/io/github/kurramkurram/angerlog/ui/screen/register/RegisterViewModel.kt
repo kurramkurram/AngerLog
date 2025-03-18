@@ -1,5 +1,6 @@
 package io.github.kurramkurram.angerlog.ui.screen.register
 
+import android.icu.lang.UCharacter.DecompositionType.INITIAL
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePickerState
@@ -15,6 +16,7 @@ import io.github.kurramkurram.angerlog.model.Time
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.util.DateConverter
+import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -22,7 +24,11 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 
-class RegisterViewModel(private val angerLogDataRepository: AngerLogDataRepository) : ViewModel() {
+class RegisterViewModel(
+    private val angerLogDataRepository: AngerLogDataRepository,
+    calendar: Calendar = Calendar.getInstance(),
+    private val now: Long = calendar.timeInMillis
+) : ViewModel() {
     private val _state = MutableStateFlow<RegisterUiState>(RegisterUiState.Success())
     val state = _state.asStateFlow()
 
@@ -31,14 +37,13 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
     var showLookBackButton: Boolean = false
         private set
 
-    private val currentTime = Calendar.getInstance()
-    var date: Date by mutableStateOf(currentTime.time)
+    var date: Date by mutableStateOf(calendar.time)
         private set
 
     var time by mutableStateOf(
         Time(
-            currentTime.get(Calendar.HOUR_OF_DAY),
-            currentTime.get(android.icu.util.Calendar.MINUTE),
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(android.icu.util.Calendar.MINUTE),
         ),
     )
         private set
@@ -135,10 +140,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                 if (it == null) return@collect
 
                 updateDate(it.date)
-                val calendar = DateConverter.dateToCalendar(it.date)
+                val c = DateConverter.dateToCalendar(it.date)
                 updateTime(
-                    calendar.get(Calendar.HOUR_OF_DAY),
-                    calendar.get(android.icu.util.Calendar.MINUTE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(android.icu.util.Calendar.MINUTE),
                 )
                 val angerLevel = AngerLevel()
                 updateAngerLevel(angerLevel.getAngerLevelType(it.level))
@@ -154,11 +159,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                     updateLookBackAdvice(it.lookBackAdvice)
                 }
 
-                val now = Calendar.getInstance()
                 showLookBackButton =
                     ShowLookBack(
-                        now = now.timeInMillis,
-                        logDate = calendar.timeInMillis,
+                        now = now,
+                        logDate = c.timeInMillis,
                     ).showLookBack
             }
         }

@@ -5,8 +5,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import io.github.kurramkurram.angerlog.model.AngerIdOfDayDto
+import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarItemOfDayDto
 import io.github.kurramkurram.angerlog.model.AngerLog
+import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisItemOfDayDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -38,10 +39,21 @@ interface AngerLogDao {
         FROM t_anger_log WHERE date BETWEEN :start AND :end ORDER BY day 
     """,
     )
-    fun selectIdByPeriod(
+    fun selectCalendarItemByPeriod(
         start: Long,
         end: Long,
-    ): Flow<List<AngerIdOfDayDto>>
+    ): Flow<List<CalendarItemOfDayDto>>
+
+    @Query(
+        """
+       SELECT CAST(strftime('%d', date / 1000, 'unixepoch', 'localtime') AS INTEGER) AS day, id, level, lookBackLevel
+        FROM t_anger_log WHERE date BETWEEN :start AND :end ORDER BY day 
+    """,
+    )
+    fun selectAnalysisItemByPeriod(
+        start: Long,
+        end: Long,
+    ): Flow<List<AnalysisItemOfDayDto>>
 
     @Query("SELECT * FROM t_anger_log WHERE id = :id")
     fun select(id: Long): Flow<AngerLog>
