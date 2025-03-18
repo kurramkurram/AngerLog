@@ -30,6 +30,12 @@ jobs:
           distribution: microsoft
           java-version: 17
 
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
       - name: set up AD_UNIT_ID
         run: echo "AD_UNIT_ID=``" >> local.properties
 
@@ -46,9 +52,6 @@ jobs:
         run: ./gradlew ktlintMainSourceSetCheck
 
       - name: Run Push
-        with:
-          ref: ${{ github.head_ref }}
-          fetch-depth: 0
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
