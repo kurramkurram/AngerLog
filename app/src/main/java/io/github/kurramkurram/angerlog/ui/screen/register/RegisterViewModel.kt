@@ -187,7 +187,7 @@ class RegisterViewModel(
                 lookBackWhyAnger = lookBackWhyFeelAnger,
                 lookBackAdvice = lookBackAdvice,
             )
-        if (initail.notEquals(angerLog)) {
+        if (initail != angerLog) {
             _state.update { RegisterUiState.Success(showBackDialog = true) }
         } else {
             _state.update { RegisterUiState.Success(showBackDialog = false, goBack = true) }
