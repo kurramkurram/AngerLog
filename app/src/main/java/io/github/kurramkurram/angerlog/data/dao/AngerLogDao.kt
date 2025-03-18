@@ -5,9 +5,9 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
-import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarItemOfDayDto
 import io.github.kurramkurram.angerlog.model.AngerLog
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisItemOfDayDto
+import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarItemOfDayDto
 import kotlinx.coroutines.flow.Flow
 
 @Dao

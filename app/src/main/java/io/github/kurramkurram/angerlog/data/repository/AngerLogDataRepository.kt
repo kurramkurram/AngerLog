@@ -3,9 +3,9 @@ package io.github.kurramkurram.angerlog.data.repository
 import android.content.Context
 import io.github.kurramkurram.angerlog.data.dao.AngerLogDao
 import io.github.kurramkurram.angerlog.data.database.AngerLogDatabase
-import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarItemOfDayDto
 import io.github.kurramkurram.angerlog.model.AngerLog
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisItemOfDayDto
+import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarItemOfDayDto
 import kotlinx.coroutines.flow.Flow
 import java.time.YearMonth
 import java.time.ZoneId
@@ -32,7 +32,7 @@ class AngerLogDataRepositoryImpl(
     private val context: Context,
     private val db: AngerLogDatabase = AngerLogDatabase.getDatabases(context),
     private val dao: AngerLogDao = db.angerLogDao(),
-    private val zoneId: ZoneId = ZoneId.systemDefault()
+    private val zoneId: ZoneId = ZoneId.systemDefault(),
 ) : AngerLogDataRepository() {
     override fun getAll(): Flow<List<AngerLog>> = dao.select()
 
@@ -64,8 +64,9 @@ class AngerLogDataRepositoryImpl(
             .atZone(zoneId)
             .toEpochSecond() * 1000
 
-    private fun getEndTimeOfMonth(month: YearMonth): Long = month.atDay(month.lengthOfMonth())
-        .atTime(23, 59)
-        .atZone(zoneId)
-        .toEpochSecond() * 1000 + 999
+    private fun getEndTimeOfMonth(month: YearMonth): Long =
+        month.atDay(month.lengthOfMonth())
+            .atTime(23, 59)
+            .atZone(zoneId)
+            .toEpochSecond() * 1000 + 999
 }

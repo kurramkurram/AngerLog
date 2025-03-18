@@ -1,6 +1,5 @@
 package io.github.kurramkurram.angerlog.ui.screen.register
 
-import android.icu.lang.UCharacter.DecompositionType.INITIAL
 import androidx.compose.material3.DatePickerState
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.TimePickerState
@@ -16,7 +15,6 @@ import io.github.kurramkurram.angerlog.model.Time
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.util.DateConverter
-import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -27,7 +25,7 @@ import java.util.Date
 class RegisterViewModel(
     private val angerLogDataRepository: AngerLogDataRepository,
     calendar: Calendar = Calendar.getInstance(),
-    private val now: Long = calendar.timeInMillis
+    private val now: Long = calendar.timeInMillis,
 ) : ViewModel() {
     private val _state = MutableStateFlow<RegisterUiState>(RegisterUiState.Success())
     val state = _state.asStateFlow()
