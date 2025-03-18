@@ -114,6 +114,12 @@ fun RegisterScreenContent(
         viewModel.showBackDialog()
     }
 
+    LaunchedEffect(state) {
+        if (state.goBack) {
+            onClickBack()
+        }
+    }
+
     AngerLogBackButtonLayout(
         leadingText = stringResource((R.string.register_save)),
         onClickBack = { viewModel.showBackDialog() },

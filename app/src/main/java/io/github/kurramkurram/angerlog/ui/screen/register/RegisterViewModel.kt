@@ -31,6 +31,7 @@ class RegisterViewModel(
     val state = _state.asStateFlow()
 
     private var id: Long = 0
+    private var initail = AngerLog(date = calendar.time)
 
     var showLookBackButton: Boolean = false
         private set
@@ -137,6 +138,8 @@ class RegisterViewModel(
             angerLogDataRepository.getById(id).collect {
                 if (it == null) return@collect
 
+                initail = it
+
                 updateDate(it.date)
                 val c = DateConverter.dateToCalendar(it.date)
                 updateTime(
@@ -169,7 +172,27 @@ class RegisterViewModel(
     /**
      * バック操作のダイアログを表示する.
      */
-    fun showBackDialog() = _state.update { RegisterUiState.Success(showBackDialog = true) }
+    fun showBackDialog() {
+        val anger = AngerLevel()
+        val angerLog =
+            AngerLog(
+                id = id,
+                date = DateConverter.dateTimeToDate(date, time),
+                level = anger.getLevel(angerLevel),
+                event = event,
+                detail = detail,
+                thought = thought,
+                place = place,
+                lookBackLevel = anger.getLevel(lookBackAngerLevel),
+                lookBackWhyAnger = lookBackWhyFeelAnger,
+                lookBackAdvice = lookBackAdvice,
+            )
+        if (initail.notEquals(angerLog)) {
+            _state.update { RegisterUiState.Success(showBackDialog = true) }
+        } else {
+            _state.update { RegisterUiState.Success(showBackDialog = false, goBack = true) }
+        }
+    }
 
     /**
      * バック操作時のダイアログを閉じる.
