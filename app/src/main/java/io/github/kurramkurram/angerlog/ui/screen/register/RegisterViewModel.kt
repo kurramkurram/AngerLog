@@ -86,8 +86,6 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
         hour: Int,
         minute: Int,
     ) {
-        L.d("hour = $hour minute = $minute")
-
         time = Time(hour, minute)
     }
 
