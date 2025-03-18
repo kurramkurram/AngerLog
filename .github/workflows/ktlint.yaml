@@ -33,7 +33,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.head_ref }}
+          ref: ${{ github.head_ref }} # 現在のbranchを指定する
           fetch-depth: 0
 
       - name: set up AD_UNIT_ID
@@ -48,10 +48,15 @@ jobs:
       - name: Run ktlintFormat
         run: ./gradlew ktlintFormat
 
-      - name: Run ktlint
-        run: ./gradlew ktlintMainSourceSetCheck
+      # ktlintFormatの結果、ファイルに差分の有無をチェックする
+      - name: Check if there are any changes
+        id: verify_diff
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
 
       - name: Run Push
+        # ファイルに差分があるときにのみpushする
+        if: steps.verify_diff.outputs.changed == 'true'
         run: |
           git config user.name github-actions
           git config user.email github-actions@github.com

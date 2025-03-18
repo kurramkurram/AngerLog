@@ -15,6 +15,7 @@ import io.github.kurramkurram.angerlog.model.Time
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.util.DateConverter
+import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
