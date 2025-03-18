@@ -22,7 +22,11 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 
-class RegisterViewModel(private val angerLogDataRepository: AngerLogDataRepository) : ViewModel() {
+class RegisterViewModel(
+    private val angerLogDataRepository: AngerLogDataRepository,
+    calendar: Calendar = Calendar.getInstance(),
+    private val now: Long = calendar.timeInMillis,
+) : ViewModel() {
     private val _state = MutableStateFlow<RegisterUiState>(RegisterUiState.Success())
     val state = _state.asStateFlow()
 
@@ -31,14 +35,13 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
     var showLookBackButton: Boolean = false
         private set
 
-    private val currentTime = Calendar.getInstance()
-    var date: Date by mutableStateOf(currentTime.time)
+    var date: Date by mutableStateOf(calendar.time)
         private set
 
     var time by mutableStateOf(
         Time(
-            currentTime.get(Calendar.HOUR_OF_DAY),
-            currentTime.get(android.icu.util.Calendar.MINUTE),
+            calendar.get(Calendar.HOUR_OF_DAY),
+            calendar.get(android.icu.util.Calendar.MINUTE),
         ),
     )
         private set
@@ -135,10 +138,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                 if (it == null) return@collect
 
                 updateDate(it.date)
-                val calendar = DateConverter.dateToCalendar(it.date)
+                val c = DateConverter.dateToCalendar(it.date)
                 updateTime(
-                    calendar.get(Calendar.HOUR_OF_DAY),
-                    calendar.get(android.icu.util.Calendar.MINUTE),
+                    c.get(Calendar.HOUR_OF_DAY),
+                    c.get(android.icu.util.Calendar.MINUTE),
                 )
                 val angerLevel = AngerLevel()
                 updateAngerLevel(angerLevel.getAngerLevelType(it.level))
@@ -154,11 +157,10 @@ class RegisterViewModel(private val angerLogDataRepository: AngerLogDataReposito
                     updateLookBackAdvice(it.lookBackAdvice)
                 }
 
-                val now = Calendar.getInstance()
                 showLookBackButton =
                     ShowLookBack(
-                        now = now.timeInMillis,
-                        logDate = calendar.timeInMillis,
+                        now = now,
+                        logDate = c.timeInMillis,
                     ).showLookBack
             }
         }
