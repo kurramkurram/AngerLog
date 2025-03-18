@@ -37,6 +37,7 @@ import androidx.compose.material3.rememberDatePickerState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberTimePickerState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
@@ -83,7 +84,9 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
-    viewModel.initialize(id, inputDate)
+    LaunchedEffect(Unit) {
+        viewModel.initialize(id, inputDate)
+    }
 
     when (state) {
         is RegisterUiState.Success -> {
