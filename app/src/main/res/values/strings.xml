@@ -109,4 +109,7 @@
 
     <string name="license">ライセンス</string>
     <string name="license_divider">----------------------------</string>
+
+    <string name="expandable_card_close">閉じる</string>
+    <string name="expandable_card_open">開く</string>
 </resources>
