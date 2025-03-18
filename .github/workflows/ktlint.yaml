@@ -1,5 +1,10 @@
 name: ktlint CI
 
+permissions:
+  actions: write
+  checks: write
+  contents: write
+
 on:
   push:
     branches:
@@ -25,6 +30,12 @@ jobs:
           distribution: microsoft
           java-version: 17
 
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }} # 現在のbranchを指定する
+          fetch-depth: 0
+
       - name: set up AD_UNIT_ID
         run: echo "AD_UNIT_ID=``" >> local.properties
 
@@ -34,5 +45,21 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Run ktlint
-        run: ./gradlew ktlintMainSourceSetCheck
+      - name: Run ktlintFormat
+        run: ./gradlew ktlintFormat
+
+      # ktlintFormatの結果、ファイルに差分の有無をチェックする
+      - name: Check if there are any changes
+        id: verify_diff
+        run: |
+          git diff --quiet . || echo "changed=true" >> $GITHUB_OUTPUT
+
+      - name: Run Push
+        # ファイルに差分があるときにのみpushする
+        if: steps.verify_diff.outputs.changed == 'true'
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add app/src/*
+          git commit -m "[Auto] ktlintFormat"
+          git push
