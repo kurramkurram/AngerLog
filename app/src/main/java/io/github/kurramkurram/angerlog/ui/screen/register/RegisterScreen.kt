@@ -124,18 +124,18 @@ fun RegisterScreenContent(
     ) {
         Column(
             modifier =
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .imePadding()
-                .padding(horizontal = 5.dp),
+                Modifier
+                    .verticalScroll(rememberScrollState())
+                    .imePadding()
+                    .padding(horizontal = 5.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             if (viewModel.showLookBackButton) {
                 Button(
                     modifier =
-                    modifier
-                        .fillMaxWidth()
-                        .padding(horizontal = 10.dp),
+                        modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 10.dp),
                     onClick = { viewModel.showBottomSheet() },
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
@@ -282,10 +282,10 @@ fun RegisterScreenContent(
 
             Text(
                 modifier =
-                modifier
-                    .fillMaxWidth()
-                    .clickable { viewModel.showDeleteDialog() }
-                    .padding(vertical = 10.dp),
+                    modifier
+                        .fillMaxWidth()
+                        .clickable { viewModel.showDeleteDialog() }
+                        .padding(vertical = 10.dp),
                 text = stringResource(R.string.register_delete),
                 color = Color.Red,
                 textAlign = TextAlign.Center,
@@ -400,23 +400,23 @@ fun RegisterScreenAngerLevel(
             Box(modifier = modifier.clickable { onSelected(level) }) {
                 Text(
                     modifier =
-                    modifier
-                        .clip(CircleShape)
-                        .border(
-                            border =
-                            BorderStroke(
-                                width = 2.dp,
-                                color =
-                                if (selected == level) {
-                                    MaterialTheme.colorScheme.primaryContainer
-                                } else {
-                                    Color.Transparent
-                                },
-                            ),
-                            shape = CircleShape,
-                        )
-                        .background(color = AngerLevel().select(level).getColor())
-                        .padding(horizontal = 20.dp, vertical = 5.dp),
+                        modifier
+                            .clip(CircleShape)
+                            .border(
+                                border =
+                                    BorderStroke(
+                                        width = 2.dp,
+                                        color =
+                                            if (selected == level) {
+                                                MaterialTheme.colorScheme.primaryContainer
+                                            } else {
+                                                Color.Transparent
+                                            },
+                                    ),
+                                shape = CircleShape,
+                            )
+                            .background(color = AngerLevel().select(level).getColor())
+                            .padding(horizontal = 20.dp, vertical = 5.dp),
                     text = "${index + 1}",
                 )
             }
