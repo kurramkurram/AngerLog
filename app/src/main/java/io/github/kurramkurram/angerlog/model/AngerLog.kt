@@ -25,14 +25,14 @@ class AngerLog(
     override fun equals(other: Any?): Boolean {
         if (other !is AngerLog) return false
         return date == other.date &&
-                place == other.place &&
-                latitude == other.latitude &&
-                longitude == other.longitude &&
-                event == other.event &&
-                detail == other.detail &&
-                thought == other.thought &&
-                lookBackWhyAnger == other.lookBackWhyAnger &&
-                lookBackAdvice == other.lookBackAdvice
+            place == other.place &&
+            latitude == other.latitude &&
+            longitude == other.longitude &&
+            event == other.event &&
+            detail == other.detail &&
+            thought == other.thought &&
+            lookBackWhyAnger == other.lookBackWhyAnger &&
+            lookBackAdvice == other.lookBackAdvice
     }
 
     override fun hashCode(): Int {
