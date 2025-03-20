@@ -31,19 +31,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.AngerLevel
-import io.github.kurramkurram.angerlog.ui.AngerLevelType
-import io.github.kurramkurram.angerlog.ui.CustomDayOfWeek
-import io.github.kurramkurram.angerlog.ui.DayOfWeekType
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 import io.github.kurramkurram.angerlog.ui.component.calendarpicker.AngerLogCalendarPicker
 import io.github.kurramkurram.angerlog.ui.component.card.AngerLogCounterCard
 import io.github.kurramkurram.angerlog.ui.component.chart.bar.AngerLogBarChart
-import io.github.kurramkurram.angerlog.ui.component.chart.bar.BarData
-import io.github.kurramkurram.angerlog.ui.component.chart.bar.BarItemDto
 import io.github.kurramkurram.angerlog.ui.component.chart.line.AngerLogLineChart
 import io.github.kurramkurram.angerlog.ui.component.chart.pie.AngerLogPieChart
-import io.github.kurramkurram.angerlog.ui.component.chart.pie.PieData
-import io.github.kurramkurram.angerlog.ui.component.chart.pie.PieItemDto
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
@@ -169,21 +162,10 @@ fun AnalysisScreenContent(
             description = stringResource(R.string.analysis_anger_rate_description),
         ) {
             if (state.showRate) {
-                val angerLevel = AngerLevel()
-                val pieces = mutableListOf<PieItemDto>()
-                AngerLevelType.entries.forEach {
-                    val rate = state.rate[it]
-                    val level = angerLevel.select(it)
-                    pieces.add(
-                        PieItemDto(
-                            rate = rate ?: 0f,
-                            label = level.getValue().toString(),
-                            backgroundColor = level.getColor(),
-                        ),
-                    )
-                }
-                val pieData = PieData(pieItems = pieces)
-                AngerLogPieChart(modifier = Modifier.size(150.dp), pieData = pieData)
+                AngerLogPieChart(
+                    modifier = Modifier.size(150.dp),
+                    pieData = state.rate.getPieData(),
+                )
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
@@ -194,20 +176,6 @@ fun AnalysisScreenContent(
                 )
             }
         }
-
-        val barItem = mutableListOf<BarItemDto>()
-        val customDayOfWeek = CustomDayOfWeek()
-        DayOfWeekType.entries.forEachIndexed { index, dayOfWeek ->
-            val iDayOfWeek = customDayOfWeek.select(dayOfWeek)
-            barItem.add(
-                BarItemDto(
-                    size = state.averageOfDayOfWeek[index],
-                    label = iDayOfWeek.getString(),
-                    backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                ),
-            )
-        }
-        val barData = BarData(barItem)
 
         // 曜日別の平均　-> 棒グラフ
         AnalysisScreenElevatedCard(
@@ -220,7 +188,7 @@ fun AnalysisScreenContent(
                         Modifier
                             .fillMaxWidth()
                             .size(150.dp),
-                    data = barData,
+                    data = state.averageOfDayOfWeek.getBarData(),
                     animationEasing = FastOutSlowInEasing,
                 )
             } else {
@@ -247,7 +215,7 @@ fun AnalysisScreenContent(
                         Modifier
                             .fillMaxWidth()
                             .size(150.dp),
-                    lineData = state.transition,
+                    lineData = state.transition.getLineData(),
                     maxX = angerLevel.getMaxLevel() + OFFSET_TOP_OF_LINE_CHART,
                     minX = angerLevel.getMinLevel() + OFFSET_BOTTOM_OF_LINE_CHART,
                     maxY = MAX_DAY_OF_MONTH,
@@ -262,7 +230,7 @@ fun AnalysisScreenContent(
                     message =
                         stringResource(
                             R.string.analysis_transition_notice,
-                            3 - state.dataCount,
+                            3 - state.recordCount,
                         ),
                 )
             }
