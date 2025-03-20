@@ -61,9 +61,9 @@ fun AnalysisScreen(
 ) {
     Column(
         modifier =
-            modifier
-                .fillMaxSize()
-                .padding(top = 20.dp),
+        modifier
+            .fillMaxSize()
+            .padding(top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val calendarState by viewModel.yearMonthState.collectAsStateWithLifecycle()
@@ -135,8 +135,8 @@ fun AnalysisScreenContent(
     ) {
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth(),
+            Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             AnalysisScreenElevatedCard(
@@ -169,45 +169,20 @@ fun AnalysisScreenContent(
             description = stringResource(R.string.analysis_anger_rate_description),
         ) {
             if (state.showRate) {
-                val angerLevel = AngerLevel()
-                val pieces = mutableListOf<PieItemDto>()
-                AngerLevelType.entries.forEach {
-                    val rate = state.rate[it]
-                    val level = angerLevel.select(it)
-                    pieces.add(
-                        PieItemDto(
-                            rate = rate ?: 0f,
-                            label = level.getValue().toString(),
-                            backgroundColor = level.getColor(),
-                        ),
-                    )
-                }
-                val pieData = PieData(pieItems = pieces)
-                AngerLogPieChart(modifier = Modifier.size(150.dp), pieData = pieData)
+                AngerLogPieChart(
+                    modifier = Modifier.size(150.dp),
+                    pieData = state.rate.getPieData()
+                )
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
                     message = stringResource(R.string.analysis_anger_rate_count_notice),
                 )
             }
         }
-
-        val barItem = mutableListOf<BarItemDto>()
-        val customDayOfWeek = CustomDayOfWeek()
-        DayOfWeekType.entries.forEachIndexed { index, dayOfWeek ->
-            val iDayOfWeek = customDayOfWeek.select(dayOfWeek)
-            barItem.add(
-                BarItemDto(
-                    size = state.averageOfDayOfWeek[index],
-                    label = iDayOfWeek.getString(),
-                    backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                ),
-            )
-        }
-        val barData = BarData(barItem)
 
         // 曜日別の平均　-> 棒グラフ
         AnalysisScreenElevatedCard(
@@ -217,18 +192,18 @@ fun AnalysisScreenContent(
             if (state.showAverageOfDayWeek) {
                 AngerLogBarChart(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
-                    data = barData,
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
+                    data = state.averageOfDayOfWeek.getBarData(),
                     animationEasing = FastOutSlowInEasing,
                 )
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
                     message = stringResource(R.string.analysis_average_per_day_of_week_notice),
                 )
             }
@@ -244,10 +219,10 @@ fun AnalysisScreenContent(
                 // 上下に余白を持たせるためにOFFSET_TOP_OF_LINE_CHART/OFFSET_BOTTOM_OF_LINE_CHART分オフセットを追加する
                 AngerLogLineChart(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
-                    lineData = state.transition,
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
+                    lineData = state.transition.getLineData(),
                     maxX = angerLevel.getMaxLevel() + OFFSET_TOP_OF_LINE_CHART,
                     minX = angerLevel.getMinLevel() + OFFSET_BOTTOM_OF_LINE_CHART,
                     maxY = MAX_DAY_OF_MONTH,
@@ -256,14 +231,14 @@ fun AnalysisScreenContent(
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
                     message =
-                        stringResource(
-                            R.string.analysis_transition_notice,
-                            3 - state.dataCount,
-                        ),
+                    stringResource(
+                        R.string.analysis_transition_notice,
+                        3 - state.recordCount,
+                    ),
                 )
             }
         }
@@ -279,19 +254,19 @@ fun AnalysisScreenElevatedCard(
 ) {
     ElevatedCard(
         modifier =
-            modifier
-                .padding(10.dp),
+        modifier
+            .padding(10.dp),
         elevation =
-            CardDefaults.cardElevation(
-                defaultElevation = 6.dp,
-            ),
+        CardDefaults.cardElevation(
+            defaultElevation = 6.dp,
+        ),
     ) {
         Column(
             modifier =
-                Modifier
-                    .background(color = MaterialTheme.colorScheme.onPrimary)
-                    .fillMaxSize()
-                    .padding(10.dp),
+            Modifier
+                .background(color = MaterialTheme.colorScheme.onPrimary)
+                .fillMaxSize()
+                .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // タイトル
@@ -311,12 +286,12 @@ fun AnalysisScreenLockedCard(
 ) {
     Box(
         modifier =
-            modifier
-                .padding(10.dp)
-                .background(
-                    color = MaterialTheme.colorScheme.secondary,
-                    shape = MaterialTheme.shapes.small,
-                ),
+        modifier
+            .padding(10.dp)
+            .background(
+                color = MaterialTheme.colorScheme.secondary,
+                shape = MaterialTheme.shapes.small,
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
