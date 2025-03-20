@@ -21,12 +21,13 @@ class CustomDayOfWeek {
             )
     }
 
-    fun select(dayOfWeekType: DayOfWeekType): IDayOfWeek =
-        DAY_OF_WEEK[dayOfWeekType] ?: throw IllegalArgumentException()
+    fun select(dayOfWeekType: DayOfWeekType): IDayOfWeek = DAY_OF_WEEK[dayOfWeekType] ?: throw IllegalArgumentException()
 
     fun select(dayOfWeek: Int): IDayOfWeek {
-        if (dayOfWeek == DayOfWeek.SUNDAY.value) return DAY_OF_WEEK[DayOfWeekType.SUNDAY]
-            ?: throw IllegalStateException()
+        if (dayOfWeek == DayOfWeek.SUNDAY.value) {
+            return DAY_OF_WEEK[DayOfWeekType.SUNDAY]
+                ?: throw IllegalStateException()
+        }
         DAY_OF_WEEK.forEach {
             if (it.value.getValue() == dayOfWeek) return it.value
         }
@@ -45,8 +46,7 @@ class CustomDayOfWeek {
     class Sunday : IDayOfWeek {
         override fun getValue(): Int = 0
 
-        override fun getString(): String =
-            DayOfWeek.SUNDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
+        override fun getString(): String = DayOfWeek.SUNDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
 
         @Composable
         override fun getColor(): Color = CustomTheme.colorScheme.sunday
@@ -55,8 +55,7 @@ class CustomDayOfWeek {
     class Monday : IDayOfWeek {
         override fun getValue(): Int = 1
 
-        override fun getString(): String =
-            DayOfWeek.MONDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
+        override fun getString(): String = DayOfWeek.MONDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
 
         @Composable
         override fun getColor(): Color = CustomTheme.colorScheme.weekDays
@@ -65,8 +64,7 @@ class CustomDayOfWeek {
     class Tuesday : IDayOfWeek {
         override fun getValue(): Int = 2
 
-        override fun getString(): String =
-            DayOfWeek.TUESDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
+        override fun getString(): String = DayOfWeek.TUESDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
 
         @Composable
         override fun getColor(): Color = CustomTheme.colorScheme.weekDays
@@ -75,8 +73,7 @@ class CustomDayOfWeek {
     class Wednesday : IDayOfWeek {
         override fun getValue(): Int = 3
 
-        override fun getString(): String =
-            DayOfWeek.WEDNESDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
+        override fun getString(): String = DayOfWeek.WEDNESDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
 
         @Composable
         override fun getColor(): Color = CustomTheme.colorScheme.weekDays
@@ -85,8 +82,7 @@ class CustomDayOfWeek {
     class Thursday : IDayOfWeek {
         override fun getValue(): Int = 4
 
-        override fun getString(): String =
-            DayOfWeek.THURSDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
+        override fun getString(): String = DayOfWeek.THURSDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
 
         @Composable
         override fun getColor(): Color = CustomTheme.colorScheme.weekDays
@@ -95,8 +91,7 @@ class CustomDayOfWeek {
     class Friday : IDayOfWeek {
         override fun getValue(): Int = 5
 
-        override fun getString(): String =
-            DayOfWeek.FRIDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
+        override fun getString(): String = DayOfWeek.FRIDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
 
         @Composable
         override fun getColor(): Color = CustomTheme.colorScheme.weekDays
@@ -105,8 +100,7 @@ class CustomDayOfWeek {
     class Saturday : IDayOfWeek {
         override fun getValue(): Int = 6
 
-        override fun getString(): String =
-            DayOfWeek.SATURDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
+        override fun getString(): String = DayOfWeek.SATURDAY.getDisplayName(TextStyle.SHORT, Locale.JAPANESE)
 
         @Composable
         override fun getColor(): Color = CustomTheme.colorScheme.saturday

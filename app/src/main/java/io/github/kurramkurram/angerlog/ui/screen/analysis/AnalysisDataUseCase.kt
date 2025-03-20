@@ -12,7 +12,6 @@ abstract class AnalysisDataUseCase {
 class AnalysisDataUseCaseImpl(
     private val angerLogDataRepository: AngerLogDataRepository,
 ) : AnalysisDataUseCase() {
-
     override fun execute(yearMonth: YearMonth): Flow<AnalysisUiState.Success> =
         angerLogDataRepository.getAnalysisItemByMonth(yearMonth = yearMonth).map {
             val analysisRate = AnalysisRate()

@@ -12,7 +12,9 @@ class AnalysisRate {
     fun update(level: Int) {
         if (level < 0 ||
             level > AngerLevel.AngerLevel5().getValue()
-        ) throw IllegalArgumentException()
+        ) {
+            throw IllegalArgumentException()
+        }
 
         list[level - 1]++
     }
@@ -31,8 +33,8 @@ class AnalysisRate {
                 PieItemDto(
                     rate = count.toFloat() * 100 / sum,
                     label = angerLevelValue.toString(),
-                    backgroundColor = level.getColor()
-                )
+                    backgroundColor = level.getColor(),
+                ),
             )
             rate.add(count.toFloat() * 100 / sum)
         }
