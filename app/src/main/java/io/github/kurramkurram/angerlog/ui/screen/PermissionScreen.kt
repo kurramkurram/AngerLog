@@ -41,12 +41,12 @@ fun PermissionScreen(
     Column {
         Column(
             modifier =
-            modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState())
-                .padding(10.dp),
+                modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .verticalScroll(rememberScrollState())
+                    .padding(10.dp),
             verticalArrangement = Arrangement.Center,
         ) {
             Text(
@@ -76,9 +76,9 @@ fun PermissionScreen(
 
         Button(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             onClick = {
                 launcher.launch(requestPermission)
             },
@@ -86,9 +86,9 @@ fun PermissionScreen(
 
         Button(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             onClick = onClickSkip,
         ) { Text(stringResource(R.string.permission_skip_button)) }
     }
