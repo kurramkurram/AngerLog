@@ -3,6 +3,7 @@ package io.github.kurramkurram.angerlog.ui.screen.calendar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.angerlog.ui.component.calendarpicker.CalendarPickerUiState
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -27,8 +28,10 @@ class CalendarViewModel(
         MutableStateFlow(CalendarPickerUiState(now = yearMonth))
     val yearMonthState = _yearMonthState.asStateFlow()
 
+    private lateinit var job: Job
+
     init {
-        initAngerLogByMonth()
+        updateAngerLogByMonth()
     }
 
     fun minusMonths() = _yearMonthState.update { it.minusMonths() }
@@ -73,33 +76,23 @@ class CalendarViewModel(
         }
     }
 
-    private fun initAngerLogByMonth() {
-        fetchAngerLogDataByMonth(false)
-    }
-
     fun updateAngerLogByMonth() {
-        fetchAngerLogDataByMonth(true)
-    }
-
-    private fun fetchAngerLogDataByMonth(oneShot: Boolean) {
         val yearMonth = _yearMonthState.value.yearMonth
-
-        viewModelScope.launch {
-            _state.value = CalendarUiState.Loading
-            val start = System.currentTimeMillis()
-            calendarDataUseCase.execute(yearMonth).map {
-                it
-            }.catch { CalendarUiState.Error }.collect {
-                val end = System.currentTimeMillis()
-                val diff = end - start
-                if (MAX_LOADING_TIME > diff) {
-                    delay(MAX_LOADING_TIME - diff)
-                }
-                _state.value = it
-                if (oneShot) {
-                    cancel()
+        if (::job.isInitialized) job.cancel()
+        job =
+            viewModelScope.launch {
+                _state.value = CalendarUiState.Loading
+                val start = System.currentTimeMillis()
+                calendarDataUseCase.execute(yearMonth).map {
+                    it
+                }.catch { CalendarUiState.Error }.collect {
+                    val end = System.currentTimeMillis()
+                    val diff = end - start
+                    if (MAX_LOADING_TIME > diff) {
+                        delay(MAX_LOADING_TIME - diff)
+                    }
+                    _state.value = it
                 }
             }
-        }
     }
 }
