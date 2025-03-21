@@ -11,8 +11,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,12 +41,12 @@ fun InitialScreen(
     Column {
         Column(
             modifier =
-            modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState())
-                .padding(10.dp),
+                modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .verticalScroll(rememberScrollState())
+                    .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(Modifier.height(30.dp))
@@ -54,7 +54,7 @@ fun InitialScreen(
             Image(
                 modifier = modifier.size(50.dp),
                 painter = painterResource(R.drawable.app_icon),
-                contentDescription = stringResource(R.string.initial_app_icon_cd)
+                contentDescription = stringResource(R.string.initial_app_icon_cd),
             )
 
             Spacer(Modifier.height(10.dp))
@@ -68,7 +68,7 @@ fun InitialScreen(
 
             Text(
                 text = stringResource(R.string.initial_description),
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.titleSmall,
             )
 
             Spacer(Modifier.height(20.dp))
@@ -78,7 +78,7 @@ fun InitialScreen(
                     InitialScreenIconListItem(
                         modifier = modifier.padding(vertical = 5.dp),
                         imageVector = it.imageVector,
-                        description = it.description
+                        description = it.description,
                     )
                 }
             }
@@ -96,9 +96,9 @@ fun InitialScreen(
         val context = LocalContext.current
         Button(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             onClick = {
                 onClick()
                 viewModel.agree(context)
@@ -119,7 +119,7 @@ fun InitialScreenIconListItem(
         Icon(
             modifier = modifier.padding(horizontal = 5.dp),
             imageVector = imageVector,
-            contentDescription = description
+            contentDescription = description,
         )
 
         Text(modifier = modifier, text = description)

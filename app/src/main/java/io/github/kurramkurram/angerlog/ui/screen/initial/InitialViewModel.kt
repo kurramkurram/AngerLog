@@ -6,7 +6,6 @@ import androidx.compose.material.icons.filled.Whatshot
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Reviews
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.ComposableTarget
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
@@ -20,20 +19,21 @@ class InitialViewModel(private val agreementPolicyRepository: AgreementPolicyRep
     }
 
     @Composable
-    fun getDetails(): List<DetailsDto> = listOf(
-        DetailsDto(
-            imageVector = Icons.Filled.Whatshot,
-            description = stringResource(R.string.initial_details_record_anger)
-        ),
-        DetailsDto(
-            imageVector = Icons.Outlined.Reviews,
-            description = stringResource(R.string.initial_details_record_look_back)
-        ),
-        DetailsDto(
-            imageVector = Icons.Outlined.Info,
-            description = stringResource(R.string.initial_details_tips)
-        ),
-    )
+    fun getDetails(): List<DetailsDto> =
+        listOf(
+            DetailsDto(
+                imageVector = Icons.Filled.Whatshot,
+                description = stringResource(R.string.initial_details_record_anger),
+            ),
+            DetailsDto(
+                imageVector = Icons.Outlined.Reviews,
+                description = stringResource(R.string.initial_details_record_look_back),
+            ),
+            DetailsDto(
+                imageVector = Icons.Outlined.Info,
+                description = stringResource(R.string.initial_details_tips),
+            ),
+        )
 }
 
 data class DetailsDto(
