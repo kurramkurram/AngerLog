@@ -36,9 +36,11 @@ import androidx.navigation.compose.rememberNavController
 import io.github.kurramkurram.angerlog.ui.component.AngerLogFloatingActionButton
 import io.github.kurramkurram.angerlog.ui.component.ad.AngerLogBannerAd
 import io.github.kurramkurram.angerlog.ui.navigation.AngerLogNavHost
+import io.github.kurramkurram.angerlog.ui.screen.Permission
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar
 import io.github.kurramkurram.angerlog.ui.screen.home.Home
+import io.github.kurramkurram.angerlog.ui.screen.initial.Initial
 import io.github.kurramkurram.angerlog.ui.screen.register.Register
 import io.github.kurramkurram.angerlog.ui.screen.setting.Setting
 
@@ -75,10 +77,10 @@ fun AngerLogApp() {
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
                 Column(modifier = Modifier.weight(1f)) {
-                    AngerLogNavHost(navController)
+                    AngerLogNavHost(navController = navController)
                 }
 
-                AngerLogBannerAd()
+                AdBanner(navController = navController)
             }
         }
     }
@@ -158,6 +160,19 @@ fun FloatingActionButton(
     }
 }
 
+@Composable
+fun AdBanner(
+    modifier: Modifier = Modifier,
+    navController: NavController,
+) {
+    val navBackStackEntry by navController.currentBackStackEntryAsState()
+    val currentDestination = navBackStackEntry?.destination
+    val isShowAd = isShowAdBanner(currentDestination)
+    if (isShowAd) {
+        AngerLogBannerAd(modifier = modifier)
+    }
+}
+
 /**
  * ボトムナビゲーションを表示するかどうかを判定する.
  *
@@ -200,6 +215,15 @@ private fun isShowFloatingActionButton(currentDestination: NavDestination?): Flo
     }
 
     return FloatingType.NONE
+}
+
+private fun isShowAdBanner(currentDestination: NavDestination?): Boolean {
+    val currentRoute = currentDestination?.route ?: return false
+    val notShowDestination = listOf(Initial::class.java.name, Permission::class.java.name)
+    notShowDestination.forEach {
+        if (currentRoute.contains(it)) return false
+    }
+    return true
 }
 
 enum class FloatingType {
