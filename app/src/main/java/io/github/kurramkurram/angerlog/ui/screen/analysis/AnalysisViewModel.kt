@@ -47,7 +47,8 @@ class AnalysisViewModel(
 
     fun closeMonthDropDown() = _yearMonthState.update { it.closeMonthDropDown() }
 
-    fun canShowBackArrow(): Boolean = _yearMonthState.value.yearMonth >
+    fun canShowBackArrow(): Boolean =
+        _yearMonthState.value.yearMonth >
             YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
 
     fun canShowNextArrow(): Boolean = _yearMonthState.value.yearMonth < _yearMonthState.value.now
