@@ -2,6 +2,7 @@ package io.github.kurramkurram.angerlog.ui.screen.analysis
 
 import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -26,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -43,6 +45,7 @@ import org.koin.androidx.compose.koinViewModel
 private const val MAX_DAY_OF_MONTH = 31
 private const val OFFSET_TOP_OF_LINE_CHART = 0.2f
 private const val OFFSET_BOTTOM_OF_LINE_CHART = -0.2f
+private const val CHANGE_PAGE_DRAG_AMOUNT = 50
 
 @Serializable
 object Analysis
@@ -65,6 +68,7 @@ fun AnalysisScreen(
         AngerLogCalendarPicker(
             modifier = modifier.padding(bottom = 20.dp),
             state = calendarState,
+            canShowBackArrow = viewModel.canShowBackArrow(),
             canShowNextArrow = viewModel.canShowNextArrow(),
             selectYearMonth = currentYearMonth,
             onMinusMonthClick = {
@@ -100,6 +104,7 @@ fun AnalysisScreen(
                 AnalysisScreenContent(
                     modifier = modifier,
                     state = state as AnalysisUiState.Success,
+                    viewModel = viewModel,
                 )
             }
 
@@ -118,12 +123,27 @@ fun AnalysisScreen(
 fun AnalysisScreenContent(
     modifier: Modifier = Modifier,
     state: AnalysisUiState.Success,
+    viewModel: AnalysisViewModel,
 ) {
     Column(
         modifier
             .padding(top = 20.dp)
             .fillMaxSize()
-            .verticalScroll(rememberScrollState()),
+            .verticalScroll(rememberScrollState())
+            .pointerInput(Unit) {
+                detectHorizontalDragGestures { _, dragAmount ->
+                    if (dragAmount > CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowBackArrow()) {
+                        viewModel.minusMonths()
+                        viewModel.updateAngerLogByMonth()
+                        return@detectHorizontalDragGestures
+                    }
+                    if (dragAmount < -CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowNextArrow()) {
+                        viewModel.plusMonths()
+                        viewModel.updateAngerLogByMonth()
+                        return@detectHorizontalDragGestures
+                    }
+                }
+            },
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(

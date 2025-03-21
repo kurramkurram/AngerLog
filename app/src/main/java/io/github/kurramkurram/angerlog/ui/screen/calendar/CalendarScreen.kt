@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.detectHorizontalDragGestures
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -32,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -47,6 +49,8 @@ import io.github.kurramkurram.angerlog.util.DateConverter
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import java.time.DayOfWeek
+
+private const val CHANGE_PAGE_DRAG_AMOUNT = 50
 
 @Serializable
 object Calendar
@@ -70,6 +74,7 @@ fun CalendarScreen(
         AngerLogCalendarPicker(
             modifier = modifier.padding(bottom = 20.dp),
             state = calendarState,
+            canShowBackArrow = viewModel.canShowBackArrow(),
             canShowNextArrow = viewModel.canShowNextArrow(),
             selectYearMonth = currentYearMonth,
             onMinusMonthClick = {
@@ -133,7 +138,23 @@ fun CalendarScreenCalendarView(
     pickerUiState: CalendarPickerUiState,
     onItemClick: (Long, Long) -> Unit,
 ) {
-    Column {
+    Column(
+        modifier =
+            modifier.pointerInput(Unit) {
+                detectHorizontalDragGestures { _, dragAmount ->
+                    if (dragAmount > CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowBackArrow()) {
+                        viewModel.minusMonths()
+                        viewModel.updateAngerLogByMonth()
+                        return@detectHorizontalDragGestures
+                    }
+                    if (dragAmount < -CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowNextArrow()) {
+                        viewModel.plusMonths()
+                        viewModel.updateAngerLogByMonth()
+                        return@detectHorizontalDragGestures
+                    }
+                }
+            },
+    ) {
         val firstDayOfWeek = pickerUiState.firstDayOfWeek
         val dayOfWeekSize = DayOfWeek.entries.size
         val yearMonth = pickerUiState.yearMonth

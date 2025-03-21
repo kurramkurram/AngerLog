@@ -23,12 +23,13 @@ import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.component.AngerLogDropDown
 import java.time.YearMonth
 
-private const val DEFAULT_MIN_YEAR_OF_PICKER = 2023
+const val DEFAULT_MIN_YEAR_OF_PICKER = 2023
 
 @Composable
 fun AngerLogCalendarPicker(
     modifier: Modifier = Modifier,
     minYear: Int = DEFAULT_MIN_YEAR_OF_PICKER,
+    canShowBackArrow: Boolean,
     canShowNextArrow: Boolean,
     selectYearMonth: YearMonth,
     state: CalendarPickerUiState,
@@ -51,7 +52,10 @@ fun AngerLogCalendarPicker(
     ) {
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-            modifier = Modifier.clickable { onMinusMonthClick() },
+            modifier =
+                Modifier
+                    .alpha(if (canShowBackArrow) 1f else 0f)
+                    .clickable(enabled = canShowBackArrow) { onMinusMonthClick() },
             contentDescription = stringResource(R.string.calendar_title_back_cd),
         )
 
