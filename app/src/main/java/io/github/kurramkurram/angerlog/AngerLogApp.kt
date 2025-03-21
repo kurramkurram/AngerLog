@@ -43,7 +43,6 @@ import io.github.kurramkurram.angerlog.ui.screen.home.Home
 import io.github.kurramkurram.angerlog.ui.screen.initial.Initial
 import io.github.kurramkurram.angerlog.ui.screen.register.Register
 import io.github.kurramkurram.angerlog.ui.screen.setting.Setting
-import io.github.kurramkurram.angerlog.util.L
 
 data class TopLevelRoute<T : Any>(val name: String, val route: T, val icon: ImageVector)
 
@@ -63,10 +62,10 @@ fun AngerLogApp() {
     val navController = rememberNavController()
     Scaffold(
         modifier =
-        Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.systemBars)
-            .background(color = MaterialTheme.colorScheme.background),
+            Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+                .background(color = MaterialTheme.colorScheme.background),
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
@@ -115,9 +114,9 @@ private fun BottomNavigationBar(
                         )
                     },
                     selected =
-                    currentDestination?.hierarchy?.any {
-                        it.hasRoute(route.route::class)
-                    } == true,
+                        currentDestination?.hierarchy?.any {
+                            it.hasRoute(route.route::class)
+                        } == true,
                     onClick = {
                         navController.navigate(route.route) {
                             popUpTo(navController.graph.findStartDestination().id) {
