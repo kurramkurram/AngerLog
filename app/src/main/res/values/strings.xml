@@ -2,7 +2,12 @@
     <string name="app_name">アンガーログ</string>
 
     <string name="initial">利用案内画面</string>
-    <string name="initial_description">このアプリは記録する怒りと向きあうアプリです。\nこのアプリを使っても怒りは解決しません。\nしかし、日々の怒りを記録し、分析し、振り返り、自分の怒りを向きあうことで上手に怒りと付き合う方法を考えるアプリです。</string>
+    <string name="initial_app_icon_cd">アプリアイコン</string>
+    <string name="initial_title">%sへようこそ</string>
+    <string name="initial_description">このアプリは怒りと向きあうアプリです。\nこのアプリを使っても怒りは解決しません。\nしかし、日々の怒りを記録し、分析し、振り返り、自分の怒りと向きあうことで上手に怒りと付き合う方法を考えるアプリです。</string>
+    <string name="initial_details_record_anger">感じた怒りを記録する</string>
+    <string name="initial_details_record_look_back">怒りの振り返りを記録する</string>
+    <string name="initial_details_tips">怒りを和らげるためのTipsの紹介</string>
     <string name="initial_policy_pre_text">「利用を開始する」を押下すると</string>
     <string name="initial_policy_link_text">利用規約</string>
     <string name="initial_policy_suffix_text">に同意することになります</string>
