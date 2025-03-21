@@ -23,12 +23,13 @@ import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.component.AngerLogDropDown
 import java.time.YearMonth
 
-private const val DEFAULT_MIN_YEAR_OF_PICKER = 2023
+const val DEFAULT_MIN_YEAR_OF_PICKER = 2023
 
 @Composable
 fun AngerLogCalendarPicker(
     modifier: Modifier = Modifier,
     minYear: Int = DEFAULT_MIN_YEAR_OF_PICKER,
+    canShowBackArrow: Boolean,
     canShowNextArrow: Boolean,
     selectYearMonth: YearMonth,
     state: CalendarPickerUiState,
@@ -43,32 +44,34 @@ fun AngerLogCalendarPicker(
 ) {
     Row(
         modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+        modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
-            modifier = Modifier.clickable { onMinusMonthClick() },
+            modifier = Modifier
+                .alpha(if (canShowBackArrow) 1f else 0f)
+                .clickable(enabled = canShowBackArrow) { onMinusMonthClick() },
             contentDescription = stringResource(R.string.calendar_title_back_cd),
         )
 
         Row(
             modifier =
-                Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
+            Modifier
+                .weight(1f)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
         ) {
             Column {
                 Text(
                     text = stringResource(R.string.calendar_title_year, selectYearMonth.year),
                     modifier =
-                        Modifier
-                            .clickable { onShowYearDropDown() }
-                            .padding(horizontal = 10.dp),
+                    Modifier
+                        .clickable { onShowYearDropDown() }
+                        .padding(horizontal = 10.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                 )
@@ -84,14 +87,14 @@ fun AngerLogCalendarPicker(
             Column {
                 Text(
                     text =
-                        stringResource(
-                            R.string.calendar_title_month,
-                            selectYearMonth.month.value,
-                        ),
+                    stringResource(
+                        R.string.calendar_title_month,
+                        selectYearMonth.month.value,
+                    ),
                     modifier =
-                        Modifier
-                            .clickable { onShowMonthDropDown() }
-                            .padding(horizontal = 10.dp),
+                    Modifier
+                        .clickable { onShowMonthDropDown() }
+                        .padding(horizontal = 10.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                 )
@@ -107,9 +110,9 @@ fun AngerLogCalendarPicker(
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowRight,
             modifier =
-                Modifier
-                    .alpha(if (canShowNextArrow) 1f else 0f)
-                    .clickable(enabled = canShowNextArrow) { onPlusMonthClick() },
+            Modifier
+                .alpha(if (canShowNextArrow) 1f else 0f)
+                .clickable(enabled = canShowNextArrow) { onPlusMonthClick() },
             contentDescription = stringResource(R.string.calendar_title_next_cd),
         )
     }

@@ -3,8 +3,8 @@ package io.github.kurramkurram.angerlog.ui.screen.calendar
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.angerlog.ui.component.calendarpicker.CalendarPickerUiState
+import io.github.kurramkurram.angerlog.ui.component.calendarpicker.DEFAULT_MIN_YEAR_OF_PICKER
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -49,6 +49,9 @@ class CalendarViewModel(
     fun closeYearDropDown() = _yearMonthState.update { it.closeYearDropDown() }
 
     fun closeMonthDropDown() = _yearMonthState.update { it.closeMonthDropDown() }
+
+    fun canShowBackArrow(): Boolean =
+        _yearMonthState.value.yearMonth > YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
 
     fun canShowNextArrow(): Boolean = _yearMonthState.value.yearMonth < _yearMonthState.value.now
 
