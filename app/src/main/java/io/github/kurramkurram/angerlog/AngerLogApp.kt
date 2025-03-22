@@ -17,7 +17,6 @@ import androidx.compose.material.icons.outlined.DateRange
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.sharp.Build
 import androidx.compose.material.icons.sharp.DateRange
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
