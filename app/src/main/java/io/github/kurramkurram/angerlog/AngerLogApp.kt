@@ -11,10 +11,10 @@ import androidx.compose.foundation.layout.windowInsetsPadding
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Settings
-import androidx.compose.material.icons.rounded.Home
-import androidx.compose.material.icons.sharp.Build
-import androidx.compose.material.icons.sharp.DateRange
+import androidx.compose.material.icons.outlined.Analytics
+import androidx.compose.material.icons.outlined.DateRange
+import androidx.compose.material.icons.outlined.Home
+import androidx.compose.material.icons.outlined.Settings
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -60,10 +60,10 @@ data class TopLevelRoute<T : Any>(val name: String, val route: T, val icon: Imag
 fun AngerLogApp() {
     val topLevelRoutes =
         listOf(
-            TopLevelRoute(stringResource(R.string.home), Home, Icons.Rounded.Home),
-            TopLevelRoute(stringResource(R.string.calendar), Calendar, Icons.Sharp.DateRange),
-            TopLevelRoute(stringResource(R.string.analysis), Analysis, Icons.Sharp.Build),
-            TopLevelRoute(stringResource(R.string.setting), Setting, Icons.Filled.Settings),
+            TopLevelRoute(stringResource(R.string.home), Home, Icons.Outlined.Home),
+            TopLevelRoute(stringResource(R.string.calendar), Calendar, Icons.Outlined.DateRange),
+            TopLevelRoute(stringResource(R.string.analysis), Analysis, Icons.Outlined.Analytics),
+            TopLevelRoute(stringResource(R.string.setting), Setting, Icons.Outlined.Settings),
         )
 
     val navController = rememberNavController()
