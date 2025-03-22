@@ -9,10 +9,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
-import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
-import io.github.kurramkurram.angerlog.ui.screen.permission.PermissionScreen
-import io.github.kurramkurram.angerlog.ui.screen.policy.Policy
-import io.github.kurramkurram.angerlog.ui.screen.policy.PolicyScreen
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisScreen
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar
@@ -23,6 +19,10 @@ import io.github.kurramkurram.angerlog.ui.screen.initial.Initial
 import io.github.kurramkurram.angerlog.ui.screen.initial.InitialScreen
 import io.github.kurramkurram.angerlog.ui.screen.license.License
 import io.github.kurramkurram.angerlog.ui.screen.license.LicenseScreen
+import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
+import io.github.kurramkurram.angerlog.ui.screen.permission.PermissionScreen
+import io.github.kurramkurram.angerlog.ui.screen.policy.Policy
+import io.github.kurramkurram.angerlog.ui.screen.policy.PolicyScreen
 import io.github.kurramkurram.angerlog.ui.screen.register.Register
 import io.github.kurramkurram.angerlog.ui.screen.register.RegisterScreen
 import io.github.kurramkurram.angerlog.ui.screen.setting.Setting
