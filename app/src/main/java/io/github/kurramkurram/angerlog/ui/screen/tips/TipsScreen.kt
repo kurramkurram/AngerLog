@@ -21,11 +21,18 @@ import org.koin.androidx.compose.koinViewModel
 @Serializable
 object Tips
 
+/**
+ * お役立ちTips画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClickBack 戻る押下時の動作
+ * @param viewModel お役立ちTips画面のViewModel
+ */
 @Composable
 fun TipsScreen(
     modifier: Modifier = Modifier,
-    viewModel: TipsInfoViewModel = koinViewModel(),
     onClickBack: () -> Unit,
+    viewModel: TipsInfoViewModel = koinViewModel(),
 ) {
     AngerLogBackButtonLayout(
         modifier = modifier,

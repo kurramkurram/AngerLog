@@ -5,7 +5,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
 import io.github.kurramkurram.angerlog.R
 
+/**
+ * お役立ちTips画面のViewModel.
+ */
 class TipsInfoViewModel : ViewModel() {
+    /**
+     * Tips情報を取得する.
+     *
+     * @return お役立ちTips
+     */
     @Composable
     fun getTips(): List<TipsInfoCategoryDto> {
         return listOf(

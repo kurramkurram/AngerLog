@@ -13,6 +13,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 
+/**
+ * 読み込みダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param onDismissRequest ダイアログ終了時の動作.
+ */
 @Composable
 fun LoadingDialog(
     modifier: Modifier = Modifier,

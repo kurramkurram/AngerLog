@@ -19,6 +19,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+/**
+ * カウントアップカード（アニメーション付き）.
+ * カウントアップするカード
+ *
+ * @param modifier [Modifier]
+ * @param size 表示する値
+ * @param unit 表示する値の単位
+ * @param animationDuration アニメーションの時間
+ * @param animationEasing アニメーションのイージング
+ */
 @Composable
 fun AngerLogCounterCard(
     modifier: Modifier = Modifier,

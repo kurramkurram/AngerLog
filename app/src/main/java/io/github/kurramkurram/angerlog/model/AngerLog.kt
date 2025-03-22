@@ -4,6 +4,23 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.util.Date
 
+/**
+ * 怒りの記録データ.
+ * データベースにもこの構成のテーブルで保存される.
+ *
+ * @param id 一意のid
+ * @param date 日付
+ * @param level 怒りの強さ
+ * @param place 場所
+ * @param latitude 緯度（今は使わない）
+ * @param longitude 経度（今は使わない）
+ * @param event できごと
+ * @param detail できごとの詳細
+ * @param thought 思ったこと
+ * @param lookBackWhyAnger 振り返りのなぜ怒りを感じたか
+ * @param lookBackLevel 振り返りの怒りの強さの
+ * @param lookBackAdvice 振り返りのアドバイス
+ */
 @Entity(tableName = "t_anger_log")
 class AngerLog(
     @PrimaryKey(autoGenerate = true) var id: Long = 0,
@@ -15,13 +32,17 @@ class AngerLog(
     val event: String = "",
     val detail: String = "",
     val thought: String = "",
-    // 振り返りべき
     val lookBackWhyAnger: String = "",
-    // 振り返りの怒りレベル
     val lookBackLevel: Int = 0,
-    // 振り返りアドバイス
     val lookBackAdvice: String = "",
 ) {
+    /**
+     * 同一判定.
+     * 怒りの強さ([level], [lookBackLevel])以外の項目において値が一致していれば、同一と判定する.
+     *
+     * @param other 比較対象の怒りの記録データ.
+     * @return true: 同一の怒りのデータ
+     */
     override fun equals(other: Any?): Boolean {
         if (other !is AngerLog) return false
         return date == other.date &&
@@ -35,6 +56,11 @@ class AngerLog(
             lookBackAdvice == other.lookBackAdvice
     }
 
+    /**
+     * Hash値の生成
+     *
+     * @return Hash値
+     */
     override fun hashCode(): Int {
         var result = id.hashCode()
         result = 31 * result + date.hashCode()

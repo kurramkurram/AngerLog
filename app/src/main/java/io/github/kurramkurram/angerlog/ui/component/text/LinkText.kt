@@ -16,15 +16,26 @@ import io.github.kurramkurram.angerlog.util.L
 
 private const val TAG = "AngerLogLinkText"
 
+/**
+ * 埋め込みリンク付きテキスト.
+ *
+ * @param modifier [Modifier]
+ * @param preText リンク付きテキスト前の文言
+ * @param linkText リンク付きテキストの文言
+ * @param link リンク付きテキストに埋め込む文言
+ * @param linkColor リンク付きテキストの色
+ * @param onClickLink リンク付きテキストをクリックしたときの動作
+ * @param suffixText リンク付きテキスト後の文言
+ */
 @Composable
 fun AngerLogLinkText(
     modifier: Modifier = Modifier,
     preText: String = "",
     linkText: String = "",
     link: String,
+    linkColor: Color = MaterialTheme.colorScheme.primaryContainer,
     onClickLink: (() -> Unit)? = null,
     suffixText: String = "",
-    linkColor: Color = MaterialTheme.colorScheme.primaryContainer,
 ) {
     val uriHandler = LocalUriHandler.current
     Text(

@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -31,6 +30,14 @@ import org.koin.androidx.compose.koinViewModel
 @Serializable
 object Initial
 
+/**
+ * 初回起動画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClickLicense 「利用規約」を押下した時の動作
+ * @param onClick 利用するを押下した時の動作
+ * @param viewModel 初期画面のViewModel
+ */
 @Composable
 fun InitialScreen(
     modifier: Modifier = Modifier,
@@ -77,8 +84,7 @@ fun InitialScreen(
                 viewModel.getDetails().forEach {
                     InitialScreenIconListItem(
                         modifier = modifier.padding(vertical = 5.dp),
-                        imageVector = it.imageVector,
-                        description = it.description,
+                        initialDetails = it,
                     )
                 }
             }
@@ -109,19 +115,24 @@ fun InitialScreen(
     }
 }
 
+/**
+ * 初期画面のアイコン付きリストの項目
+ *
+ * @param modifier [Modifier]
+ * @param initialDetails 説明のコンテンツ
+ */
 @Composable
 fun InitialScreenIconListItem(
     modifier: Modifier = Modifier,
-    imageVector: ImageVector,
-    description: String,
+    initialDetails: InitialDetailsDto,
 ) {
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         Icon(
             modifier = modifier.padding(horizontal = 5.dp),
-            imageVector = imageVector,
-            contentDescription = description,
+            imageVector = initialDetails.imageVector,
+            contentDescription = initialDetails.description,
         )
 
-        Text(modifier = modifier, text = description)
+        Text(modifier = modifier, text = initialDetails.description)
     }
 }

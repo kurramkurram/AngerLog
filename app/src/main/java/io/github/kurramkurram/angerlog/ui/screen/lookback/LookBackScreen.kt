@@ -1,4 +1,4 @@
-package io.github.kurramkurram.angerlog.ui.screen
+package io.github.kurramkurram.angerlog.ui.screen.lookback
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -38,6 +38,19 @@ import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 import io.github.kurramkurram.angerlog.ui.component.AngerLogOutlinedTextField
 
+/**
+ * 振り返り画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClickClose 閉じる押下時の動作
+ * @param selectedAngerLevel 選択された振り返りの怒りの強さ
+ * @param onSelectedAngerLevel 振り返りの怒りの強さ選択時の動作
+ * @param whyAngerText 振り返りのなぜ怒りを感じたのかの文言
+ * @param onWhyAngerChanged 振り返りのなぜ怒りを感じたのか変更時の動作
+ * @param adviceText 振り返りのアドバイスの文言
+ * @param onAdviceChanged 振り返りのアドバイス変更時の動作
+ * @param onClickSave 保存する押下時の動作
+ */
 @Composable
 fun LookBackScreen(
     modifier: Modifier = Modifier,
@@ -140,6 +153,15 @@ fun LookBackScreen(
     }
 }
 
+/**
+ * 振り返り画面の項目.
+ *
+ * @param modifier [Modifier]
+ * @param title タイトル
+ * @param onClickAssist アシストクリックしたときの動作
+ * @param icon アイコン
+ * @param content コンテンツ
+ */
 @Composable
 fun LookBackScreenItem(
     modifier: Modifier = Modifier,
@@ -169,6 +191,13 @@ fun LookBackScreenItem(
     }
 }
 
+/**
+ * 振り返り画面の怒りの強さ登録項目.
+ *
+ * @param modifier [Modifier]
+ * @param selected 選択されている怒りの強さ
+ * @param onSelected 怒りの強さ選択した時の動作
+ */
 @Composable
 fun LookBackScreenAngerLevel(
     modifier: Modifier = Modifier,

@@ -27,6 +27,26 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 
+/**
+ * テキストボックス（外枠付き）.
+ * https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/package-summary#BasicTextField(androidx.compose.foundation.text.input.TextFieldState,androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.Boolean,androidx.compose.foundation.text.input.InputTransformation,androidx.compose.ui.text.TextStyle,androidx.compose.foundation.text.KeyboardOptions,androidx.compose.foundation.text.input.KeyboardActionHandler,androidx.compose.foundation.text.input.TextFieldLineLimits,kotlin.Function2,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.ui.graphics.Brush,androidx.compose.foundation.text.input.OutputTransformation,androidx.compose.foundation.text.input.TextFieldDecorator,androidx.compose.foundation.ScrollState)
+ *
+ * @param modifier [Modifier]
+ * @param value テキストボックスに表示する文言
+ * @param onValueChange テキストボックス内が変更されたときの動作
+ * @param hint ヒント
+ * @param enabled テキストボックスの有効状態
+ * @param readOnly 書き込み禁止状態
+ * @param textStyle テキストボックス内の文言の書式
+ * @param keyboardOptions キーボード構成オプション
+ * @param keyboardActions キーボードアクション
+ * @param visualTransformation 入力文字列の出力
+ * @param onTextLayout テキストボックスが入力可能になったときに実行されるコールバック
+ * @param interactionSource ユーザーの操作を受け取る
+ * @param cursorBrush テキストボックスのカーソルの色
+ * @param singleLine 1行で収めるかどうか
+ * @param height テキストボックスの高さ
+ */
 @Composable
 fun AngerLogOutlinedTextField(
     modifier: Modifier = Modifier,

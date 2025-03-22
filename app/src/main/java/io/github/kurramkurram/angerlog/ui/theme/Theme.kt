@@ -13,6 +13,9 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
+/**
+ * Materialテーマのダークモードカラー上書き.
+ */
 val DarkColorScheme =
     darkColorScheme(
         primary = Blue60,
@@ -31,6 +34,9 @@ val DarkColorScheme =
         onError = White100,
     )
 
+/**
+ * Materialテーマのライトモードカラー上書き.
+ */
 val LightColorScheme =
     lightColorScheme(
         primary = Blue40,
@@ -49,6 +55,9 @@ val LightColorScheme =
         onError = White100,
     )
 
+/**
+ * カスタムテーマのカスタムテーマを定義.
+ */
 val LocalCustomColorScheme =
     staticCompositionLocalOf {
         CustomColors(
@@ -63,6 +72,9 @@ val LocalCustomColorScheme =
         )
     }
 
+/**
+ * カスタムテーマのライトモードカラー.
+ */
 val LightLocalCustomColors =
     CustomColors(
         angerLevel1 = Blue40,
@@ -75,6 +87,9 @@ val LightLocalCustomColors =
         weekDays = Gray90,
     )
 
+/**
+ * カスタムテーマのダークモードカラー.
+ */
 val DarkLocalCustomColorScheme =
     CustomColors(
         angerLevel1 = Blue60,
@@ -87,6 +102,9 @@ val DarkLocalCustomColorScheme =
         weekDays = White100,
     )
 
+/**
+ * アンガーログ向けのテーマ
+ */
 @Composable
 fun AngerLogTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),

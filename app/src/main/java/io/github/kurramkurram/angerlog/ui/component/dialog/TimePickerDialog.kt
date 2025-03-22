@@ -21,6 +21,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 
+/**
+ * 時間選択ダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param timePickerState 時間選択状態、選択中の時間の状態を保持する.
+ * @param onConfirmRequest 時間選択時の動作
+ * @param onDismissRequest ダイアログ終了時の動作
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AngerLogTimePickerDialog(

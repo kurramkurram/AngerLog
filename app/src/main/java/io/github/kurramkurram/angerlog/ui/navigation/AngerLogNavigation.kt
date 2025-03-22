@@ -9,10 +9,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
-import io.github.kurramkurram.angerlog.ui.screen.Permission
-import io.github.kurramkurram.angerlog.ui.screen.PermissionScreen
-import io.github.kurramkurram.angerlog.ui.screen.Policy
-import io.github.kurramkurram.angerlog.ui.screen.PolicyScreen
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisScreen
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar
@@ -23,6 +19,10 @@ import io.github.kurramkurram.angerlog.ui.screen.initial.Initial
 import io.github.kurramkurram.angerlog.ui.screen.initial.InitialScreen
 import io.github.kurramkurram.angerlog.ui.screen.license.License
 import io.github.kurramkurram.angerlog.ui.screen.license.LicenseScreen
+import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
+import io.github.kurramkurram.angerlog.ui.screen.permission.PermissionScreen
+import io.github.kurramkurram.angerlog.ui.screen.policy.Policy
+import io.github.kurramkurram.angerlog.ui.screen.policy.PolicyScreen
 import io.github.kurramkurram.angerlog.ui.screen.register.Register
 import io.github.kurramkurram.angerlog.ui.screen.register.RegisterScreen
 import io.github.kurramkurram.angerlog.ui.screen.setting.Setting
@@ -32,6 +32,12 @@ import io.github.kurramkurram.angerlog.ui.screen.tips.TipsScreen
 import io.github.kurramkurram.angerlog.util.isPermissionGranted
 import io.github.kurramkurram.angerlog.util.requestPermission
 
+/**
+ * 画面遷移の制御.
+ *
+ * @param navController ナビゲーションを管理
+ * @param agreementPolicyRepository 利用規約への同意状態を判定するRepository
+ */
 @Composable
 fun AngerLogNavHost(
     navController: NavHostController,
@@ -109,19 +115,13 @@ fun AngerLogNavHost(
         composable<Register> { backStackEntry ->
             val id = backStackEntry.toRoute<Register>().id
             val date = backStackEntry.toRoute<Register>().date
+            val register = Register(id = id, date = date)
             RegisterScreen(
-                id = id,
-                inputDate = date,
+                register = register,
                 onSaveClicked = { navController.popBackStack() },
                 onClickBack = { navController.popBackStack() },
             )
         }
-//
-//        composable<LookBack> {
-//            LookBackScreen(
-//                onClickBack = { navController.popBackStack() },
-//                onItemClick = { })
-//        }
 
         composable<Tips> { TipsScreen(onClickBack = { navController.popBackStack() }) }
 

@@ -15,6 +15,9 @@ abstract class AngerLogDatabase : RoomDatabase() {
     abstract fun angerLogDao(): AngerLogDao
 
     companion object {
+        /**
+         * Database名
+         */
         private const val DB_NAME = "AngerLog.db"
 
         @Volatile

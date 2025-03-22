@@ -36,14 +36,21 @@ import androidx.navigation.compose.rememberNavController
 import io.github.kurramkurram.angerlog.ui.component.AngerLogFloatingActionButton
 import io.github.kurramkurram.angerlog.ui.component.ad.AngerLogBannerAd
 import io.github.kurramkurram.angerlog.ui.navigation.AngerLogNavHost
-import io.github.kurramkurram.angerlog.ui.screen.Permission
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar
 import io.github.kurramkurram.angerlog.ui.screen.home.Home
 import io.github.kurramkurram.angerlog.ui.screen.initial.Initial
+import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
 import io.github.kurramkurram.angerlog.ui.screen.register.Register
 import io.github.kurramkurram.angerlog.ui.screen.setting.Setting
 
+/**
+ * ボトムナビゲーションで表示する項目.
+ *
+ * @param name 項目名
+ * @param route 画面識別子
+ * @param icon アイコン
+ */
 data class TopLevelRoute<T : Any>(val name: String, val route: T, val icon: ImageVector)
 
 /**
@@ -88,6 +95,10 @@ fun AngerLogApp() {
 
 /**
  * ボトムナビゲーション.
+ *
+ * @param modifier [Modifier]
+ * @param navController ナビゲーションを管理
+ * @param topLevelRoutes ボトムナビゲーションで表示する項目のリスト
  */
 @Composable
 private fun BottomNavigationBar(
@@ -134,6 +145,9 @@ private fun BottomNavigationBar(
 
 /**
  * FloatingActionButton.
+ *
+ * @param modifier [Modifier]
+ * @param navController ナビゲーションを管理
  */
 @Composable
 fun FloatingActionButton(
@@ -150,16 +164,16 @@ fun FloatingActionButton(
             }
         }
 
-        FloatingType.LOOK_BACK -> {
-//            AngerLogFloatingActionButton(modifier = modifier) {
-//                navController.navigate(route = LookBack)
-//            }
-        }
-
         else -> {}
     }
 }
 
+/**
+ * バナー広告.
+ *
+ * @param modifier [Modifier]
+ * @param navController ナビゲーションを管理
+ */
 @Composable
 fun AdBanner(
     modifier: Modifier = Modifier,
@@ -174,10 +188,10 @@ fun AdBanner(
 }
 
 /**
- * ボトムナビゲーションを表示するかどうかを判定する.
+ * ボトムナビゲーションを表示するかを判定する.
  *
  * @param currentDestination 現在表示中の画面
- * @return true ボトムナビゲーションを非表示
+ * @return true: ボトムナビゲーションを非表示
  */
 private fun isShowBottomBar(
     currentDestination: NavDestination?,
@@ -191,7 +205,7 @@ private fun isShowBottomBar(
 }
 
 /**
- * FloatingActionButtonを表示するかどうかを判定する.
+ * FloatingActionButtonを表示するかを判定する.
  *
  * @param currentDestination 現在表示中の画面
  * @return FloatingType FloatingActionButtonの表示タイプを返す
@@ -217,6 +231,12 @@ private fun isShowFloatingActionButton(currentDestination: NavDestination?): Flo
     return FloatingType.NONE
 }
 
+/**
+ * バナー広告を表示するかを判定する.
+ *
+ * @param currentDestination 現在表示中の画面
+ * @return true: 表示する
+ */
 private fun isShowAdBanner(currentDestination: NavDestination?): Boolean {
     val currentRoute = currentDestination?.route ?: return false
     val notShowDestination = listOf(Initial::class.java.name, Permission::class.java.name)
@@ -226,6 +246,9 @@ private fun isShowAdBanner(currentDestination: NavDestination?): Boolean {
     return true
 }
 
+/**
+ * FloatingActionButtonを表示するタイプ.
+ */
 enum class FloatingType {
     REGISTER, // 登録画面
     LOOK_BACK, // 振り返り画面

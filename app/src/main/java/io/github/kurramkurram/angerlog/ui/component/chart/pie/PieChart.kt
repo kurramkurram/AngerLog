@@ -22,11 +22,24 @@ import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
+/**
+ * デフォルトのアニメーション時間.
+ */
+private const val DEFAULT_ANIMATION_DURATION = 1000
+
+/**
+ * 円グラフ.
+ *
+ * @param modifier [Modifier]
+ * @param pieData 円グラフに表示するデータ
+ * @param animationDuration アニメーションの時間
+ * @param animationEasing アニメーションのイージング
+ */
 @Composable
 fun AngerLogPieChart(
     modifier: Modifier = Modifier,
     pieData: PieData,
-    animationDuration: Int = 1000,
+    animationDuration: Int = DEFAULT_ANIMATION_DURATION,
     animationEasing: Easing = LinearEasing,
 ) {
     val animationList = remember { List(pieData.getItemCount()) { Animatable(0f) } }

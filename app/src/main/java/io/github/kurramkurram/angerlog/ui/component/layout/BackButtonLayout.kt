@@ -14,7 +14,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -27,14 +26,25 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 
+/**
+ * バックボタン付きの画面レイアウト.
+ *
+ * @param modifier [Modifier]
+ * @param onClickBack バックボタン押下時の動作
+ * @param title タイトル
+ * @param description 説明
+ * @param trailingText 右端ボタンの文言
+ * @param onTrailingClick 右端ボタンの押下時の動作
+ * @param content コンテンツ
+ */
 @Composable
 fun AngerLogBackButtonLayout(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     title: String = "",
     description: String = "",
-    leadingText: String = "",
-    onClickLeading: () -> Unit = {},
+    trailingText: String = "",
+    onTrailingClick: () -> Unit = {},
     content: @Composable () -> Unit,
 ) {
     Column {
@@ -85,14 +95,14 @@ fun AngerLogBackButtonLayout(
                 )
             }
 
-            if (leadingText.isNotEmpty()) {
+            if (trailingText.isNotEmpty()) {
                 Row(
                     Modifier
                         .padding(10.dp)
                         .fillMaxWidth(),
                     horizontalArrangement = Arrangement.End,
                 ) {
-                    Text(text = leadingText, modifier = Modifier.clickable { onClickLeading() })
+                    Text(text = trailingText, modifier = Modifier.clickable { onTrailingClick() })
                 }
             }
         }

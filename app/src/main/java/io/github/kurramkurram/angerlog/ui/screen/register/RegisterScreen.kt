@@ -58,7 +58,7 @@ import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogBasicDialog
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogDatePickerDialog
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogTimePickerDialog
 import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogBackButtonLayout
-import io.github.kurramkurram.angerlog.ui.screen.LookBackScreen
+import io.github.kurramkurram.angerlog.ui.screen.lookback.LookBackScreen
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -69,22 +69,24 @@ data class Register(val id: Long = 0, val date: Long = -1)
 /**
  * 登録画面.
  *
- * ViewModelにTextFieldの状態を持たせるベストプラクティス
- * https://developer.android.com/develop/ui/compose/text/user-input?hl=ja#state-practices
+ * @param modifier [Modifier]
+ * @param register 登録データ.
+ * @param onClickBack 戻る押下時の動作
+ * @param onSaveClicked 保存する押下時の動作
+ * @param viewModel 登録画面のViewModel
  */
 @SuppressLint("NewApi")
 @Composable
 fun RegisterScreen(
     modifier: Modifier = Modifier,
-    id: Long = 0,
-    inputDate: Long = -1,
-    onSaveClicked: () -> Unit,
+    register: Register,
     onClickBack: () -> Unit,
+    onSaveClicked: () -> Unit,
     viewModel: RegisterViewModel = koinViewModel(),
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
-        viewModel.initialize(id, inputDate)
+        viewModel.initialize(register.id, register.date)
     }
 
     when (state) {
@@ -100,6 +102,15 @@ fun RegisterScreen(
     }
 }
 
+/**
+ * 登録画面のデータ取得後の画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClickBack 戻る押下時の動作
+ * @param onSaveClicked 保存する押下時の動作
+ * @param viewModel 登録画面のViewModel
+ * @param state 登録画面の状態
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreenContent(
@@ -110,7 +121,7 @@ fun RegisterScreenContent(
     state: RegisterUiState.Success,
 ) {
     BackHandler(enabled = true) {
-        viewModel.showBackDialog()
+        viewModel.onBackPressed()
     }
 
     LaunchedEffect(state) {
@@ -120,9 +131,9 @@ fun RegisterScreenContent(
     }
 
     AngerLogBackButtonLayout(
-        leadingText = stringResource((R.string.register_save)),
-        onClickBack = { viewModel.showBackDialog() },
-        onClickLeading = {
+        trailingText = stringResource((R.string.register_save)),
+        onClickBack = { viewModel.onBackPressed() },
+        onTrailingClick = {
             onSaveClicked()
             viewModel.save()
         },
@@ -141,7 +152,7 @@ fun RegisterScreenContent(
                         modifier
                             .fillMaxWidth()
                             .padding(horizontal = 10.dp),
-                    onClick = { viewModel.showBottomSheet() },
+                    onClick = { viewModel.showLookBackBottomSheet() },
                 ) {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Icon(
@@ -325,11 +336,11 @@ fun RegisterScreenContent(
                 val close = {
                     scope.launch {
                         sheetState.hide()
-                    }.invokeOnCompletion { viewModel.closeBottomSheet() }
+                    }.invokeOnCompletion { viewModel.closeLookBackBottomSheet() }
                 }
                 AngerLogModalBottomSheet(
                     modifier = modifier.imePadding(),
-                    onDismissRequest = { viewModel.closeBottomSheet() },
+                    onDismissRequest = { viewModel.closeLookBackBottomSheet() },
                     sheetState = sheetState,
                 ) {
                     LookBackScreen(
@@ -351,6 +362,15 @@ fun RegisterScreenContent(
     }
 }
 
+/**
+ * 登録画面の項目
+ *
+ * @param modifier [Modifier]
+ * @param title タイトル
+ * @param onClickAssist アシストクリックしたときの動作
+ * @param icon アイコン
+ * @param content コンテンツ
+ */
 @Composable
 fun RegisterScreenItem(
     modifier: Modifier = Modifier,
@@ -380,6 +400,13 @@ fun RegisterScreenItem(
     }
 }
 
+/**
+ * 登録画面の怒りの強さ登録項目.
+ *
+ * @param modifier [Modifier]
+ * @param selected 選択されている怒りの強さ
+ * @param onSelected 怒りの強さ選択した時の動作
+ */
 @Composable
 fun RegisterScreenAngerLevel(
     modifier: Modifier = Modifier,

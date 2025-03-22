@@ -13,15 +13,50 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
 
+private const val DEFAULT_LINE_STROKE = 5f
+
+/**
+ * 棒グラフの基準となる線の太さ.
+ */
+private const val BASE_LINE_STROKE = 2f
+
+/**
+ * ラベルのテキストサイズ.
+ */
+private const val LABEL_TEXT_SIZE = 32f
+
+/**
+ * ラベルの棒グラフの方向の位置.
+ */
+private const val LABEL_BOTTOM_OFFSET = 40f
+
+/**
+ * ラベル表示の間隔.
+ */
+private const val DEFAULT_LABEL_DISPLAY_SPAN = 5
+
+/**
+ * 折れ線グラフ.
+ *
+ * @param modifier [Modifier]
+ * @param lineData 折れ線グラフに表示するデータ
+ * @param maxX X軸方向の最大値
+ * @param minY Y軸方向の最小値
+ * @param minY Y軸方向の最大値
+ * @param labelSpan ラベルの間隔
+ * @param lineColor 折れ線グラフの色
+ * @param lineStroke 折れ線グラフの太さ
+ */
 @Composable
 fun AngerLogLineChart(
     modifier: Modifier = Modifier,
     lineData: LineData,
-    minX: Float? = null,
-    maxX: Float? = null,
-    maxY: Int? = null,
+    maxX: Int? = null,
+    minY: Float? = null,
+    maxY: Float? = null,
+    labelSpan: Int = DEFAULT_LABEL_DISPLAY_SPAN,
     lineColor: Color = Color.LightGray,
-    lineStroke: Stroke = Stroke(5f),
+    lineStroke: Stroke = Stroke(DEFAULT_LINE_STROKE),
 ) {
     Canvas(
         modifier = modifier.padding(20.dp),
@@ -29,9 +64,10 @@ fun AngerLogLineChart(
             drawBezierCurve(
                 size = size,
                 lineData = lineData,
-                fixedMinPoint = minX,
-                fixedMaxPoint = maxX,
-                fixedMaxY = maxY,
+                fixedMinPoint = minY,
+                fixedMaxPoint = maxY,
+                fixedMaxX = maxX,
+                labelSpan = labelSpan,
                 lineColor = lineColor,
                 lineStroke = lineStroke,
             )
@@ -39,12 +75,25 @@ fun AngerLogLineChart(
     )
 }
 
+/**
+ * 折れ線グラフを描画する.
+ *
+ * @param size 表示領域の大きさ
+ * @param lineData 折れ線グラフに表示するデータ
+ * @param fixedMaxX X軸方向の最大値
+ * @param fixedMinPoint Y軸方向の最小値
+ * @param fixedMaxPoint Y軸方向の最大値
+ * @param labelSpan ラベルの間隔
+ * @param lineColor 折れ線グラフの色
+ * @param lineStroke 折れ線グラフの太さ
+ */
 private fun DrawScope.drawBezierCurve(
     size: Size,
     lineData: LineData,
+    fixedMaxX: Int? = null,
     fixedMinPoint: Float? = null,
     fixedMaxPoint: Float? = null,
-    fixedMaxY: Int? = null,
+    labelSpan: Int,
     lineColor: Color,
     lineStroke: Stroke,
 ) {
@@ -53,8 +102,8 @@ private fun DrawScope.drawBezierCurve(
     val total = maxPoint - minPoint
     val height = size.height
     val width = size.width
-    val maxY = (fixedMaxY ?: lineData.getItemCount())
-    val xSpacing = width / maxY
+    val maxX = (fixedMaxX ?: lineData.getItemCount())
+    val xSpacing = width / maxX
     var lastPoint: Offset? = null
     val path = Path()
     for ((index, data) in lineData.getItems().withIndex()) {
@@ -80,20 +129,20 @@ private fun DrawScope.drawBezierCurve(
         color = Color.DarkGray,
         start = Offset(0f, baseLine),
         end = Offset(size.width, baseLine),
-        strokeWidth = 2f,
+        strokeWidth = BASE_LINE_STROKE,
     )
 
     val paint =
         android.graphics.Paint().apply {
             color = android.graphics.Color.GRAY
             textAlign = android.graphics.Paint.Align.CENTER
-            textSize = 32f
+            textSize = LABEL_TEXT_SIZE
         }
-    for (i in 1..maxY step 5) {
+    for (i in 1..maxX step labelSpan) {
         drawContext.canvas.nativeCanvas.drawText(
             i.toString(),
             i * xSpacing,
-            baseLine + 40f,
+            baseLine + LABEL_BOTTOM_OFFSET,
             paint,
         )
     }

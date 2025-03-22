@@ -27,6 +27,13 @@ import org.koin.androidx.compose.koinViewModel
 @Serializable
 object Home
 
+/**
+ * ホーム画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClick リストの項目を押下した時の動作
+ * @param viewModel ホーム画面のViewModel
+ */
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,

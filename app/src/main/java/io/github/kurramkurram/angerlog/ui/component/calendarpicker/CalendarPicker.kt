@@ -21,17 +21,35 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.component.AngerLogDropDown
-import java.time.YearMonth
 
+/**
+ * 年の最小値.
+ */
 const val DEFAULT_MIN_YEAR_OF_PICKER = 2023
 
+/**
+ * 月日を表示・変更する.
+ *
+ * @param modifier [Modifier]
+ * @param minYear 年の最小値
+ * @param canShowBackArrow 「＜」の表示可否
+ * @param canShowNextArrow 「＞」の表示可否
+ * @param state 年月・ダイアログの表示状態
+ * @param onMinusMonthClick 「＜」を押下した時の動作
+ * @param onPlusMonthClick 「＞」を押下した時の動作
+ * @param onShowYearDropDown 「年」のドロップダウンを表示した時の動作
+ * @param onShowMonthDropDown 「月」のドロップダウンを表示した時の動作
+ * @param onCloseYearDropDown 「年」のドロップダウンを閉じた時の動作
+ * @param onCloseMonthDropDown 「月」のドロップダウンを閉じた時の動作
+ * @param onSelectYear 「年」をドロップダウンで選択した時の動作
+ * @param onSelectMonth 「月」をドロップダウンで選択した時の動作
+ */
 @Composable
 fun AngerLogCalendarPicker(
     modifier: Modifier = Modifier,
     minYear: Int = DEFAULT_MIN_YEAR_OF_PICKER,
     canShowBackArrow: Boolean,
     canShowNextArrow: Boolean,
-    selectYearMonth: YearMonth,
     state: CalendarPickerUiState,
     onMinusMonthClick: () -> Unit,
     onPlusMonthClick: () -> Unit,
@@ -68,7 +86,7 @@ fun AngerLogCalendarPicker(
         ) {
             Column {
                 Text(
-                    text = stringResource(R.string.calendar_title_year, selectYearMonth.year),
+                    text = stringResource(R.string.calendar_title_year, state.yearMonth.year),
                     modifier =
                         Modifier
                             .clickable { onShowYearDropDown() }
@@ -90,7 +108,7 @@ fun AngerLogCalendarPicker(
                     text =
                         stringResource(
                             R.string.calendar_title_month,
-                            selectYearMonth.month.value,
+                            state.yearMonth.month.value,
                         ),
                     modifier =
                         Modifier

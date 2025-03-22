@@ -26,6 +26,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.kurramkurram.angerlog.R
 
+/**
+ * 拡縮カード.
+ *
+ * @param title タイトル
+ * @param content 拡大時に表示するコンテンツ
+ * @param isBottomRound 下部の左右を丸めるかどうか true: 丸める
+ */
 @Composable
 fun AngerLogExpandableCard(
     modifier: Modifier = Modifier,

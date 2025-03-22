@@ -14,8 +14,17 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import java.time.YearMonth
 
+/**
+ * データ取得のタイムアウト時間.
+ */
 private const val MAX_LOADING_TIME = 500
 
+/**
+ * カレンダー画面の状態.
+ *
+ * @param calendarDataUseCase カレンダー画面で表示するデータを生成する
+ * @param yearMonth 分析画面で表示したい年月
+ */
 class CalendarViewModel(
     private val calendarDataUseCase: CalendarDataUseCase,
     yearMonth: YearMonth = YearMonth.now(),
@@ -34,53 +43,110 @@ class CalendarViewModel(
         updateAngerLogByMonth()
     }
 
+    /**
+     * 月をひと月戻す.
+     */
     fun minusMonths() = _yearMonthState.update { it.minusMonths() }
 
+    /**
+     * 月をひと月進める.
+     */
     fun plusMonths() = _yearMonthState.update { it.plusMonths() }
 
-    fun selectYear(year: Int) = _yearMonthState.update { it.selectYear(year) }
+    /**
+     * 年を選択した.
+     *
+     * @param year 選択した年
+     */
+    fun selectedYear(year: Int) = _yearMonthState.update { it.changeYear(year) }
 
-    fun selectMonth(month: Int) = _yearMonthState.update { it.selectMonth(month) }
+    /**
+     * 月を選択した.
+     *
+     * @param month 選択した月
+     */
+    fun selectedMonth(month: Int) = _yearMonthState.update { it.changeMonth(month) }
 
+    /**
+     * 「年」のドロップダウンを表示する.
+     */
     fun showYearDropDown() = _yearMonthState.update { it.showYearDropDown() }
 
+    /**
+     * 「月」のドロップダウンを表示する.
+     */
     fun showMonthDropDown() = _yearMonthState.update { it.showMonthDropDown() }
 
+    /**
+     * 「年」のドロップダウンを閉じる.
+     */
     fun closeYearDropDown() = _yearMonthState.update { it.closeYearDropDown() }
 
+    /**
+     * 「月」のドロップダウンを閉じる.
+     */
     fun closeMonthDropDown() = _yearMonthState.update { it.closeMonthDropDown() }
 
+    /**
+     * 「＜」の表示可否を判定する.
+     * [DEFAULT_MIN_YEAR_OF_PICKER]の1月より古い年月は表示しない.
+     *
+     * @return true: 表示する
+     */
     fun canShowBackArrow(): Boolean = _yearMonthState.value.yearMonth > YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
 
+    /**
+     * 「＞」の表示可否を判定する.
+     * 現在の年月より新しい年月には移動しないため、現在の年月では表示しない.
+     *
+     * @return true: 表示する
+     */
     fun canShowNextArrow(): Boolean = _yearMonthState.value.yearMonth < _yearMonthState.value.now
 
+    /**
+     * 日付を選択する.
+     *
+     * @param day 日にち
+     */
     fun selectDay(day: Int) {
-        val success = _state.value as CalendarUiState.Success
-        val ids = success.calendarItemList[day - 1]
-        if (ids == null) {
-            _state.update { (it as CalendarUiState.Success).copy(selectDay = day) }
-        } else {
+        val s = _state.value
+        if (s is CalendarUiState.Success) {
+            val ids = s.calendarItemList[day - 1]
+            if (ids == null) {
+                _state.update { (it as CalendarUiState.Success).copy(selectDay = day) }
+            } else {
+                _state.update {
+                    (it as CalendarUiState.Success).copy(
+                        showDialog = true,
+                        selectDay = day,
+                    )
+                }
+            }
+        }
+    }
+
+    /**
+     * 選択中の日にちをクリアする.
+     */
+    fun clearDay() {
+        if (_state.value is CalendarUiState.Success) {
             _state.update {
                 (it as CalendarUiState.Success).copy(
-                    showDialog = true,
-                    selectDay = day,
+                    showDialog = false,
+                    selectDay = 0,
                 )
             }
         }
     }
 
-    fun clearDay() {
-        _state.update {
-            (it as CalendarUiState.Success).copy(
-                showDialog = false,
-                selectDay = 0,
-            )
-        }
-    }
-
+    /**
+     * カレンダー画面に表示する情報を取得し、反映させる.
+     */
     fun updateAngerLogByMonth() {
         val yearMonth = _yearMonthState.value.yearMonth
-        if (::job.isInitialized) job.cancel()
+        if (::job.isInitialized) {
+            job.cancel()
+        }
         job =
             viewModelScope.launch {
                 _state.value = CalendarUiState.Loading

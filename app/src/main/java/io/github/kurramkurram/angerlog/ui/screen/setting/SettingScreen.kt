@@ -45,6 +45,14 @@ private const val TAG = "SettingScreen"
 @Serializable
 object Setting
 
+/**
+ * 設定画面.
+ *
+ * @param modifier [Modifier]
+ * @param onItemTipsClick お役立ちTips押下時の動作
+ * @param onPolicyClick 利用規約押下時の動作
+ * @param onLicenseClick ライセンス押下時の動作
+ */
 @Composable
 fun SettingScreen(
     modifier: Modifier = Modifier,
@@ -133,6 +141,12 @@ fun SettingScreen(
     }
 }
 
+/**
+ * 問い合わせはこちら押下時の動作.
+ * メールアプリを起動する.
+ *
+ * @param context [Context]
+ */
 @SuppressLint("SimpleDateFormat")
 private fun startActivityQuestion(context: Context) {
     Intent(Intent.ACTION_SENDTO).apply {
@@ -159,6 +173,12 @@ private fun startActivityQuestion(context: Context) {
     }
 }
 
+/**
+ * このアプリをシェアする押下時の動作.
+ * 共有のボトムシートを表示する.
+ *
+ * @param context
+ */
 private fun startShare(context: Context) {
     Intent(Intent.ACTION_SEND).apply {
         type = "text/plain"
@@ -171,6 +191,12 @@ private fun startShare(context: Context) {
     }
 }
 
+/**
+ * お知らせの設定押下時の動作.
+ * 設定アプリの本アプリ通知設定画面を起動する.
+ *
+ * @param context [Context]
+ */
 private fun startNotificationSetting(context: Context) {
     Intent().apply {
         action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
@@ -180,6 +206,12 @@ private fun startNotificationSetting(context: Context) {
     }
 }
 
+/**
+ * ほかのアプリ押下時の動作.
+ * Google Playのデベロッパー検索画面を起動する.
+ *
+ * @param context [Context]
+ */
 private fun startOtherApp(context: Context) {
     Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse("https://play.google.com/store/apps/developer?id=Kurram")
@@ -191,6 +223,11 @@ private fun startOtherApp(context: Context) {
     }
 }
 
+/**
+ * このアプリを評価する押下時の動作.
+ *
+ * @param context [Context]
+ */
 private fun startReview(context: Context) {
     val manager = ReviewManagerFactory.create(context as Activity)
     val request = manager.requestReviewFlow()
@@ -209,6 +246,12 @@ private fun startReview(context: Context) {
     }
 }
 
+/**
+ * 設定画面のセクション項目.
+ *
+ * @param modifier [Modifier]
+ * @param content コンテンツ
+ */
 @Composable
 fun SettingScreenSectionItem(
     modifier: Modifier = Modifier,
@@ -225,6 +268,15 @@ fun SettingScreenSectionItem(
     ) { content() }
 }
 
+/**
+ * 設定画面の各項目.
+ *
+ * @param modifier [Modifier]
+ * @param leading 説明
+ * @param trailing 項目に表示する文字列
+ * @param iconType アイコンのタイプ（[trailing]が未指定の場合に表示）
+ * @param onItemClick 項目押下時の動作
+ */
 @Composable
 fun SettingScreenItem(
     modifier: Modifier = Modifier,

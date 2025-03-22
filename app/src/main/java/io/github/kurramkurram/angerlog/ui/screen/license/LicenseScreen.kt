@@ -26,6 +26,12 @@ private const val TAG = "LicenseScreen"
 @Serializable
 object License
 
+/**
+ * ライセンス画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClickButton 戻るボタン押下時の動作
+ */
 @Composable
 fun LicenseScreen(
     modifier: Modifier = Modifier,

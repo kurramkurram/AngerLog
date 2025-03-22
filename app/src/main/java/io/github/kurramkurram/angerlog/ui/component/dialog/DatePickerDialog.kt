@@ -11,6 +11,14 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
+/**
+ * 日付選択ダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param datePickerState 日付選択状態、選択中の日付の状態を保持する
+ * @param onConfirmRequest 日付選択時の動作
+ * @param onDismissRequest ダイアログ終了時の動作
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AngerLogDatePickerDialog(
