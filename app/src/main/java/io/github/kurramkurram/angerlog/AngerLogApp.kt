@@ -36,7 +36,7 @@ import androidx.navigation.compose.rememberNavController
 import io.github.kurramkurram.angerlog.ui.component.AngerLogFloatingActionButton
 import io.github.kurramkurram.angerlog.ui.component.ad.AngerLogBannerAd
 import io.github.kurramkurram.angerlog.ui.navigation.AngerLogNavHost
-import io.github.kurramkurram.angerlog.ui.screen.Permission
+import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar
 import io.github.kurramkurram.angerlog.ui.screen.home.Home

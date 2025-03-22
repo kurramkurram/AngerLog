@@ -1,4 +1,4 @@
-package io.github.kurramkurram.angerlog.ui.screen
+package io.github.kurramkurram.angerlog.ui.screen.policy
 
 import android.webkit.WebView
 import android.webkit.WebViewClient

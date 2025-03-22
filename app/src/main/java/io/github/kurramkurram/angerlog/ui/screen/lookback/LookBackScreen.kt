@@ -1,4 +1,4 @@
-package io.github.kurramkurram.angerlog.ui.screen
+package io.github.kurramkurram.angerlog.ui.screen.lookback
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image

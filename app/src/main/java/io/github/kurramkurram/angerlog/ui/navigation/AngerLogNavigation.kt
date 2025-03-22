@@ -9,10 +9,10 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
-import io.github.kurramkurram.angerlog.ui.screen.Permission
-import io.github.kurramkurram.angerlog.ui.screen.PermissionScreen
-import io.github.kurramkurram.angerlog.ui.screen.Policy
-import io.github.kurramkurram.angerlog.ui.screen.PolicyScreen
+import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
+import io.github.kurramkurram.angerlog.ui.screen.permission.PermissionScreen
+import io.github.kurramkurram.angerlog.ui.screen.policy.Policy
+import io.github.kurramkurram.angerlog.ui.screen.policy.PolicyScreen
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisScreen
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar

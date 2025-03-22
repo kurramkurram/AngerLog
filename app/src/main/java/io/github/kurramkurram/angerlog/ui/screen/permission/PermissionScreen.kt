@@ -1,4 +1,4 @@
-package io.github.kurramkurram.angerlog.ui.screen
+package io.github.kurramkurram.angerlog.ui.screen.permission
 
 import android.os.Build
 import androidx.activity.compose.rememberLauncherForActivityResult
