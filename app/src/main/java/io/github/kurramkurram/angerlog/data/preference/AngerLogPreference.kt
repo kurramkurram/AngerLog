@@ -2,7 +2,14 @@ package io.github.kurramkurram.angerlog.data.preference
 
 import android.content.Context
 
+/**
+ * プリファレンスのファイル名.
+ */
 private const val PREFERENCE_FILE_USER_SETTING = "user_setting"
+
+/**
+ * 利用規約の同意状態.
+ */
 const val KEY_POLICY_AGREEMENT = "key_policy_agreement"
 
 /**
