@@ -37,7 +37,21 @@ import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 import io.github.kurramkurram.angerlog.ui.component.AngerLogOutlinedTextField
+import io.github.kurramkurram.angerlog.util.L
 
+/**
+ * 振り返り画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClickClose 閉じる押下時の動作
+ * @param selectedAngerLevel 選択された振り返りの怒りの強さ
+ * @param onSelectedAngerLevel 振り返りの怒りの強さ選択時の動作
+ * @param whyAngerText 振り返りのなぜ怒りを感じたのかの文言
+ * @param onWhyAngerChanged 振り返りのなぜ怒りを感じたのか変更時の動作
+ * @param adviceText 振り返りのアドバイスの文言
+ * @param onAdviceChanged 振り返りのアドバイス変更時の動作
+ * @param onClickSave 保存する押下時の動作
+ */
 @Composable
 fun LookBackScreen(
     modifier: Modifier = Modifier,
@@ -52,17 +66,17 @@ fun LookBackScreen(
 ) {
     Column(
         modifier =
-            Modifier
-                .verticalScroll(rememberScrollState())
-                .padding(horizontal = 5.dp),
+        Modifier
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 5.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
             modifier =
-                modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp, horizontal = 20.dp),
+            modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp, horizontal = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -140,6 +154,15 @@ fun LookBackScreen(
     }
 }
 
+/**
+ * 振り返り画面の項目.
+ *
+ * @param modifier [Modifier]
+ * @param title タイトル
+ * @param onClickAssist アシストクリックしたときの動作
+ * @param icon アイコン
+ * @param content コンテンツ
+ */
 @Composable
 fun LookBackScreenItem(
     modifier: Modifier = Modifier,
@@ -169,6 +192,13 @@ fun LookBackScreenItem(
     }
 }
 
+/**
+ * 振り返り画面の怒りの強さ登録項目.
+ *
+ * @param modifier [Modifier]
+ * @param selected 選択されている怒りの強さ
+ * @param onSelected 怒りの強さ選択した時の動作
+ */
 @Composable
 fun LookBackScreenAngerLevel(
     modifier: Modifier = Modifier,
@@ -194,23 +224,23 @@ fun LookBackScreenAngerLevel(
             Box(modifier = modifier.clickable { onSelected(level) }) {
                 Text(
                     modifier =
-                        modifier
-                            .clip(CircleShape)
-                            .border(
-                                border =
-                                    BorderStroke(
-                                        width = 2.dp,
-                                        color =
-                                            if (selected == level) {
-                                                MaterialTheme.colorScheme.primaryContainer
-                                            } else {
-                                                Color.Transparent
-                                            },
-                                    ),
-                                shape = CircleShape,
-                            )
-                            .background(color = AngerLevel().select(level).getColor())
-                            .padding(horizontal = 20.dp, vertical = 5.dp),
+                    modifier
+                        .clip(CircleShape)
+                        .border(
+                            border =
+                            BorderStroke(
+                                width = 2.dp,
+                                color =
+                                if (selected == level) {
+                                    MaterialTheme.colorScheme.primaryContainer
+                                } else {
+                                    Color.Transparent
+                                },
+                            ),
+                            shape = CircleShape,
+                        )
+                        .background(color = AngerLevel().select(level).getColor())
+                        .padding(horizontal = 20.dp, vertical = 5.dp),
                     text = "${index + 1}",
                 )
             }

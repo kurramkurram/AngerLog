@@ -55,6 +55,13 @@ private const val CHANGE_PAGE_DRAG_AMOUNT = 50
 @Serializable
 object Calendar
 
+/**
+ * カレンダー画面.
+ *
+ * @param modifier [Modifier]
+ * @param onItemClick 日付の選択した時の動作
+ * @param viewModel カレンダー画面のViewModel
+ */
 @Composable
 fun CalendarScreen(
     modifier: Modifier = Modifier,
@@ -69,14 +76,12 @@ fun CalendarScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val calendarState by viewModel.yearMonthState.collectAsStateWithLifecycle()
-        val currentYearMonth = calendarState.yearMonth
 
         AngerLogCalendarPicker(
             modifier = modifier.padding(bottom = 20.dp),
             state = calendarState,
             canShowBackArrow = viewModel.canShowBackArrow(),
             canShowNextArrow = viewModel.canShowNextArrow(),
-            selectYearMonth = currentYearMonth,
             onMinusMonthClick = {
                 viewModel.minusMonths()
                 viewModel.updateAngerLogByMonth()
@@ -90,11 +95,11 @@ fun CalendarScreen(
             onCloseYearDropDown = { viewModel.closeYearDropDown() },
             onCloseMonthDropDown = { viewModel.closeMonthDropDown() },
             onSelectYear = {
-                viewModel.selectYear(it)
+                viewModel.selectedYear(it)
                 viewModel.updateAngerLogByMonth()
             },
             onSelectMonth = {
-                viewModel.selectMonth(it)
+                viewModel.selectedMonth(it)
                 viewModel.updateAngerLogByMonth()
             },
         )
@@ -107,10 +112,8 @@ fun CalendarScreen(
         val state by viewModel.state.collectAsStateWithLifecycle()
         when (state) {
             is CalendarUiState.Success -> {
-                val list = (state as CalendarUiState.Success).calendarItemList
                 CalendarScreenCalendarView(
                     modifier = modifier,
-                    calendarItemsList = list,
                     viewModel = viewModel,
                     state = state as CalendarUiState.Success,
                     pickerUiState = calendarState,
@@ -129,10 +132,18 @@ fun CalendarScreen(
     }
 }
 
+/**
+ * カレンダー画面のデータ取得後の画面.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel カレンダー画面のViewModel
+ * @param state カレンダー画面の状態
+ * @param pickerUiState 年月・ダイアログの表示状態
+ * @param onItemClick 日付の選択した時の動作
+ */
 @Composable
 fun CalendarScreenCalendarView(
     modifier: Modifier = Modifier,
-    calendarItemsList: List<AngerIdListOfDayDto?>,
     viewModel: CalendarViewModel,
     state: CalendarUiState.Success,
     pickerUiState: CalendarPickerUiState,
@@ -174,10 +185,11 @@ fun CalendarScreenCalendarView(
                 CalendarScreenDayOWeekCard(dayOfWeek = dayOfWeek)
             }
 
+            val calendarItemsList = state.calendarItemList
             items(pickerUiState.daysInMonth + firstDayOfWeek) { index ->
                 val day = if (firstDayOfWeek > index) -1 else index - firstDayOfWeek + 1
                 val isToday = day == state.today
-                val calendarItems: AngerIdListOfDayDto? =
+                val calendarItems: CalendarIdListOfDayDto? =
                     if (day > 0 && calendarItemsList.isNotEmpty()) {
                         calendarItemsList[day - 1]
                     } else {
@@ -223,7 +235,7 @@ fun CalendarScreenCalendarView(
 }
 
 /**
- * カレンダーの曜日のカード.
+ * カレンダー画面の曜日のカード.
  *
  * @param modifier [Modifier]
  * @param dayOfWeek 曜日（日から土）
@@ -242,7 +254,7 @@ fun CalendarScreenDayOWeekCard(
 }
 
 /**
- * カレンダーの日付のカード.
+ * カレンダー画面の日付のカード.
  *
  * @param modifier [Modifier]
  * @param day -1, 1~31（-1の時には空のカード）
@@ -253,7 +265,7 @@ fun CalendarScreenCalendarCard(
     modifier: Modifier = Modifier,
     day: Int,
     isToday: Boolean = false,
-    calendarItems: AngerIdListOfDayDto?,
+    calendarItems: CalendarIdListOfDayDto?,
     onItemClick: (Int) -> Unit = {},
 ) {
     val isEmptyCell = day == -1
@@ -295,6 +307,16 @@ fun CalendarScreenCalendarCard(
     }
 }
 
+/**
+ * カレンダー画面の選択ダイアログ.
+ * カレンダー画面で1つ以上、記録があるときに日付選択時に表示するダイアログ
+ *
+ * @param modifier [Modifier]
+ * @param day 日にち
+ * @param ids データベースの一意のidと怒りの強さ
+ * @param onDismissRequest ダイアログ終了時の動作
+ * @param onItemClick 日付 or 「＋」を押下した時の動作
+ */
 @Composable
 fun CalendarScreenLogPicker(
     modifier: Modifier = Modifier,
@@ -368,6 +390,12 @@ fun CalendarScreenLogPicker(
     }
 }
 
+/**
+ * カレンダー画面の選択ダイアログの各項目.
+ *
+ * @param modifier [Modifier]
+ * @param content コンテンツ
+ */
 @Composable
 fun CalendarScreenLogPickerCard(
     modifier: Modifier = Modifier,

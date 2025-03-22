@@ -19,14 +19,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 
+/**
+ * ホーム画面のリストの項目.
+ *
+ * @param modifier [Modifier]
+ * @param item リストの表示内容
+ * @param onItemClick リストを選択した時の動作
+ * @param isRoundTop 項目の上に丸みを付けるかどうか
+ * @param isRoundBottom 項目の下に丸みを付けるかどうか
+ */
 @Composable
 fun HomeListItem(
     modifier: Modifier = Modifier,
-    item: HomeAngerLogDto,
+    item: HomeAngerLog,
     onItemClick: (id: Long) -> Unit,
     isRoundTop: Boolean = true,
     isRoundBottom: Boolean = true,
@@ -69,7 +80,7 @@ fun HomeListItem(
                     Icon(
                         modifier = modifier.padding(horizontal = 20.dp),
                         imageVector = Icons.Outlined.Reviews,
-                        contentDescription = "振り返りができます",
+                        contentDescription = stringResource(R.string.home_review_cd),
                     )
                 }
 

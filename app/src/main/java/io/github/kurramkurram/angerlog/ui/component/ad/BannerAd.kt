@@ -12,6 +12,11 @@ import com.google.android.gms.ads.AdSize
 import com.google.android.gms.ads.AdView
 import io.github.kurramkurram.angerlog.R
 
+/**
+ * バナー広告.
+ *
+ * @param modifier [Modifier]
+ */
 @Composable
 fun AngerLogBannerAd(modifier: Modifier = Modifier) {
     Box(modifier.height(50.dp)) {

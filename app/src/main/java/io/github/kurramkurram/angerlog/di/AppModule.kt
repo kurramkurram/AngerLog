@@ -18,6 +18,9 @@ import io.github.kurramkurram.angerlog.ui.screen.tips.TipsInfoViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
+/**
+ * koinのモジュール [https://insert-koin.io/docs/reference/koin-core/modules/#what-is-a-module].
+ */
 val appModule =
     module {
         single<AngerLogDatabase> { AngerLogDatabase.getDatabases(get()) }

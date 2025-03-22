@@ -42,14 +42,35 @@ import io.github.kurramkurram.angerlog.ui.component.chart.pie.AngerLogPieChart
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
+/**
+ * 月の最大日数.
+ */
 private const val MAX_DAY_OF_MONTH = 31
+
+/**
+ * 折れ線グラフの下方向のオフセット.
+ */
 private const val OFFSET_TOP_OF_LINE_CHART = 0.2f
+
+/**
+ * 折れ線グラフの上方向のオフセット.
+ */
 private const val OFFSET_BOTTOM_OF_LINE_CHART = -0.2f
+
+/**
+ * 前月・翌月ページ送りのドラッグ幅.
+ */
 private const val CHANGE_PAGE_DRAG_AMOUNT = 50
 
 @Serializable
 object Analysis
 
+/**
+ * 分析画面.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 分析画面のViewModel
+ */
 @Composable
 fun AnalysisScreen(
     modifier: Modifier = Modifier,
@@ -57,20 +78,18 @@ fun AnalysisScreen(
 ) {
     Column(
         modifier =
-            modifier
-                .fillMaxSize()
-                .padding(top = 20.dp),
+        modifier
+            .fillMaxSize()
+            .padding(top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val calendarState by viewModel.yearMonthState.collectAsStateWithLifecycle()
-        val currentYearMonth = calendarState.yearMonth
 
         AngerLogCalendarPicker(
             modifier = modifier.padding(bottom = 20.dp),
-            state = calendarState,
             canShowBackArrow = viewModel.canShowBackArrow(),
             canShowNextArrow = viewModel.canShowNextArrow(),
-            selectYearMonth = currentYearMonth,
+            state = calendarState,
             onMinusMonthClick = {
                 viewModel.minusMonths()
                 viewModel.updateAngerLogByMonth()
@@ -84,11 +103,11 @@ fun AnalysisScreen(
             onCloseYearDropDown = { viewModel.closeYearDropDown() },
             onCloseMonthDropDown = { viewModel.closeMonthDropDown() },
             onSelectYear = {
-                viewModel.selectYear(it)
+                viewModel.selectedYear(it)
                 viewModel.updateAngerLogByMonth()
             },
             onSelectMonth = {
-                viewModel.selectMonth(it)
+                viewModel.selectedMonth(it)
                 viewModel.updateAngerLogByMonth()
             },
         )
@@ -119,6 +138,13 @@ fun AnalysisScreen(
     }
 }
 
+/**
+ * 分析画面のデータ取得後の画面.
+ *
+ * @param modifier [Modifier]
+ * @param state 分析画面の状態
+ * @param viewModel 分析画面のViewModel
+ */
 @Composable
 fun AnalysisScreenContent(
     modifier: Modifier = Modifier,
@@ -148,8 +174,8 @@ fun AnalysisScreenContent(
     ) {
         Row(
             modifier =
-                Modifier
-                    .fillMaxWidth(),
+            Modifier
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly,
         ) {
             AnalysisScreenElevatedCard(
@@ -184,14 +210,14 @@ fun AnalysisScreenContent(
             if (state.showRate) {
                 AngerLogPieChart(
                     modifier = Modifier.size(150.dp),
-                    pieData = state.rate.getPieData(),
+                    pieData = state.rate.createPieData(),
                 )
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
                     message = stringResource(R.string.analysis_anger_rate_count_notice),
                 )
             }
@@ -205,18 +231,18 @@ fun AnalysisScreenContent(
             if (state.showAverageOfDayWeek) {
                 AngerLogBarChart(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
-                    data = state.averageOfDayOfWeek.getBarData(),
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
+                    data = state.averageOfDayOfWeek.createBarData(),
                     animationEasing = FastOutSlowInEasing,
                 )
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
                     message = stringResource(R.string.analysis_average_per_day_of_week_notice),
                 )
             }
@@ -232,32 +258,40 @@ fun AnalysisScreenContent(
                 // 上下に余白を持たせるためにOFFSET_TOP_OF_LINE_CHART/OFFSET_BOTTOM_OF_LINE_CHART分オフセットを追加する
                 AngerLogLineChart(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
-                    lineData = state.transition.getLineData(),
-                    maxX = angerLevel.getMaxLevel() + OFFSET_TOP_OF_LINE_CHART,
-                    minX = angerLevel.getMinLevel() + OFFSET_BOTTOM_OF_LINE_CHART,
-                    maxY = MAX_DAY_OF_MONTH,
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
+                    lineData = state.transition.createLineData(),
+                    maxX = MAX_DAY_OF_MONTH,
+                    maxY = angerLevel.getMaxLevel() + OFFSET_TOP_OF_LINE_CHART,
+                    minY = angerLevel.getMinLevel() + OFFSET_BOTTOM_OF_LINE_CHART,
                     lineColor = MaterialTheme.colorScheme.primaryContainer,
                 )
             } else {
                 AnalysisScreenLockedCard(
                     modifier =
-                        Modifier
-                            .fillMaxWidth()
-                            .size(150.dp),
+                    Modifier
+                        .fillMaxWidth()
+                        .size(150.dp),
                     message =
-                        stringResource(
-                            R.string.analysis_transition_notice,
-                            3 - state.recordCount,
-                        ),
+                    stringResource(
+                        R.string.analysis_transition_notice,
+                        3 - state.recordCount,
+                    ),
                 )
             }
         }
     }
 }
 
+/**
+ * 分析画面のカード（影付き）
+ *
+ * @param modifier [Modifier]
+ * @param title タイトル
+ * @param description 説明
+ * @param content コンテンツ
+ */
 @Composable
 fun AnalysisScreenElevatedCard(
     modifier: Modifier = Modifier,
@@ -267,19 +301,19 @@ fun AnalysisScreenElevatedCard(
 ) {
     ElevatedCard(
         modifier =
-            modifier
-                .padding(10.dp),
+        modifier
+            .padding(10.dp),
         elevation =
-            CardDefaults.cardElevation(
-                defaultElevation = 6.dp,
-            ),
+        CardDefaults.cardElevation(
+            defaultElevation = 6.dp,
+        ),
     ) {
         Column(
             modifier =
-                Modifier
-                    .background(color = MaterialTheme.colorScheme.onPrimary)
-                    .fillMaxSize()
-                    .padding(10.dp),
+            Modifier
+                .background(color = MaterialTheme.colorScheme.onPrimary)
+                .fillMaxSize()
+                .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             // タイトル
@@ -292,6 +326,12 @@ fun AnalysisScreenElevatedCard(
     }
 }
 
+/**
+ * 分析画面のカード（データ不足状態）
+ *
+ * @param modifier [Modifier]
+ * @param message メッセージ
+ */
 @Composable
 fun AnalysisScreenLockedCard(
     modifier: Modifier = Modifier,
@@ -299,12 +339,12 @@ fun AnalysisScreenLockedCard(
 ) {
     Box(
         modifier =
-            modifier
-                .padding(10.dp)
-                .background(
-                    color = MaterialTheme.colorScheme.secondary,
-                    shape = MaterialTheme.shapes.small,
-                ),
+        modifier
+            .padding(10.dp)
+            .background(
+                color = MaterialTheme.colorScheme.secondary,
+                shape = MaterialTheme.shapes.small,
+            ),
         contentAlignment = Alignment.Center,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {

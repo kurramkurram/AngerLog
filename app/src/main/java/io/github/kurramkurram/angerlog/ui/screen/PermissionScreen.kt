@@ -31,6 +31,13 @@ private const val TAG = "PermissionScreen"
 @Serializable
 object Permission
 
+/**
+ * 権限取得画面.
+ *
+ * @param modifier [Modifier]
+ * @param onPermissionGranted RuntimePermissionダイアログ閉じた後の動作
+ * @param onClickSkip スキップする押下後の動作
+ */
 @RequiresApi(Build.VERSION_CODES.TIRAMISU)
 @Composable
 fun PermissionScreen(

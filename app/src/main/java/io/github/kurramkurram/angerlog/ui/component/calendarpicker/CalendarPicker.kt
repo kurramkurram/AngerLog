@@ -23,15 +23,34 @@ import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.component.AngerLogDropDown
 import java.time.YearMonth
 
+/**
+ * 年の最小値.
+ */
 const val DEFAULT_MIN_YEAR_OF_PICKER = 2023
 
+/**
+ * 月日を表示・変更する.
+ *
+ * @param modifier [Modifier]
+ * @param minYear 年の最小値
+ * @param canShowBackArrow 「＜」の表示可否
+ * @param canShowNextArrow 「＞」の表示可否
+ * @param state 年月・ダイアログの表示状態
+ * @param onMinusMonthClick 「＜」を押下した時の動作
+ * @param onPlusMonthClick 「＞」を押下した時の動作
+ * @param onShowYearDropDown 「年」のドロップダウンを表示した時の動作
+ * @param onShowMonthDropDown 「月」のドロップダウンを表示した時の動作
+ * @param onCloseYearDropDown 「年」のドロップダウンを閉じた時の動作
+ * @param onCloseMonthDropDown 「月」のドロップダウンを閉じた時の動作
+ * @param onSelectYear 「年」をドロップダウンで選択した時の動作
+ * @param onSelectMonth 「月」をドロップダウンで選択した時の動作
+ */
 @Composable
 fun AngerLogCalendarPicker(
     modifier: Modifier = Modifier,
     minYear: Int = DEFAULT_MIN_YEAR_OF_PICKER,
     canShowBackArrow: Boolean,
     canShowNextArrow: Boolean,
-    selectYearMonth: YearMonth,
     state: CalendarPickerUiState,
     onMinusMonthClick: () -> Unit,
     onPlusMonthClick: () -> Unit,
@@ -44,35 +63,35 @@ fun AngerLogCalendarPicker(
 ) {
     Row(
         modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(horizontal = 20.dp),
+        modifier
+            .fillMaxWidth()
+            .padding(horizontal = 20.dp),
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowLeft,
             modifier =
-                Modifier
-                    .alpha(if (canShowBackArrow) 1f else 0f)
-                    .clickable(enabled = canShowBackArrow) { onMinusMonthClick() },
+            Modifier
+                .alpha(if (canShowBackArrow) 1f else 0f)
+                .clickable(enabled = canShowBackArrow) { onMinusMonthClick() },
             contentDescription = stringResource(R.string.calendar_title_back_cd),
         )
 
         Row(
             modifier =
-                Modifier
-                    .weight(1f)
-                    .fillMaxWidth(),
+            Modifier
+                .weight(1f)
+                .fillMaxWidth(),
             horizontalArrangement = Arrangement.Center,
         ) {
             Column {
                 Text(
-                    text = stringResource(R.string.calendar_title_year, selectYearMonth.year),
+                    text = stringResource(R.string.calendar_title_year, state.yearMonth.year),
                     modifier =
-                        Modifier
-                            .clickable { onShowYearDropDown() }
-                            .padding(horizontal = 10.dp),
+                    Modifier
+                        .clickable { onShowYearDropDown() }
+                        .padding(horizontal = 10.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                 )
@@ -88,14 +107,14 @@ fun AngerLogCalendarPicker(
             Column {
                 Text(
                     text =
-                        stringResource(
-                            R.string.calendar_title_month,
-                            selectYearMonth.month.value,
-                        ),
+                    stringResource(
+                        R.string.calendar_title_month,
+                        state.yearMonth.month.value,
+                    ),
                     modifier =
-                        Modifier
-                            .clickable { onShowMonthDropDown() }
-                            .padding(horizontal = 10.dp),
+                    Modifier
+                        .clickable { onShowMonthDropDown() }
+                        .padding(horizontal = 10.dp),
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
                 )
@@ -111,9 +130,9 @@ fun AngerLogCalendarPicker(
         Icon(
             Icons.AutoMirrored.Filled.KeyboardArrowRight,
             modifier =
-                Modifier
-                    .alpha(if (canShowNextArrow) 1f else 0f)
-                    .clickable(enabled = canShowNextArrow) { onPlusMonthClick() },
+            Modifier
+                .alpha(if (canShowNextArrow) 1f else 0f)
+                .clickable(enabled = canShowNextArrow) { onPlusMonthClick() },
             contentDescription = stringResource(R.string.calendar_title_next_cd),
         )
     }

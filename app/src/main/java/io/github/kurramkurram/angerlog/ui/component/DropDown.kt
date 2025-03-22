@@ -17,6 +17,13 @@ import androidx.compose.ui.unit.dp
 
 /**
  * ドロップダウン.
+ *
+ * @param modifier [Modifier]
+ * @param min 最小値
+ * @param max 最大値
+ * @param expanded ドロップダウンの開閉状態
+ * @param onDismissRequest ドロップダウン終了時の動作
+ * @param onItemSelected ドロップダウンの項目選択時の動作
  */
 @Composable
 fun AngerLogDropDown(

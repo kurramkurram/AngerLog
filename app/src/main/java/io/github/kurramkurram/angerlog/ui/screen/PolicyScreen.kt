@@ -16,6 +16,12 @@ import kotlinx.serialization.Serializable
 @Serializable
 object Policy
 
+/**
+ * 利用規約画面.
+ *
+ * @param modifier [Modifier]
+ * @param onClickBack 戻る押下時の動作
+ */
 @Composable
 fun PolicyScreen(
     modifier: Modifier = Modifier,

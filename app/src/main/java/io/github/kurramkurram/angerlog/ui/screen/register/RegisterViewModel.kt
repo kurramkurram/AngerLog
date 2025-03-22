@@ -22,6 +22,13 @@ import kotlinx.coroutines.launch
 import java.util.Calendar
 import java.util.Date
 
+/**
+ * 登録画面のViewModel.
+ *
+ * @param angerLogDataRepository 怒りの記録のRepository
+ * @param calendar [Calendar]
+ * @param now 現在時刻
+ */
 class RegisterViewModel(
     private val angerLogDataRepository: AngerLogDataRepository,
     calendar: Calendar = Calendar.getInstance(),
@@ -71,20 +78,41 @@ class RegisterViewModel(
     var lookBackAdvice by mutableStateOf("")
         private set
 
+    /**
+     * 日付を更新.
+     *
+     * @param input 更新する日付
+     */
     @OptIn(ExperimentalMaterial3Api::class)
     fun updateDate(input: DatePickerState) {
         date = input.selectedDateMillis?.let { Date(it) } ?: date
     }
 
+    /**
+     * 日付を更新.
+     *
+     * @param input 更新する日付
+     */
     private fun updateDate(input: Date) {
         date = input
     }
 
+    /**
+     * 時間を更新
+     *
+     * @param input 更新する時間
+     */
     @OptIn(ExperimentalMaterial3Api::class)
     fun updateTime(input: TimePickerState) {
         updateTime(input.hour, input.minute)
     }
 
+    /**
+     * 時間を更新
+     *
+     * @param hour 更新する時
+     * @param minute 更新する分
+     */
     private fun updateTime(
         hour: Int,
         minute: Int,
@@ -92,38 +120,84 @@ class RegisterViewModel(
         time = Time(hour, minute)
     }
 
+    /**
+     * 怒りの強さを更新.
+     *
+     * @param input 更新する怒りの強さ
+     */
     fun updateAngerLevel(input: AngerLevelType) {
         angerLevel = input
     }
 
+    /**
+     * できごとを更新.
+     *
+     * @param input 更新するできごと
+     */
     fun updateEvent(input: String) {
         event = input
     }
 
+    /**
+     * できごと詳細を更新.
+     *
+     * @param input 更新するできごと詳細
+     */
     fun updateDetail(input: String) {
         detail = input
     }
 
+    /**
+     * 思ったことを更新.
+     *
+     * @param input 更新する思ったこと
+     */
     fun updateThought(input: String) {
         thought = input
     }
 
+    /**
+     * 場所を更新.
+     *
+     * @param input 更新する場所
+     */
     fun updatePlace(input: String) {
         place = input
     }
 
+    /**
+     * 振り返りの怒りの強さを更新.
+     *
+     * @param input 更新する振り返りの怒りの強さ
+     */
     fun updateLookBackAngerLevel(input: AngerLevelType) {
         lookBackAngerLevel = input
     }
 
+    /**
+     * 振り返りのなぜ怒りを感じたかを更新.
+     *
+     * @param input 更新する振り返りのなぜ怒りを感じたか
+     */
     fun updateLookBackWhyFeelAnger(input: String) {
         lookBackWhyFeelAnger = input
     }
 
+    /**
+     * 振り返りのアドバイスを更新.
+     *
+     * @param input 更新する振り返りのアドバイス
+     */
     fun updateLookBackAdvice(input: String) {
         lookBackAdvice = input
     }
 
+    /**
+     * 初期の登録画面の情報を取得する.
+     *
+     * @param id データベースの一意のid
+     * @param inputDate 日付
+     */
     fun initialize(
         id: Long,
         inputDate: Long,
@@ -170,9 +244,12 @@ class RegisterViewModel(
     }
 
     /**
-     * バック操作のダイアログを表示する.
+     * バック操作.
+     *
+     * 内容に変更があればダイアログ表示状態にする.
+     * 内容に変更がなければ、前の画面に戻る.
      */
-    fun showBackDialog() {
+    fun onBackPressed() {
         val anger = AngerLevel()
         val angerLog =
             AngerLog(
@@ -224,6 +301,9 @@ class RegisterViewModel(
         }
     }
 
+    /**
+     * 振り返りの保存する押下時の動作.
+     */
     fun saveLookBack() {
         val anger = AngerLevel()
         val angerLog =
@@ -282,10 +362,21 @@ class RegisterViewModel(
      */
     fun closeDeleteDialog() = _state.update { RegisterUiState.Success(showDeleteDialog = false) }
 
-    fun showBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = true) }
+    /**
+     * 振り返りのボトムシートを表示する.
+     */
+    fun showLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = true) }
 
-    fun closeBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = false) }
+    /**
+     * 振り返りのボトムシートを閉じる.
+     */
+    fun closeLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = false) }
 
+    /**
+     * 削除する.
+     */
     fun delete() {
         val angerLog =
             AngerLog(

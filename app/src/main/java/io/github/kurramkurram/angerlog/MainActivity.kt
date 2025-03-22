@@ -15,7 +15,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         val backgroundScope = CoroutineScope(Dispatchers.IO)
         backgroundScope.launch {
-            // Initialize the Google Mobile Ads SDK on a background thread.
+            // バックグラウンドスレッドでAdMobを初期化する.
             MobileAds.initialize(this@MainActivity) {}
         }
         enableEdgeToEdge()
