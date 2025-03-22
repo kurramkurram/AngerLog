@@ -92,7 +92,7 @@ class AnalysisViewModel(
      */
     fun canShowBackArrow(): Boolean =
         _yearMonthState.value.yearMonth >
-                YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
+            YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
 
     /**
      * 「＞」の表示可否を判定する.

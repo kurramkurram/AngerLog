@@ -48,12 +48,12 @@ fun InitialScreen(
     Column {
         Column(
             modifier =
-            modifier
-                .weight(1f)
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState())
-                .padding(10.dp),
+                modifier
+                    .weight(1f)
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .verticalScroll(rememberScrollState())
+                    .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(Modifier.height(30.dp))
@@ -102,9 +102,9 @@ fun InitialScreen(
         val context = LocalContext.current
         Button(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             onClick = {
                 onClick()
                 viewModel.agree(context)

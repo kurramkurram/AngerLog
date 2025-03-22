@@ -25,9 +25,7 @@ class AngerLevel {
      * @param levelType 怒りの強さタイプ
      * @return 怒りの強さ
      */
-    fun select(levelType: AngerLevelType): IAngerLevel =
-        ANGER_LEVEL[levelType] ?: throw IllegalArgumentException()
-
+    fun select(levelType: AngerLevelType): IAngerLevel = ANGER_LEVEL[levelType] ?: throw IllegalArgumentException()
 
     /**
      * 怒りの強さデータを取得する.
@@ -48,24 +46,21 @@ class AngerLevel {
      * @param angerLevelType 怒りの強さタイプ
      * @return 怒りの強さ
      */
-    fun getLevel(angerLevelType: AngerLevelType): Int =
-        ANGER_LEVEL[angerLevelType]?.getValue() ?: throw IllegalArgumentException()
+    fun getLevel(angerLevelType: AngerLevelType): Int = ANGER_LEVEL[angerLevelType]?.getValue() ?: throw IllegalArgumentException()
 
     /**
      * 定義されている怒りの強さの最小値を返す.
      *
      * @return 怒りの強さの最小値
      */
-    fun getMinLevel(): Int =
-        ANGER_LEVEL[AngerLevelType.entries.first()]?.getValue() ?: throw IllegalStateException()
+    fun getMinLevel(): Int = ANGER_LEVEL[AngerLevelType.entries.first()]?.getValue() ?: throw IllegalStateException()
 
     /**
      * 定義されている怒りの強さの最大値を返す.
      *
      * @return 怒りの強さの最大値
      */
-    fun getMaxLevel(): Int =
-        ANGER_LEVEL[AngerLevelType.entries.last()]?.getValue() ?: throw IllegalStateException()
+    fun getMaxLevel(): Int = ANGER_LEVEL[AngerLevelType.entries.last()]?.getValue() ?: throw IllegalStateException()
 
     /**
      * 怒りの強さタイプを返す.

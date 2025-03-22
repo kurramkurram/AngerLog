@@ -51,14 +51,14 @@ fun AngerLogBackButtonLayout(
         Box(modifier = modifier.padding(10.dp)) {
             Icon(
                 modifier =
-                modifier
-                    .clip(CircleShape)
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = null,
-                    ) { onClickBack() }
-                    .background(color = MaterialTheme.colorScheme.onPrimary)
-                    .padding(horizontal = 20.dp, vertical = 10.dp),
+                    modifier
+                        .clip(CircleShape)
+                        .clickable(
+                            interactionSource = remember { MutableInteractionSource() },
+                            indication = null,
+                        ) { onClickBack() }
+                        .background(color = MaterialTheme.colorScheme.onPrimary)
+                        .padding(horizontal = 20.dp, vertical = 10.dp),
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 contentDescription = "戻る",
             )
@@ -66,10 +66,10 @@ fun AngerLogBackButtonLayout(
             Column {
                 Text(
                     modifier =
-                    modifier
-                        .fillMaxWidth()
-                        .padding(vertical = 10.dp)
-                        .graphicsLayer { alpha = if (title.isNotEmpty()) 1f else 0f },
+                        modifier
+                            .fillMaxWidth()
+                            .padding(vertical = 10.dp)
+                            .graphicsLayer { alpha = if (title.isNotEmpty()) 1f else 0f },
                     text = title,
                     textAlign = TextAlign.Center,
                     style = MaterialTheme.typography.titleLarge,
@@ -78,9 +78,9 @@ fun AngerLogBackButtonLayout(
                 if (description.isNotEmpty()) {
                     Text(
                         modifier =
-                        modifier
-                            .fillMaxWidth()
-                            .padding(vertical = 10.dp),
+                            modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 10.dp),
                         text = description,
                         textAlign = TextAlign.Center,
                         style = MaterialTheme.typography.bodyLarge,

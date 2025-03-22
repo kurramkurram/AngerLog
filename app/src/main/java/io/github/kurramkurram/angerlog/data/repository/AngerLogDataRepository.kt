@@ -129,7 +129,6 @@ class AngerLogDataRepositoryImpl(
         return dao.selectCalendarItemByPeriod(begin, end)
     }
 
-
     /**
      * 指定件年月。新しいものからカレンダー画面の情報（日付・id・怒りの強さ）を取得する.
      *
@@ -142,7 +141,6 @@ class AngerLogDataRepositoryImpl(
         return dao.selectAnalysisItemByPeriod(begin, end)
     }
 
-
     /**
      * 指定idに一致するものを取得する.
      *
@@ -150,7 +148,6 @@ class AngerLogDataRepositoryImpl(
      * @return 怒りの情報
      */
     override fun getById(id: Long): Flow<AngerLog?> = dao.select(id)
-
 
     private fun getBeginTimeOfMonth(month: YearMonth): Long =
         month.atDay(1)

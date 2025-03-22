@@ -35,7 +35,6 @@ private const val LABEL_BOTTOM_OFFSET = 40f
  */
 private const val DEFAULT_LABEL_DISPLAY_SPAN = 5
 
-
 /**
  * 折れ線グラフ.
  *

@@ -69,22 +69,22 @@ fun AngerLogOutlinedTextField(
         value = value,
         onValueChange = onValueChange,
         modifier =
-        modifier
-            .border(
-                border = BorderStroke(1.dp, Color.DarkGray),
-                shape = MaterialTheme.shapes.small,
-            )
-            .background(
-                color = MaterialTheme.colorScheme.onPrimary,
-                shape = MaterialTheme.shapes.small,
-            )
-            .padding(),
+            modifier
+                .border(
+                    border = BorderStroke(1.dp, Color.DarkGray),
+                    shape = MaterialTheme.shapes.small,
+                )
+                .background(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    shape = MaterialTheme.shapes.small,
+                )
+                .padding(),
         enabled = enabled,
         readOnly = readOnly,
         textStyle =
-        textStyle.copy(
-            color = MaterialTheme.colorScheme.onSurface,
-        ),
+            textStyle.copy(
+                color = MaterialTheme.colorScheme.onSurface,
+            ),
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         visualTransformation = visualTransformation,
@@ -96,11 +96,11 @@ fun AngerLogOutlinedTextField(
 
             Row(
                 modifier =
-                if (height != Dp.Unspecified) {
-                    modifier.height(height)
-                } else {
-                    modifier
-                },
+                    if (height != Dp.Unspecified) {
+                        modifier.height(height)
+                    } else {
+                        modifier
+                    },
                 verticalAlignment = Alignment.CenterVertically,
             ) {
                 Box(
@@ -113,9 +113,9 @@ fun AngerLogOutlinedTextField(
                         Text(
                             text = hint,
                             style =
-                            LocalTextStyle.current.copy(
-                                color = Color.Gray,
-                            ),
+                                LocalTextStyle.current.copy(
+                                    color = Color.Gray,
+                                ),
                         )
                     }
                     innerTextField()

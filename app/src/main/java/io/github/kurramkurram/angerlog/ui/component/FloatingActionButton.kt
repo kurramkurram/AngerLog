@@ -37,7 +37,7 @@ fun AngerLogFloatingActionButton(
         ) {
             Icon(
                 Icons.Filled.Edit,
-                contentDescription = stringResource(R.string.floating_action_button_edit_cd)
+                contentDescription = stringResource(R.string.floating_action_button_edit_cd),
             )
             if (title.isNotBlank()) {
                 Text(modifier = modifier.padding(horizontal = 5.dp), text = title)

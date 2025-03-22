@@ -45,15 +45,15 @@ fun AngerLogVerticalDate(
 
     Column(
         modifier =
-        modifier
-            .fillMaxWidth()
-            .padding(vertical = 10.dp),
+            modifier
+                .fillMaxWidth()
+                .padding(vertical = 10.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Outlined.DateRange,
-                contentDescription = stringResource(R.string.date_date_cd)
+                contentDescription = stringResource(R.string.date_date_cd),
             )
             Spacer(Modifier.padding(2.dp))
             Text(modifier = modifier.clickable { onDateClick() }, text = dateNow)
@@ -64,7 +64,7 @@ fun AngerLogVerticalDate(
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(
                 imageVector = Icons.Outlined.Schedule,
-                contentDescription = stringResource(R.string.date_time_cd)
+                contentDescription = stringResource(R.string.date_time_cd),
             )
             Spacer(Modifier.padding(2.dp))
             Text(modifier = modifier.clickable { onTimeClick() }, text = time.time)

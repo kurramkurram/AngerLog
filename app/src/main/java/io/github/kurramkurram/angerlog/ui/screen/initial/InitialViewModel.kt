@@ -18,7 +18,6 @@ import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
  */
 class InitialViewModel(private val agreementPolicyRepository: AgreementPolicyRepository) :
     ViewModel() {
-
     /**
      * 利用規約に同意した.
      *

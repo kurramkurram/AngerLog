@@ -49,6 +49,5 @@ class AgreementPolicyRepositoryImpl : AgreementPolicyRepository() {
      * @param context [Context]
      * @return true: 同意済み
      */
-    override fun hasAgree(context: Context): Boolean =
-        getFromPreference(context, KEY_POLICY_AGREEMENT, NOT_AGREED) == AGREED
+    override fun hasAgree(context: Context): Boolean = getFromPreference(context, KEY_POLICY_AGREEMENT, NOT_AGREED) == AGREED
 }

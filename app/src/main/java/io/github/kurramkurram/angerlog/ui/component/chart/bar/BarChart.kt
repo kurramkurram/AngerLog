@@ -72,10 +72,10 @@ fun AngerLogBarChart(
     val animation by animateFloatAsState(
         targetValue = if (animating) 1f else 0f,
         animationSpec =
-        tween(
-            durationMillis = animationDuration,
-            easing = animationEasing,
-        ),
+            tween(
+                durationMillis = animationDuration,
+                easing = animationEasing,
+            ),
     )
 
     // 棒グラフ
@@ -84,8 +84,9 @@ fun AngerLogBarChart(
         onDraw = {
             animating = true
 
-            val bWidth = barWidth
-                ?: (size.width / (data.getItemCount() + BAR_WIDTH_OFFSET)) // +3した等分を棒グラフの横幅にする
+            val bWidth =
+                barWidth
+                    ?: (size.width / (data.getItemCount() + BAR_WIDTH_OFFSET)) // +3した等分を棒グラフの横幅にする
             val bSpacing = barSpacing ?: (bWidth * BAR_SPACING_RATE) // 棒の横幅の20%をスペースにする
 
             // 棒と間隔の全体の幅

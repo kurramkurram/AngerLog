@@ -53,12 +53,12 @@ fun LicenseScreen(
                 Column(modifier.padding(horizontal = 5.dp)) {
                     Text(
                         modifier =
-                        modifier.padding(
-                            start = 0.dp,
-                            top = 0.dp,
-                            end = 0.dp,
-                            bottom = 10.dp,
-                        ),
+                            modifier.padding(
+                                start = 0.dp,
+                                top = 0.dp,
+                                end = 0.dp,
+                                bottom = 10.dp,
+                            ),
                         text = it.name,
                     )
 

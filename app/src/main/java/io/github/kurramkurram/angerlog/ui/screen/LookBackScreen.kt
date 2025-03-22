@@ -37,7 +37,6 @@ import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 import io.github.kurramkurram.angerlog.ui.component.AngerLogOutlinedTextField
-import io.github.kurramkurram.angerlog.util.L
 
 /**
  * 振り返り画面.
@@ -66,17 +65,17 @@ fun LookBackScreen(
 ) {
     Column(
         modifier =
-        Modifier
-            .verticalScroll(rememberScrollState())
-            .padding(horizontal = 5.dp),
+            Modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 5.dp),
         verticalArrangement = Arrangement.spacedBy(4.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Row(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp, horizontal = 20.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(vertical = 10.dp, horizontal = 20.dp),
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
@@ -224,23 +223,23 @@ fun LookBackScreenAngerLevel(
             Box(modifier = modifier.clickable { onSelected(level) }) {
                 Text(
                     modifier =
-                    modifier
-                        .clip(CircleShape)
-                        .border(
-                            border =
-                            BorderStroke(
-                                width = 2.dp,
-                                color =
-                                if (selected == level) {
-                                    MaterialTheme.colorScheme.primaryContainer
-                                } else {
-                                    Color.Transparent
-                                },
-                            ),
-                            shape = CircleShape,
-                        )
-                        .background(color = AngerLevel().select(level).getColor())
-                        .padding(horizontal = 20.dp, vertical = 5.dp),
+                        modifier
+                            .clip(CircleShape)
+                            .border(
+                                border =
+                                    BorderStroke(
+                                        width = 2.dp,
+                                        color =
+                                            if (selected == level) {
+                                                MaterialTheme.colorScheme.primaryContainer
+                                            } else {
+                                                Color.Transparent
+                                            },
+                                    ),
+                                shape = CircleShape,
+                            )
+                            .background(color = AngerLevel().select(level).getColor())
+                            .padding(horizontal = 20.dp, vertical = 5.dp),
                     text = "${index + 1}",
                 )
             }

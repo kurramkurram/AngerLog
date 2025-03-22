@@ -77,7 +77,6 @@ class CalendarViewModel(
      */
     fun showMonthDropDown() = _yearMonthState.update { it.showMonthDropDown() }
 
-
     /**
      * 「年」のドロップダウンを閉じる.
      */
@@ -94,8 +93,7 @@ class CalendarViewModel(
      *
      * @return true: 表示する
      */
-    fun canShowBackArrow(): Boolean =
-        _yearMonthState.value.yearMonth > YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
+    fun canShowBackArrow(): Boolean = _yearMonthState.value.yearMonth > YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
 
     /**
      * 「＞」の表示可否を判定する.
@@ -149,19 +147,20 @@ class CalendarViewModel(
         if (::job.isInitialized) {
             job.cancel()
         }
-        job = viewModelScope.launch {
-            _state.value = CalendarUiState.Loading
-            val start = System.currentTimeMillis()
-            calendarDataUseCase.execute(yearMonth).map {
-                it
-            }.catch { CalendarUiState.Error }.collect {
-                val end = System.currentTimeMillis()
-                val diff = end - start
-                if (MAX_LOADING_TIME > diff) {
-                    delay(MAX_LOADING_TIME - diff)
+        job =
+            viewModelScope.launch {
+                _state.value = CalendarUiState.Loading
+                val start = System.currentTimeMillis()
+                calendarDataUseCase.execute(yearMonth).map {
+                    it
+                }.catch { CalendarUiState.Error }.collect {
+                    val end = System.currentTimeMillis()
+                    val diff = end - start
+                    if (MAX_LOADING_TIME > diff) {
+                        delay(MAX_LOADING_TIME - diff)
+                    }
+                    _state.value = it
                 }
-                _state.value = it
             }
-        }
     }
 }

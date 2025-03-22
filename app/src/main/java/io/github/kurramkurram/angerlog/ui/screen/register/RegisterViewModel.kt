@@ -365,14 +365,12 @@ class RegisterViewModel(
     /**
      * 振り返りのボトムシートを表示する.
      */
-    fun showLookBackBottomSheet() =
-        _state.update { RegisterUiState.Success(showBottomSheet = true) }
+    fun showLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = true) }
 
     /**
      * 振り返りのボトムシートを閉じる.
      */
-    fun closeLookBackBottomSheet() =
-        _state.update { RegisterUiState.Success(showBottomSheet = false) }
+    fun closeLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = false) }
 
     /**
      * 削除する.

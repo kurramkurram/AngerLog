@@ -69,10 +69,10 @@ fun AngerLogApp() {
     val navController = rememberNavController()
     Scaffold(
         modifier =
-        Modifier
-            .fillMaxSize()
-            .windowInsetsPadding(WindowInsets.systemBars)
-            .background(color = MaterialTheme.colorScheme.background),
+            Modifier
+                .fillMaxSize()
+                .windowInsetsPadding(WindowInsets.systemBars)
+                .background(color = MaterialTheme.colorScheme.background),
         bottomBar = {
             BottomNavigationBar(
                 navController = navController,
@@ -125,9 +125,9 @@ private fun BottomNavigationBar(
                         )
                     },
                     selected =
-                    currentDestination?.hierarchy?.any {
-                        it.hasRoute(route.route::class)
-                    } == true,
+                        currentDestination?.hierarchy?.any {
+                            it.hasRoute(route.route::class)
+                        } == true,
                     onClick = {
                         navController.navigate(route.route) {
                             popUpTo(navController.graph.findStartDestination().id) {

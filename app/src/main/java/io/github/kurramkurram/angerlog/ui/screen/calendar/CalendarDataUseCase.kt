@@ -9,7 +9,6 @@ import java.time.YearMonth
  * カレンダー画面に表示するデータを生成するユースケース.
  */
 abstract class CalendarDataUseCase {
-
     /**
      * 実行.
      *
