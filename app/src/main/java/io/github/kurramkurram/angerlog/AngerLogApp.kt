@@ -124,7 +124,7 @@ private fun BottomNavigationBar(
                             text = route.name,
                             fontSize = 10.sp,
                             maxLines = 1,
-                            overflow = TextOverflow.Ellipsis
+                            overflow = TextOverflow.Ellipsis,
                         )
                     },
                     selected =
