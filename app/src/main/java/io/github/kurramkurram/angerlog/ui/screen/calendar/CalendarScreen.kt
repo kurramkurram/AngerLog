@@ -5,20 +5,25 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.gestures.detectHorizontalDragGestures
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -36,6 +41,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -49,8 +55,17 @@ import io.github.kurramkurram.angerlog.util.DateConverter
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import java.time.DayOfWeek
+import kotlin.math.min
 
+/**
+ * 月を切り替えることのできるドラッグ幅.
+ */
 private const val CHANGE_PAGE_DRAG_AMOUNT = 50
+
+/**
+ * アイコンを表示できる数.
+ */
+private const val CAN_SHOW_ICON_COUNT = 3
 
 @Serializable
 object Calendar
@@ -70,9 +85,9 @@ fun CalendarScreen(
 ) {
     Column(
         modifier =
-            modifier
-                .fillMaxSize()
-                .padding(top = 20.dp),
+        modifier
+            .fillMaxSize()
+            .padding(top = 20.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val calendarState by viewModel.yearMonthState.collectAsStateWithLifecycle()
@@ -151,20 +166,20 @@ fun CalendarScreenCalendarView(
 ) {
     Column(
         modifier =
-            modifier.pointerInput(Unit) {
-                detectHorizontalDragGestures { _, dragAmount ->
-                    if (dragAmount > CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowBackArrow()) {
-                        viewModel.minusMonths()
-                        viewModel.updateAngerLogByMonth()
-                        return@detectHorizontalDragGestures
-                    }
-                    if (dragAmount < -CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowNextArrow()) {
-                        viewModel.plusMonths()
-                        viewModel.updateAngerLogByMonth()
-                        return@detectHorizontalDragGestures
-                    }
+        modifier.pointerInput(Unit) {
+            detectHorizontalDragGestures { _, dragAmount ->
+                if (dragAmount > CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowBackArrow()) {
+                    viewModel.minusMonths()
+                    viewModel.updateAngerLogByMonth()
+                    return@detectHorizontalDragGestures
                 }
-            },
+                if (dragAmount < -CHANGE_PAGE_DRAG_AMOUNT && viewModel.canShowNextArrow()) {
+                    viewModel.plusMonths()
+                    viewModel.updateAngerLogByMonth()
+                    return@detectHorizontalDragGestures
+                }
+            }
+        },
     ) {
         val firstDayOfWeek = pickerUiState.firstDayOfWeek
         val dayOfWeekSize = DayOfWeek.entries.size
@@ -172,10 +187,10 @@ fun CalendarScreenCalendarView(
         LazyVerticalGrid(
             columns = GridCells.Fixed(dayOfWeekSize),
             modifier =
-                modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight()
-                    .padding(10.dp),
+            modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(10.dp),
             contentPadding = PaddingValues(8.dp),
             horizontalArrangement = Arrangement.spacedBy(4.dp),
             verticalArrangement = Arrangement.spacedBy(4.dp),
@@ -280,29 +295,57 @@ fun CalendarScreenCalendarCard(
     val ids = calendarItems?.ids
     Column(
         modifier =
-            modifier
-                .graphicsLayer { this.alpha = alpha }
-                .clickable { onClick(day) }
-                .border(
-                    border =
-                        BorderStroke(
-                            width = 1.dp,
-                            color = MaterialTheme.colorScheme.primaryContainer,
-                        ),
-                    shape = MaterialTheme.shapes.small,
-                )
-                .background(
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    shape = MaterialTheme.shapes.small,
-                )
-                .padding(10.dp),
+        modifier
+            .graphicsLayer { this.alpha = alpha }
+            .clickable { onClick(day) }
+            .border(
+                border =
+                BorderStroke(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                ),
+                shape = MaterialTheme.shapes.small,
+            )
+            .background(
+                color = MaterialTheme.colorScheme.onPrimary,
+                shape = MaterialTheme.shapes.small,
+            )
+            .defaultMinSize(minHeight = 80.dp)
+            .padding(vertical = 10.dp, horizontal = 5.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         Text(text = "$day", color = if (isToday) Color.Blue else Color.Gray)
-        if ((ids?.size ?: 0) == 0) {
-            Icon(Icons.Filled.Add, contentDescription = "", modifier = modifier.padding(3.dp))
-        } else {
-            Text(text = "${ids?.size}", modifier = modifier.padding(3.dp))
+
+        if ((ids?.size ?: 0) > 0) {
+            Row(
+                modifier = modifier
+                    .fillMaxHeight()
+                    .horizontalScroll(rememberScrollState()),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                ids?.let {
+                    val iconCount = min(ids.size, CAN_SHOW_ICON_COUNT)
+                    for (i in 0 until iconCount) {
+                        Box(
+                            modifier =
+                            modifier
+                                .clip(CircleShape)
+                                .background(
+                                    color = AngerLevel().select(ids[i].second).getColor()
+                                )
+                                .padding(3.dp),
+                        )
+                    }
+                    if (ids.size > CAN_SHOW_ICON_COUNT) {
+                        Text(
+                            stringResource(R.string.calendar_over_show_count),
+                            modifier = modifier
+                                .padding(1.dp),
+                        )
+                    }
+                }
+            }
         }
     }
 }
@@ -328,12 +371,12 @@ fun CalendarScreenLogPicker(
     Dialog(onDismissRequest = onDismissRequest) {
         Column(
             modifier =
-                modifier
-                    .size(200.dp)
-                    .background(
-                        color = MaterialTheme.colorScheme.onPrimary,
-                        shape = MaterialTheme.shapes.small,
-                    ),
+            modifier
+                .padding(50.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    shape = MaterialTheme.shapes.small,
+                ),
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center,
         ) {
@@ -354,14 +397,14 @@ fun CalendarScreenLogPicker(
                 items(1) {
                     CalendarScreenLogPickerCard(
                         modifier =
-                            modifier.clickable {
-                                onItemClick(0, day)
-                                onDismissRequest()
-                            },
+                        modifier.clickable {
+                            onItemClick(0, day)
+                            onDismissRequest()
+                        },
                     ) {
                         Icon(
                             Icons.Filled.Add,
-                            contentDescription = "",
+                            contentDescription = stringResource(R.string.calendar_log_picker_add_cd),
                             modifier = modifier.padding(3.dp),
                         )
                     }
@@ -370,17 +413,17 @@ fun CalendarScreenLogPicker(
                 items(ids) {
                     CalendarScreenLogPickerCard(
                         modifier =
-                            modifier.clickable {
-                                onItemClick(it.first, day)
-                                onDismissRequest()
-                            },
+                        modifier.clickable {
+                            onItemClick(it.first, day)
+                            onDismissRequest()
+                        },
                     ) {
                         Text(
                             modifier =
-                                modifier
-                                    .clip(CircleShape)
-                                    .background(color = AngerLevel().select(it.second).getColor())
-                                    .padding(horizontal = 10.dp, vertical = 3.dp),
+                            modifier
+                                .clip(CircleShape)
+                                .background(color = AngerLevel().select(it.second).getColor())
+                                .padding(horizontal = 10.dp, vertical = 3.dp),
                             text = "${it.second}",
                         )
                     }
@@ -404,20 +447,20 @@ fun CalendarScreenLogPickerCard(
     Box(
         contentAlignment = Alignment.Center,
         modifier =
-            modifier
-                .border(
-                    border =
-                        BorderStroke(
-                            width = 1.dp,
-                            color = MaterialTheme.colorScheme.primaryContainer,
-                        ),
-                    shape = MaterialTheme.shapes.small,
-                )
-                .background(
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    shape = MaterialTheme.shapes.small,
-                )
-                .padding(vertical = 10.dp),
+        modifier
+            .border(
+                border =
+                BorderStroke(
+                    width = 1.dp,
+                    color = MaterialTheme.colorScheme.primaryContainer,
+                ),
+                shape = MaterialTheme.shapes.small,
+            )
+            .background(
+                color = MaterialTheme.colorScheme.onPrimary,
+                shape = MaterialTheme.shapes.small,
+            )
+            .padding(vertical = 10.dp),
     ) {
         content()
     }
@@ -431,10 +474,10 @@ fun CalendarScreenLogPickerCard(
 //    }
 // }
 //
-// @Composable
-// @Preview
-// fun PreviewCalendarCard() {
-//    Box(modifier = Modifier.background(color = MaterialTheme.colorScheme.background)) {
-//        CalendarScreenCalendarCard(day = 1)
-//    }
-// }
+//@Composable
+//@Preview
+//fun PreviewCalendarCard() {
+//    val calendarIdListOfDayDto =
+//        CalendarIdListOfDayDto(1, listOf(Pair(1, 2), Pair(1, 3), Pair(1, 4), Pair(1, 5)))
+//    CalendarScreenCalendarCard(day = 1, calendarItems = calendarIdListOfDayDto)
+//}
