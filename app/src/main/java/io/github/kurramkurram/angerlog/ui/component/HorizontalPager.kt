@@ -8,6 +8,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 
 /**
+ * HorizontalPagerのスワイプ判定の割合.
+ * (指定の値 * 100)%以上スワイプを行った場合、切り替わったと判定する
+ */
+private const val DEFAULT_SNAP_POSITION_RATE = 0.2f
+
+/**
  * 横方向のページャー.
  *
  * @param modifier [Modifier]
@@ -22,7 +28,7 @@ fun AngerLogHorizontalPager(
     findBehavior: TargetedFlingBehavior =
         PagerDefaults.flingBehavior(
             state,
-            snapPositionalThreshold = 0.2f,
+            snapPositionalThreshold = DEFAULT_SNAP_POSITION_RATE,
         ),
     pageContent: @Composable (Int) -> Unit,
 ) {
