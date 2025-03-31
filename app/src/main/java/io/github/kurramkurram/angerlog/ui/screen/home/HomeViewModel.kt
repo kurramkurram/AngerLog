@@ -33,7 +33,7 @@ class HomeViewModel(angerLogDataRepository: AngerLogDataRepository) : ViewModel(
                 val homeAngerLog = HomeAngerLog(angerLog = it, now = calendar.timeInMillis)
                 angerLogList.add(homeAngerLog)
             }
-            HomeUiState.Success(angerLogList = angerLogList)
+            HomeUiState.Success(logList = angerLogList)
         }.stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(STOP_TIME_OUT_MILLIS),
