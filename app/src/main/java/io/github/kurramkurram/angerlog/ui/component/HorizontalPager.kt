@@ -19,11 +19,12 @@ import androidx.compose.ui.Modifier
 fun AngerLogHorizontalPager(
     modifier: Modifier = Modifier,
     state: PagerState,
-    findBehavior: TargetedFlingBehavior = PagerDefaults.flingBehavior(
-        state,
-        snapPositionalThreshold = 0.2f
-    ),
-    pageContent: @Composable (Int) -> Unit
+    findBehavior: TargetedFlingBehavior =
+        PagerDefaults.flingBehavior(
+            state,
+            snapPositionalThreshold = 0.2f,
+        ),
+    pageContent: @Composable (Int) -> Unit,
 ) {
     HorizontalPager(
         modifier = modifier,

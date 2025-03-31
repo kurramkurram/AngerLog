@@ -10,7 +10,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
-import androidx.compose.material3.TabRowDefaults
 import androidx.compose.material3.TabRowDefaults.tabIndicatorOffset
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -34,7 +33,7 @@ fun AngerLogTabLayout(
     pagerState: PagerState,
     list: List<TabContent>,
     selectedIndex: Int,
-    onTabSelected: (Int) -> Unit
+    onTabSelected: (Int) -> Unit,
 ) {
     Column {
         TabRow(
@@ -48,8 +47,8 @@ fun AngerLogTabLayout(
                             .height(3.dp)
                             .background(
                                 color = MaterialTheme.colorScheme.onSurface,
-                                shape = RoundedCornerShape(100.dp, 100.dp, 0.dp, 0.dp)
-                            )
+                                shape = RoundedCornerShape(100.dp, 100.dp, 0.dp, 0.dp),
+                            ),
                     )
                 }
             },
@@ -58,14 +57,14 @@ fun AngerLogTabLayout(
                 AngerLogTab(
                     modifier = modifier,
                     selected = selectedIndex == index,
-                    label = content.label
+                    label = content.label,
                 ) { onTabSelected(index) }
             }
         }
 
         AngerLogHorizontalPager(
             modifier = modifier,
-            state = pagerState
+            state = pagerState,
         ) { page ->
             list[page].content()
         }
@@ -85,14 +84,14 @@ fun AngerLogTab(
     modifier: Modifier = Modifier,
     selected: Boolean,
     label: String,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
     Tab(modifier = modifier, selected = selected, onClick = onClick) {
         Text(
             modifier = modifier.padding(vertical = 10.dp),
             text = label,
             color = MaterialTheme.colorScheme.onSurface,
-            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal
+            fontWeight = if (selected) FontWeight.Bold else FontWeight.Normal,
         )
     }
 }

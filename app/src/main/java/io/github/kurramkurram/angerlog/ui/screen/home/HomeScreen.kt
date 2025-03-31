@@ -23,7 +23,6 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import io.github.kurramkurram.angerlog.R
-import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalPager
 import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogTabLayout
 import io.github.kurramkurram.angerlog.ui.component.layout.TabContent
 import kotlinx.coroutines.launch
@@ -48,17 +47,17 @@ fun HomeScreen(
 ) {
     Column(
         modifier =
-        modifier
-            .padding(top = 20.dp)
-            .fillMaxSize(),
+            modifier
+                .padding(top = 20.dp)
+                .fillMaxSize(),
     ) {
         val state by viewModel.state.collectAsStateWithLifecycle()
 
         Text(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
             text = stringResource(R.string.home_title),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
@@ -69,7 +68,7 @@ fun HomeScreen(
                 val success = state as HomeUiState.Success
                 HomeScreenContent(
                     modifier = modifier,
-                    state = success
+                    state = success,
                 ) { onClick(it) }
             }
 
@@ -97,21 +96,22 @@ fun HomeScreenContent(
     state: HomeUiState.Success,
     onClick: (Long) -> Unit,
 ) {
-    val list = mutableListOf(
-        TabContent(
-            label = stringResource(R.string.home_tab_anger)
-        ) {
-            HomeScreenAngerContent(
-                modifier = Modifier,
-                state = state,
-                onClick = { onClick(it) },
-            )
-        }
-    )
+    val list =
+        mutableListOf(
+            TabContent(
+                label = stringResource(R.string.home_tab_anger),
+            ) {
+                HomeScreenAngerContent(
+                    modifier = Modifier,
+                    state = state,
+                    onClick = { onClick(it) },
+                )
+            },
+        )
     if (state.hasLookBack) {
         list.add(
             TabContent(
-                label = stringResource(R.string.home_tab_look_back)
+                label = stringResource(R.string.home_tab_look_back),
             ) {
                 HomeScreenLookBackContent(
                     modifier = Modifier,
@@ -172,9 +172,9 @@ fun HomeScreenAngerContentHasRecord(
 ) {
     LazyColumn(
         modifier =
-        modifier
-            .padding(10.dp)
-            .fillMaxHeight(),
+            modifier
+                .padding(10.dp)
+                .fillMaxHeight(),
     ) {
         items(state.angerLogList) { angerLog ->
             HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
@@ -188,12 +188,10 @@ fun HomeScreenAngerContentHasRecord(
  * @param modifier [Modifier]
  */
 @Composable
-fun HomeScreenAngerContentNoRecord(
-    modifier: Modifier = Modifier,
-) {
+fun HomeScreenAngerContentNoRecord(modifier: Modifier = Modifier) {
     Box(
         modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+        contentAlignment = Alignment.Center,
     ) {
         Text(
             text = stringResource(R.string.home_no_anger_log),
@@ -218,9 +216,9 @@ fun HomeScreenLookBackContent(
 ) {
     LazyColumn(
         modifier =
-        modifier
-            .padding(10.dp)
-            .fillMaxHeight(),
+            modifier
+                .padding(10.dp)
+                .fillMaxHeight(),
     ) {
         items(state.lookBackList) { angerLog ->
             HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
