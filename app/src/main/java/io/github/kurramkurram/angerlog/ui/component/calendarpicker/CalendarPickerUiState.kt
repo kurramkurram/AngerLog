@@ -42,11 +42,12 @@ class CalendarPickerUiState(
         dropDownMaxYear = now.year
 
         // 選択中の年と現在の年が同じ場合、現在の月まで選択可能とする
-        dropDownMaxMonth = if (yearMonth.year == now.year) {
-            now.month.value - 1
-        } else {
-            12
-        }
+        dropDownMaxMonth =
+            if (yearMonth.year == now.year) {
+                now.month.value - 1
+            } else {
+                12
+            }
     }
 
     /**
@@ -54,16 +55,14 @@ class CalendarPickerUiState(
      *
      * @return 更新した[CalendarPickerUiState]
      */
-    fun minusMonths(): CalendarPickerUiState =
-        CalendarPickerUiState(now, yearDropDown, monthDropDown, yearMonth.minusMonths(1))
+    fun minusMonths(): CalendarPickerUiState = CalendarPickerUiState(now, yearDropDown, monthDropDown, yearMonth.minusMonths(1))
 
     /**
      * 月をひと月進める.
      *
      * @return 更新した[CalendarPickerUiState]
      */
-    fun plusMonths(): CalendarPickerUiState =
-        CalendarPickerUiState(now, yearDropDown, monthDropDown, yearMonth.plusMonths(1))
+    fun plusMonths(): CalendarPickerUiState = CalendarPickerUiState(now, yearDropDown, monthDropDown, yearMonth.plusMonths(1))
 
     /**
      * 年を選択する.
@@ -73,11 +72,12 @@ class CalendarPickerUiState(
      */
     fun changeYear(year: Int): CalendarPickerUiState {
         val selectYm = YearMonth.of(year, yearMonth.month)
-        val displayYm = if (selectYm > now) {
-            now
-        } else {
-            yearMonth.withYear(year)
-        }
+        val displayYm =
+            if (selectYm > now) {
+                now
+            } else {
+                yearMonth.withYear(year)
+            }
         return CalendarPickerUiState(now, yearDropDown, monthDropDown, displayYm)
     }
 
@@ -87,38 +87,33 @@ class CalendarPickerUiState(
      * @param month 変更する月
      * @return 更新した[CalendarPickerUiState]
      */
-    fun changeMonth(month: Int): CalendarPickerUiState =
-        CalendarPickerUiState(now, yearDropDown, monthDropDown, yearMonth.withMonth(month))
+    fun changeMonth(month: Int): CalendarPickerUiState = CalendarPickerUiState(now, yearDropDown, monthDropDown, yearMonth.withMonth(month))
 
     /**
      * 「年」のドロップダウンを表示する.
      *
      * @return 更新した[CalendarPickerUiState]
      */
-    fun showYearDropDown(): CalendarPickerUiState =
-        CalendarPickerUiState(now, true, monthDropDown, yearMonth)
+    fun showYearDropDown(): CalendarPickerUiState = CalendarPickerUiState(now, true, monthDropDown, yearMonth)
 
     /**
      * 「月」のドロップダウンを表示する.
      *
      * @return 更新した[CalendarPickerUiState]
      */
-    fun showMonthDropDown(): CalendarPickerUiState =
-        CalendarPickerUiState(now, yearDropDown, true, yearMonth)
+    fun showMonthDropDown(): CalendarPickerUiState = CalendarPickerUiState(now, yearDropDown, true, yearMonth)
 
     /**
      * 「年」のドロップダウンを閉じる.
      *
      * @return 更新した[CalendarPickerUiState]
      */
-    fun closeYearDropDown(): CalendarPickerUiState =
-        CalendarPickerUiState(now, false, monthDropDown, yearMonth)
+    fun closeYearDropDown(): CalendarPickerUiState = CalendarPickerUiState(now, false, monthDropDown, yearMonth)
 
     /**
      * 「月」のドロップダウンを閉じる.
      *
      * @return 更新した[CalendarPickerUiState]
      */
-    fun closeMonthDropDown(): CalendarPickerUiState =
-        CalendarPickerUiState(now, yearDropDown, false, yearMonth)
+    fun closeMonthDropDown(): CalendarPickerUiState = CalendarPickerUiState(now, yearDropDown, false, yearMonth)
 }
