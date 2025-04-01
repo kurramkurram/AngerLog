@@ -66,3 +66,4 @@ kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 oss-licesnses-plugin = { id = "com.google.android.gms.oss-licenses-plugin" }
+dokka = { id = "org.jetbrains.dokka", version = "1.8.10" }
