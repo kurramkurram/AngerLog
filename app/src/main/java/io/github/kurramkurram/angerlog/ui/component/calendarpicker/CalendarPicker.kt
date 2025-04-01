@@ -97,7 +97,7 @@ fun AngerLogCalendarPicker(
 
                 AngerLogDropDown(
                     min = minYear,
-                    max = state.now.year,
+                    max = state.dropDownMaxYear,
                     expanded = state.yearDropDown,
                     onDismissRequest = { onCloseYearDropDown() },
                 ) { onSelectYear(it) }
@@ -119,7 +119,7 @@ fun AngerLogCalendarPicker(
                 )
                 AngerLogDropDown(
                     min = 1,
-                    max = 12,
+                    max = state.dropDownMaxMonth,
                     expanded = state.monthDropDown,
                     onDismissRequest = { onCloseMonthDropDown() },
                 ) { onSelectMonth(it) }
