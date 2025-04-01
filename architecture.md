@@ -32,13 +32,6 @@ flowchart TD
         DI["DI – AppModule"]:::di
     end
 
-    <!-- subgraph "Testing & Build"
-        TEST_UNIT["Unit Tests"]:::testing
-        TEST_INSTRUMENTED["Instrumented Tests"]:::testing
-        BUILD["Build & CI/CD Configurations"]:::external
-        XD["XD Design Prototype"]:::external
-    end -->
-
     %% Connections
     APP_SETUP --> UI_Screens
     APP_SETUP --> UI_Components
