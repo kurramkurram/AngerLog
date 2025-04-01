@@ -86,7 +86,7 @@ fun LookBackScreen(
             Icon(
                 modifier = modifier.weight(1f),
                 imageVector = Icons.Outlined.Reviews,
-                contentDescription = stringResource(R.string.register_look_back_button),
+                contentDescription = stringResource(R.string.look_back),
             )
             Text(
                 modifier = modifier.clickable { onClickSave() },
