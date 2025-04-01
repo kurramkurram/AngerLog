@@ -1,5 +1,6 @@
 package io.github.kurramkurram.angerlog.ui.component.calendarpicker
 
+import io.github.kurramkurram.angerlog.ui.CustomDayOfWeek
 import java.time.YearMonth
 
 /**
@@ -10,7 +11,6 @@ import java.time.YearMonth
  * @param monthDropDown 「月」のドロップダウンの表示状態 true: 表示中
  * @param yearMonth 現在表示している年月
  * @param daysInMonth 現在表示している年月の日数 1月 -> 31, 4月 -> 30
- * @param firstDayOfWeek 現在表示している年月の初日の曜日
  */
 class CalendarPickerUiState(
     val now: YearMonth = YearMonth.now(),
@@ -18,8 +18,17 @@ class CalendarPickerUiState(
     val monthDropDown: Boolean = false,
     val yearMonth: YearMonth = YearMonth.now(),
     val daysInMonth: Int = yearMonth.lengthOfMonth(),
-    val firstDayOfWeek: Int = yearMonth.atDay(1).dayOfWeek.value,
 ) {
+    /**
+     * 現在表示している年月の初日の曜日.
+     */
+    val firstDayOfWeek: Int
+
+    init {
+        val customDayOfWeek = CustomDayOfWeek()
+        firstDayOfWeek = customDayOfWeek.select(yearMonth.atDay(1).dayOfWeek.value).getValue()
+    }
+
     /**
      * 月をひと月戻す.
      *
