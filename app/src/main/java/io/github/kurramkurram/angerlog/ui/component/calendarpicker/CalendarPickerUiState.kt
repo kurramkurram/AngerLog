@@ -24,9 +24,30 @@ class CalendarPickerUiState(
      */
     val firstDayOfWeek: Int
 
+    /**
+     * ドロップダウンで選択できる年の最大.
+     */
+    val dropDownMaxYear: Int
+
+    /**
+     * ドロップダウンで選択できる月の最大.
+     */
+    val dropDownMaxMonth: Int
+
     init {
         val customDayOfWeek = CustomDayOfWeek()
         firstDayOfWeek = customDayOfWeek.select(yearMonth.atDay(1).dayOfWeek.value).getValue()
+
+        // 現在の年まで選択可能とする
+        dropDownMaxYear = now.year
+
+        // 選択中の年と現在の年が同じ場合、現在の月まで選択可能とする
+        dropDownMaxMonth =
+            if (yearMonth.year == now.year) {
+                now.month.value - 1
+            } else {
+                12
+            }
     }
 
     /**
@@ -49,7 +70,16 @@ class CalendarPickerUiState(
      * @param year 変更する年
      * @return 更新した[CalendarPickerUiState]
      */
-    fun changeYear(year: Int): CalendarPickerUiState = CalendarPickerUiState(now, yearDropDown, monthDropDown, yearMonth.withYear(year))
+    fun changeYear(year: Int): CalendarPickerUiState {
+        val selectYm = YearMonth.of(year, yearMonth.month)
+        val displayYm =
+            if (selectYm > now) {
+                now
+            } else {
+                yearMonth.withYear(year)
+            }
+        return CalendarPickerUiState(now, yearDropDown, monthDropDown, displayYm)
+    }
 
     /**
      * 月を選択する.

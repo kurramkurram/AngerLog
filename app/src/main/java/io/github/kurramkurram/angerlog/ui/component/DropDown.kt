@@ -63,8 +63,6 @@ fun AngerLogDropDown(
                 text = "$it",
                 textAlign = TextAlign.Center,
             )
-
-            AngerLogHorizontalDivider()
         }
     }
 }
