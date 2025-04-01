@@ -20,6 +20,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Lightbulb
 import androidx.compose.material.icons.filled.QuestionMark
 import androidx.compose.material.icons.filled.Whatshot
+import androidx.compose.material.icons.outlined.Reviews
 import androidx.compose.material.icons.sharp.CheckCircle
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -82,11 +83,10 @@ fun LookBackScreen(
                 modifier = modifier.clickable { onClickClose() },
                 text = stringResource(R.string.look_back_close),
             )
-            Text(
+            Icon(
                 modifier = modifier.weight(1f),
-                text = stringResource(R.string.look_back),
-                style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center,
+                imageVector = Icons.Outlined.Reviews,
+                contentDescription = stringResource(R.string.register_look_back_button),
             )
             Text(
                 modifier = modifier.clickable { onClickSave() },
@@ -102,6 +102,7 @@ fun LookBackScreen(
         Text(
             modifier = modifier.fillMaxWidth(),
             text = stringResource(R.string.look_back_description),
+            style = MaterialTheme.typography.bodySmall,
             textAlign = TextAlign.Center,
         )
 
@@ -170,7 +171,7 @@ fun LookBackScreenItem(
     icon: @Composable () -> Unit,
     content: @Composable () -> Unit,
 ) {
-    Column(modifier = modifier.padding(vertical = 4.dp)) {
+    Column(modifier = modifier.padding(vertical = 10.dp)) {
         Row(
             modifier = modifier.padding(vertical = 4.dp),
             verticalAlignment = Alignment.CenterVertically,
