@@ -26,6 +26,7 @@
     <string name="home_tab_anger">最近の怒り</string>
     <string name="home_tab_look_back">振り返り</string>
     <string name="home_review_cd">振り返りができます</string>
+    <string name="home_look_back_description">これまで記録したアンガーログをもとに怒りを振り返ってみましょう</string>
 
     <string name="calendar">カレンダー</string>
     <string name="calendar_title_back_cd">戻る</string>
