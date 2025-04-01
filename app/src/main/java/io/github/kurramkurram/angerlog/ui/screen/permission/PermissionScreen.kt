@@ -56,7 +56,7 @@ fun PermissionScreen(
                     .verticalScroll(rememberScrollState())
                     .padding(10.dp),
             verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Text(
                 modifier = modifier.padding(vertical = 10.dp),
