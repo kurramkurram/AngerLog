@@ -22,3 +22,9 @@ Google Play and the Google Play logo are trademarks of Google LLC.
 傾向がわかれば対策を立てることができるかもしれません。
 
 「記録」と「振り返り」の繰り返しにより、上手に怒りと付き合うことができるようになることをサポートできればと思います。
+
+### アーキテクチャ
+
+アーキテクチャは[こちら](https://github.com/kurramkurram/AngerLog/blob/master/architecture.md)
+
+
