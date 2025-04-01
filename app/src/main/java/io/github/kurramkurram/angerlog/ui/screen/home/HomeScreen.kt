@@ -172,9 +172,7 @@ fun HomeScreenAngerContentHasRecord(
 ) {
     LazyColumn(
         modifier =
-            modifier
-                .padding(10.dp)
-                .fillMaxHeight(),
+            modifier.fillMaxHeight(),
     ) {
         items(state.angerLogList) { angerLog ->
             HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
@@ -214,14 +212,24 @@ fun HomeScreenLookBackContent(
     state: HomeUiState.Success,
     onClick: (Long) -> Unit,
 ) {
-    LazyColumn(
-        modifier =
-            modifier
-                .padding(10.dp)
-                .fillMaxHeight(),
-    ) {
-        items(state.lookBackList) { angerLog ->
-            HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
+    Column {
+        Text(
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
+            text = stringResource(R.string.home_look_back_description),
+            textAlign = TextAlign.Center,
+        )
+
+        LazyColumn(
+            modifier =
+                modifier
+                    .fillMaxHeight(),
+        ) {
+            items(state.lookBackList) { angerLog ->
+                HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
+            }
         }
     }
 }
