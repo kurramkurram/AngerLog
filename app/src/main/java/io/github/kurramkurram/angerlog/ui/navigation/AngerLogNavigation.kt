@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
+import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutApp
+import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutAppScreen
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisScreen
 import io.github.kurramkurram.angerlog.ui.screen.calendar.Calendar
@@ -107,6 +109,7 @@ fun AngerLogNavHost(
         composable<Setting> {
             SettingScreen(
                 onItemTipsClick = { navController.navigate(route = Tips) },
+                onAboutAppClick = { navController.navigate(route = AboutApp) },
                 onPolicyClick = { navController.navigate(route = Policy) },
                 onLicenseClick = { navController.navigate(route = License) },
             )
@@ -122,6 +125,8 @@ fun AngerLogNavHost(
                 onClickBack = { navController.popBackStack() },
             )
         }
+
+        composable<AboutApp> { AboutAppScreen(onClickBack = { navController.popBackStack() }) }
 
         composable<Tips> { TipsScreen(onClickBack = { navController.popBackStack() }) }
 

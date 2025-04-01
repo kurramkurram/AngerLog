@@ -55,6 +55,7 @@
     <string name="analysis_lock_cd">機能が制限されています。</string>
 
     <string name="setting">設定</string>
+    <string name="setting_about_app">%sについて</string>
     <string name="setting_tips">お役立ちTips</string>
     <string name="setting_notification">お知らせの設定</string>
     <string name="setting_application_version">アプリバージョン</string>
@@ -98,6 +99,8 @@
     <string name="look_back_why_anger_hint">例）\n・「人を待たせるべきではない」といった考え\n・「時間は守るべき」といった考え</string>
     <string name="look_back_advice_title">当時の自分へアドバイスしてみましょう</string>
     <string name="look_back_advice_hint">例）急な用事ができなのかもしれない、連絡してみたらよかった</string>
+
+    <string name="about_app">%sについて</string>
 
     <string name="tips">お役立ちTips</string>
     <string name="tips_description">怒りをコントロールするためのお役立ち情報を紹介\n怒りを感じたら次のことをやってみましょう。</string>

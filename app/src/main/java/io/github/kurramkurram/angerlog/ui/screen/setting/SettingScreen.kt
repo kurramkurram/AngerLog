@@ -56,6 +56,7 @@ object Setting
 @Composable
 fun SettingScreen(
     modifier: Modifier = Modifier,
+    onAboutAppClick: () -> Unit,
     onItemTipsClick: () -> Unit,
     onPolicyClick: () -> Unit,
     onLicenseClick: () -> Unit,
@@ -77,6 +78,17 @@ fun SettingScreen(
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
         )
+
+        SettingScreenSectionItem {
+            // アンガーログについて
+            SettingScreenItem(
+                leading =
+                    stringResource(
+                        R.string.setting_about_app,
+                        stringResource(R.string.app_name),
+                    ),
+            ) { onAboutAppClick() }
+        }
 
         SettingScreenSectionItem {
             // お役立ち
