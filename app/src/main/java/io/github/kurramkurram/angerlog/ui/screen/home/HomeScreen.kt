@@ -47,17 +47,17 @@ fun HomeScreen(
 ) {
     Column(
         modifier =
-        modifier
-            .padding(top = 20.dp)
-            .fillMaxSize(),
+            modifier
+                .padding(top = 20.dp)
+                .fillMaxSize(),
     ) {
         val state by viewModel.state.collectAsStateWithLifecycle()
 
         Text(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
             text = stringResource(R.string.home_title),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
@@ -172,7 +172,7 @@ fun HomeScreenAngerContentHasRecord(
 ) {
     LazyColumn(
         modifier =
-        modifier.fillMaxHeight(),
+            modifier.fillMaxHeight(),
     ) {
         items(state.angerLogList) { angerLog ->
             HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
@@ -214,17 +214,18 @@ fun HomeScreenLookBackContent(
 ) {
     Column {
         Text(
-            modifier = modifier
-                .fillMaxWidth()
-                .padding(10.dp),
+            modifier =
+                modifier
+                    .fillMaxWidth()
+                    .padding(10.dp),
             text = stringResource(R.string.home_look_back_description),
-            textAlign = TextAlign.Center
+            textAlign = TextAlign.Center,
         )
 
         LazyColumn(
             modifier =
-            modifier
-                .fillMaxHeight(),
+                modifier
+                    .fillMaxHeight(),
         ) {
             items(state.lookBackList) { angerLog ->
                 HomeListItem(item = angerLog, onItemClick = { id -> onClick(id) })
