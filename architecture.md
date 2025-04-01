@@ -73,10 +73,6 @@ flowchart TD
     REPO_AngerLog -->|"mapsTo"| DOMAIN
     REPO_Agreement -->|"mapsTo"| DOMAIN
 
-    BUILD --> APP_SETUP
-    TEST_UNIT --> VM_Home
-    TEST_INSTRUMENTED --> UI_Screens
-
     %% Class Definitions
     classDef ui fill:#AED6F1,stroke:#1F618D,stroke-width:2px;
     classDef presentation fill:#ABEBC6,stroke:#1D8348,stroke-width:2px;
