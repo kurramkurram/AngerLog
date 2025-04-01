@@ -33,6 +33,8 @@
     <string name="calendar_title_month">%d月</string>
     <string name="calendar_title_next_cd">進む</string>
     <string name="calendar_log_picker_dialog_day">%d日</string>
+    <string name="calendar_over_show_count">+</string>
+    <string name="calendar_log_picker_add_cd">追加する</string>
 
     <string name="analysis">分析</string>
     <string name="analysis_record_count_title">記録</string>
