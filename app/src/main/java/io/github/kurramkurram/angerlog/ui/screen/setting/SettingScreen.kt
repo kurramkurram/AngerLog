@@ -71,9 +71,9 @@ fun SettingScreen(
     ) {
         Text(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .padding(bottom = 20.dp),
+                modifier
+                    .fillMaxWidth()
+                    .padding(bottom = 20.dp),
             text = stringResource(R.string.setting),
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleLarge,
@@ -82,10 +82,11 @@ fun SettingScreen(
         SettingScreenSectionItem {
             // アンガーログについて
             SettingScreenItem(
-                leading = stringResource(
-                    R.string.setting_about_app,
-                    stringResource(R.string.app_name)
-                )
+                leading =
+                    stringResource(
+                        R.string.setting_about_app,
+                        stringResource(R.string.app_name),
+                    ),
             ) { onAboutAppClick() }
         }
 
@@ -270,12 +271,12 @@ fun SettingScreenSectionItem(
 ) {
     Column(
         modifier =
-        modifier
-            .padding(horizontal = 8.dp, vertical = 10.dp)
-            .background(
-                color = MaterialTheme.colorScheme.onPrimary,
-                shape = MaterialTheme.shapes.medium,
-            ),
+            modifier
+                .padding(horizontal = 8.dp, vertical = 10.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    shape = MaterialTheme.shapes.medium,
+                ),
     ) { content() }
 }
 
@@ -298,33 +299,33 @@ fun SettingScreenItem(
 ) {
     Row(
         modifier =
-        modifier
-            .background(
-                color = Color.Transparent,
-                shape = MaterialTheme.shapes.medium,
-            )
-            .clickable(
-                interactionSource = remember { MutableInteractionSource() },
-                indication = null,
-            ) {
-                onItemClick()
-            }
-            .padding(horizontal = 10.dp, vertical = 20.dp),
+            modifier
+                .background(
+                    color = Color.Transparent,
+                    shape = MaterialTheme.shapes.medium,
+                )
+                .clickable(
+                    interactionSource = remember { MutableInteractionSource() },
+                    indication = null,
+                ) {
+                    onItemClick()
+                }
+                .padding(horizontal = 10.dp, vertical = 20.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         Text(
             modifier =
-            modifier
-                .weight(1f)
-                .padding(horizontal = 10.dp),
+                modifier
+                    .weight(1f)
+                    .padding(horizontal = 10.dp),
             text = leading,
         )
 
         Icon(
             modifier =
-            modifier.graphicsLayer {
-                alpha = if (trailing.isEmpty()) 1f else 0f
-            },
+                modifier.graphicsLayer {
+                    alpha = if (trailing.isEmpty()) 1f else 0f
+                },
             imageVector = iconType.imageVector,
             contentDescription = stringResource(R.string.setting_next_cd),
         )

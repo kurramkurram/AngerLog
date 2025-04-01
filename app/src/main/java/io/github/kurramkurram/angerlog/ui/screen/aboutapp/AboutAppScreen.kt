@@ -1,7 +1,5 @@
 package io.github.kurramkurram.angerlog.ui.screen.aboutapp
 
-import io.github.kurramkurram.angerlog.ui.screen.initial.InitialDetailsDto
-import io.github.kurramkurram.angerlog.ui.screen.initial.InitialViewModel
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,6 +22,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogBackButtonLayout
+import io.github.kurramkurram.angerlog.ui.screen.initial.InitialDetailsDto
+import io.github.kurramkurram.angerlog.ui.screen.initial.InitialViewModel
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
@@ -46,15 +46,15 @@ fun AboutAppScreen(
 ) {
     AngerLogBackButtonLayout(
         onClickBack = onClickBack,
-        title = stringResource(R.string.about_app, stringResource(R.string.app_name))
+        title = stringResource(R.string.about_app, stringResource(R.string.app_name)),
     ) {
         Column(
             modifier =
-            modifier
-                .fillMaxWidth()
-                .fillMaxHeight()
-                .verticalScroll(rememberScrollState())
-                .padding(10.dp),
+                modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight()
+                    .verticalScroll(rememberScrollState())
+                    .padding(10.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
