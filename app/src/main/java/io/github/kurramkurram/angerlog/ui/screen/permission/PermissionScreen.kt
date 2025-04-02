@@ -27,8 +27,6 @@ import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.util.requestPermission
 import kotlinx.serialization.Serializable
 
-private const val TAG = "PermissionScreen"
-
 @Serializable
 object Permission
 
