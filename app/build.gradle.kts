@@ -17,12 +17,12 @@ plugins {
 
 android {
     namespace = "io.github.kurramkurram.angerlog"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         applicationId = "io.github.kurramkurram.angerlog"
         minSdk = 26
-        targetSdk = 35
+        targetSdk = 36
         versionCode = 2
         versionName = "1.0.1"
 
