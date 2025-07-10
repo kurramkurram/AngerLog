@@ -109,5 +109,5 @@ interface AngerLogDao {
      * @return 怒りの情報
      */
     @Query("SELECT * FROM t_anger_log WHERE id = :id")
-    fun select(id: Long): Flow<AngerLog>
+    fun select(id: Long): Flow<AngerLog?>
 }
