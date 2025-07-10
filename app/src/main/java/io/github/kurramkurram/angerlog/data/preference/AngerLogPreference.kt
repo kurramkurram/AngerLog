@@ -13,6 +13,11 @@ private const val PREFERENCE_FILE_USER_SETTING = "user_setting"
 const val KEY_POLICY_AGREEMENT = "key_policy_agreement"
 
 /**
+ * 利用規約の同意済みのバージョン.
+ */
+const val KEY_POLICY_AGREEMENT_VERSION = "key_policy_agreement_version"
+
+/**
  * SharedPreferenceに保存する.
  *
  * @param context [Context]

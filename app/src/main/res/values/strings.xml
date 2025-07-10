@@ -27,6 +27,12 @@
     <string name="home_tab_look_back">振り返り</string>
     <string name="home_review_cd">振り返りができます</string>
     <string name="home_look_back_description">これまで記録したアンガーログをもとに怒りを振り返ってみましょう</string>
+    <string name="home_policy_dialog_title">利用規約を更新しました</string>
+    <string name="home_policy_pre_text">「%s」を押下すると</string>
+    <string name="home_policy_link_text">利用規約</string>
+    <string name="home_policy_suffix_text">に同意することになります\n同意いただけない場合はアプリを利用できません</string>
+    <string name="home_policy_confirm_button_text">利用を続ける</string>
+    <string name="home_policy_dismiss_button_text">同意しない</string>
 
     <string name="calendar">カレンダー</string>
     <string name="calendar_title_back_cd">戻る</string>

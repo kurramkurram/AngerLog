@@ -12,20 +12,22 @@ import androidx.compose.ui.Modifier
  *
  * @param modifier [Modifier]
  * @param title タイトル
- * @param description 説明
+ * @param descriptionContent 説明
  * @param confirmText 確定ボタンの文言
  * @param dismissText 消去ボタンの文言
- * @param onDismissRequest ダイアログ終了時の動作
+ * @param onDismissRequest ダイアログ外押下時の動作
+ * @param onDismissClick 消去ボタン押下時の動作
  * @param onConfirmClick 確定ボタン押下時の動作
  */
 @Composable
 fun AngerLogBasicDialog(
     modifier: Modifier = Modifier,
     title: String = "",
-    description: String = "",
+    descriptionContent: @Composable () -> Unit,
     confirmText: String = "",
     dismissText: String = "",
     onDismissRequest: () -> Unit,
+    onDismissClick: () -> Unit,
     onConfirmClick: () -> Unit,
 ) {
     AlertDialog(
@@ -35,7 +37,7 @@ fun AngerLogBasicDialog(
             Text(text = title)
         },
         text = {
-            Text(text = description)
+            descriptionContent()
         },
         onDismissRequest = {
             onDismissRequest()
@@ -44,7 +46,6 @@ fun AngerLogBasicDialog(
             TextButton(
                 onClick = {
                     onConfirmClick()
-                    onDismissRequest()
                 },
             ) {
                 Text(confirmText)
@@ -53,7 +54,7 @@ fun AngerLogBasicDialog(
         dismissButton = {
             TextButton(
                 onClick = {
-                    onDismissRequest()
+                    onDismissClick()
                 },
             ) {
                 Text(dismissText)
