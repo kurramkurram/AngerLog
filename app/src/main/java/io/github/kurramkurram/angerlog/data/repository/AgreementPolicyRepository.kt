@@ -64,7 +64,10 @@ class AgreementPolicyRepositoryImpl : AgreementPolicyRepository() {
      *
      * @param context [Context]
      */
-    override fun agree(context: Context) = saveToPreference(context, KEY_POLICY_AGREEMENT, AGREED)
+    override fun agree(context: Context) {
+        saveToPreference(context, KEY_POLICY_AGREEMENT, AGREED)
+        agreeLatest(context)
+    }
 
     /**
      * 過去に一度でも同意済みかどうかを判定する.
