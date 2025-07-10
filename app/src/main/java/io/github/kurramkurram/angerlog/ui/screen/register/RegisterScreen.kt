@@ -203,11 +203,15 @@ fun RegisterScreenContent(
                 AngerLogBasicDialog(
                     modifier = modifier,
                     title = stringResource((R.string.register)),
-                    description = stringResource((R.string.register_back_dialog_description)),
+                    descriptionContent = { Text(text = stringResource((R.string.register_back_dialog_description))) },
                     confirmText = stringResource((R.string.register_back_dialog_positive_button)),
                     dismissText = stringResource((R.string.register_back_dialog_negative_button)),
                     onDismissRequest = { viewModel.closeBackDialog() },
-                ) { onClickBack() }
+                    onDismissClick = { viewModel.closeBackDialog() },
+                ) {
+                    onClickBack()
+                    viewModel.closeBackDialog()
+                }
             }
 
             RegisterScreenItem(
@@ -311,13 +315,15 @@ fun RegisterScreenContent(
                 AngerLogBasicDialog(
                     modifier = modifier,
                     title = stringResource((R.string.register)),
-                    description = stringResource((R.string.register_delete_dialog_description)),
+                    descriptionContent = { Text(text = stringResource((R.string.register_delete_dialog_description))) },
                     confirmText = stringResource((R.string.register_delete_dialog_positive_button)),
                     dismissText = stringResource((R.string.register_delete_dialog_negative_button)),
                     onDismissRequest = { viewModel.closeDeleteDialog() },
+                    onDismissClick = { viewModel.closeDeleteDialog() },
                 ) {
                     viewModel.delete()
                     onClickBack()
+                    viewModel.closeDeleteDialog()
                 }
             }
 

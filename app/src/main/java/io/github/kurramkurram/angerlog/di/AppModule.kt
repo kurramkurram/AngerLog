@@ -29,7 +29,7 @@ val appModule =
 
         viewModel { InitialViewModel(get()) }
 
-        viewModel { HomeViewModel(get()) }
+        viewModel { HomeViewModel(get(), get()) }
 
         viewModel { RegisterViewModel(get()) }
 
