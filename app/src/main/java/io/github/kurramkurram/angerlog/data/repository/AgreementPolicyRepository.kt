@@ -72,16 +72,14 @@ class AgreementPolicyRepositoryImpl : AgreementPolicyRepository() {
      * @param context [Context]
      * @return true: 同意済み
      */
-    override fun hasAgree(context: Context): Boolean =
-        getFromPreference(context, KEY_POLICY_AGREEMENT, NOT_AGREED) == AGREED
+    override fun hasAgree(context: Context): Boolean = getFromPreference(context, KEY_POLICY_AGREEMENT, NOT_AGREED) == AGREED
 
     /**
      * 最新の利用規約に同意したことを保存する.
      *
      * @param context [Context]
      */
-    override fun agreeLatest(context: Context) =
-        saveToPreference(context, KEY_POLICY_AGREEMENT_VERSION, POLICY_VERSION)
+    override fun agreeLatest(context: Context) = saveToPreference(context, KEY_POLICY_AGREEMENT_VERSION, POLICY_VERSION)
 
     /**
      * 最新の規約に同意しているかどうかを判定する.
@@ -89,6 +87,5 @@ class AgreementPolicyRepositoryImpl : AgreementPolicyRepository() {
      * @param context [Context]
      * @return 同意済み
      */
-    override fun hasAgreeLatest(context: Context): Boolean =
-        getFromPreference(context, KEY_POLICY_AGREEMENT_VERSION, 0) == POLICY_VERSION
+    override fun hasAgreeLatest(context: Context): Boolean = getFromPreference(context, KEY_POLICY_AGREEMENT_VERSION, 0) == POLICY_VERSION
 }

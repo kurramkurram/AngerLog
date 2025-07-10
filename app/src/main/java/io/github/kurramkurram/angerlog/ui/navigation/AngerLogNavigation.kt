@@ -92,7 +92,7 @@ fun AngerLogNavHost(
         composable<Home> {
             HomeScreen(
                 onItemClick = { id -> navController.navigate(route = Register(id = id)) },
-                onPolicyClick = { navController.navigate(route = Policy) }
+                onPolicyClick = { navController.navigate(route = Policy) },
             )
         }
 

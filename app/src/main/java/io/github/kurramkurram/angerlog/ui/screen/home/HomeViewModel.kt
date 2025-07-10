@@ -34,7 +34,6 @@ class HomeViewModel(
     private val angerLogDataRepository: AngerLogDataRepository,
     private val agreementPolicyRepository: AgreementPolicyRepository,
 ) : ViewModel() {
-
     var showNewPolicyDialog by mutableStateOf(false)
         private set
 
@@ -62,7 +61,6 @@ class HomeViewModel(
     fun checkShowPolicyDialog(context: Context) {
         showNewPolicyDialog = !agreementPolicyRepository.hasAgreeLatest(context)
     }
-
 
     /**
      * 最新の利用規約に同意する.

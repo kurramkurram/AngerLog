@@ -82,10 +82,11 @@ fun HomeScreen(
                 descriptionContent = {
                     AngerLogLinkText(
                         modifier = modifier.padding(10.dp),
-                        preText = stringResource(
-                            R.string.home_policy_pre_text,
-                            stringResource(R.string.home_policy_confirm_button_text)
-                        ),
+                        preText =
+                            stringResource(
+                                R.string.home_policy_pre_text,
+                                stringResource(R.string.home_policy_confirm_button_text),
+                            ),
                         linkText = stringResource(R.string.home_policy_link_text),
                         link = "",
                         onClickLink = { onPolicyClick() },
@@ -95,7 +96,7 @@ fun HomeScreen(
                 confirmText = stringResource(R.string.home_policy_confirm_button_text),
                 dismissText = stringResource(R.string.home_policy_dismiss_button_text),
                 onDismissRequest = {},
-                onDismissClick = { activity?.finishAndRemoveTask() }
+                onDismissClick = { activity?.finishAndRemoveTask() },
             ) { viewModel.agreePolicy(context) }
         }
 
