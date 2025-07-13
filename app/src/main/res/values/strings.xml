@@ -21,7 +21,6 @@
     <string name="permission_skip_button">スキップする</string>
 
     <string name="home">ホーム</string>
-    <string name="home_title">最近の気持ち</string>
     <string name="home_no_anger_log">最近の気持ちが記録されていません。\n最近感じた怒りがあれば記録してみましょう！</string>
     <string name="home_tab_anger">最近の怒り</string>
     <string name="home_tab_look_back">振り返り</string>
