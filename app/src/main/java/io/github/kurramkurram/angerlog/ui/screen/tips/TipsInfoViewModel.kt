@@ -36,11 +36,11 @@ class TipsInfoViewModel : ViewModel() {
                         ),
                         TipsInfoDto(
                             title = stringResource(R.string.tips_category_change_of_pace_change_place_title),
-                            content = stringResource(R.string.tips_category_change_of_pace_change_place_description)
+                            content = stringResource(R.string.tips_category_change_of_pace_change_place_description),
                         ),
                         TipsInfoDto(
                             title = stringResource(R.string.tips_category_change_of_pace_think_other_things_title),
-                            content = stringResource(R.string.tips_category_change_of_pace_think_other_things_description)
+                            content = stringResource(R.string.tips_category_change_of_pace_think_other_things_description),
                         ),
                     ),
             ),
@@ -59,8 +59,8 @@ class TipsInfoViewModel : ViewModel() {
                         ),
                         TipsInfoDto(
                             title = stringResource(R.string.tips_category_use_app_check_analysis_title),
-                            content = stringResource(R.string.tips_category_use_app_check_analysis_description)
-                        )
+                            content = stringResource(R.string.tips_category_use_app_check_analysis_description),
+                        ),
                     ),
             ),
             TipsInfoCategoryDto(

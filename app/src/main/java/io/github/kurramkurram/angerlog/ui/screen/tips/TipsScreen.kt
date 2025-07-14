@@ -53,16 +53,17 @@ fun TipsScreen(
             for (tipsInfoCategory in data) {
                 stickyHeader {
                     Row(
-                        modifier = modifier
-                            .fillMaxWidth()
-                            .background(MaterialTheme.colorScheme.background)
-                            .padding(vertical = 10.dp),
-                        verticalAlignment = Alignment.CenterVertically
+                        modifier =
+                            modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.background)
+                                .padding(vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Icon(
                             modifier = modifier.padding(end = 10.dp),
                             imageVector = tipsInfoCategory.icon,
-                            contentDescription = tipsInfoCategory.category
+                            contentDescription = tipsInfoCategory.category,
                         )
                         Text(
                             text = tipsInfoCategory.category,
@@ -95,7 +96,7 @@ fun TipsScreen(
             item {
                 Text(
                     modifier = modifier.padding(10.dp),
-                    text = stringResource(R.string.tips_attention)
+                    text = stringResource(R.string.tips_attention),
                 )
             }
         }
