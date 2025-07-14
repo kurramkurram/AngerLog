@@ -1,5 +1,9 @@
 package io.github.kurramkurram.angerlog.ui.screen.tips
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Apps
+import androidx.compose.material.icons.outlined.Mood
+import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
@@ -18,6 +22,7 @@ class TipsInfoViewModel : ViewModel() {
     fun getTips(): List<TipsInfoCategoryDto> {
         return listOf(
             TipsInfoCategoryDto(
+                icon = Icons.Outlined.Mood,
                 category = stringResource(R.string.tips_category_change_of_pace),
                 info =
                     listOf(
@@ -29,9 +34,18 @@ class TipsInfoViewModel : ViewModel() {
                             title = stringResource(R.string.tips_category_change_of_pace_count_6_seconds_title),
                             content = stringResource(R.string.tips_category_change_of_pace_count_6_seconds_description),
                         ),
+                        TipsInfoDto(
+                            title = stringResource(R.string.tips_category_change_of_pace_change_place_title),
+                            content = stringResource(R.string.tips_category_change_of_pace_change_place_description)
+                        ),
+                        TipsInfoDto(
+                            title = stringResource(R.string.tips_category_change_of_pace_think_other_things_title),
+                            content = stringResource(R.string.tips_category_change_of_pace_think_other_things_description)
+                        ),
                     ),
             ),
             TipsInfoCategoryDto(
+                icon = Icons.Outlined.Apps,
                 category = stringResource(R.string.tips_category_use_app),
                 info =
                     listOf(
@@ -43,9 +57,14 @@ class TipsInfoViewModel : ViewModel() {
                             title = stringResource(R.string.tips_category_use_app_look_back_title),
                             content = stringResource(R.string.tips_category_use_app_look_back_description),
                         ),
+                        TipsInfoDto(
+                            title = stringResource(R.string.tips_category_use_app_check_analysis_title),
+                            content = stringResource(R.string.tips_category_use_app_check_analysis_description)
+                        )
                     ),
             ),
             TipsInfoCategoryDto(
+                icon = Icons.Outlined.Psychology,
                 category = stringResource(R.string.tips_category_thinking),
                 info =
                     listOf(
