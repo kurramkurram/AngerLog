@@ -112,7 +112,7 @@ class AnalysisViewModel(
             val start = System.currentTimeMillis()
             analysisDataUseCase.execute(yearMonth).map {
                 it
-            }.catch { AnalysisUiState.Error }.collect {
+            }.catch { _content.value = AnalysisUiState.Error }.collect {
                 val end = System.currentTimeMillis()
                 val diff = end - start
                 if (MAX_LOADING_TIME > diff) {

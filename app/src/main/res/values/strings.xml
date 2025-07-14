@@ -136,4 +136,6 @@
 
     <string name="expandable_card_close">閉じる</string>
     <string name="expandable_card_open">開く</string>
+
+    <string name="error_text">データの取得に失敗しました\n\nアプリを再起動すると\n取得できる可能性があります\n\nデータの削除・再インストールは\nしないでください\nデータが削除されます</string>
 </resources>

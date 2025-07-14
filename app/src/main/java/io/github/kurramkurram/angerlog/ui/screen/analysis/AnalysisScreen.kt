@@ -39,6 +39,7 @@ import io.github.kurramkurram.angerlog.ui.component.card.AngerLogCounterCard
 import io.github.kurramkurram.angerlog.ui.component.chart.bar.AngerLogBarChart
 import io.github.kurramkurram.angerlog.ui.component.chart.line.AngerLogLineChart
 import io.github.kurramkurram.angerlog.ui.component.chart.pie.AngerLogPieChart
+import io.github.kurramkurram.angerlog.ui.component.text.AngerLogErrorText
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
@@ -133,7 +134,7 @@ fun AnalysisScreen(
                 }
             }
 
-            is AnalysisUiState.Error -> {}
+            is AnalysisUiState.Error -> AngerLogErrorText()
         }
     }
 }

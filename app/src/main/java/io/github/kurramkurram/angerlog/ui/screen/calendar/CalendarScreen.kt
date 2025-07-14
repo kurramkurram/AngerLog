@@ -49,6 +49,7 @@ import io.github.kurramkurram.angerlog.ui.CustomDayOfWeek
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
 import io.github.kurramkurram.angerlog.ui.component.calendarpicker.AngerLogCalendarPicker
 import io.github.kurramkurram.angerlog.ui.component.calendarpicker.CalendarPickerUiState
+import io.github.kurramkurram.angerlog.ui.component.text.AngerLogErrorText
 import io.github.kurramkurram.angerlog.util.DateConverter
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -140,7 +141,7 @@ fun CalendarScreen(
                 }
             }
 
-            is CalendarUiState.Error -> {}
+            is CalendarUiState.Error -> AngerLogErrorText()
         }
     }
 }

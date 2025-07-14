@@ -29,6 +29,7 @@ import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogBasicDialog
 import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogTabLayout
 import io.github.kurramkurram.angerlog.ui.component.layout.TabContent
+import io.github.kurramkurram.angerlog.ui.component.text.AngerLogErrorText
 import io.github.kurramkurram.angerlog.ui.component.text.AngerLogLinkText
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -105,7 +106,7 @@ fun HomeScreen(
                 }
             }
 
-            is HomeUiState.Error -> {}
+            is HomeUiState.Error -> AngerLogErrorText()
         }
     }
 }
