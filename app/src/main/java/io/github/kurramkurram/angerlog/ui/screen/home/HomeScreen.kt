@@ -55,22 +55,12 @@ fun HomeScreen(
     Column(
         modifier =
             modifier
-                .padding(top = 20.dp)
+                .padding(top = 20.dp, start = 10.dp, end = 10.dp)
                 .fillMaxSize(),
     ) {
         val state by viewModel.state.collectAsStateWithLifecycle()
         val context = LocalContext.current
         val activity = LocalActivity.current
-
-        Text(
-            modifier =
-                modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 20.dp),
-            text = stringResource(R.string.home_title),
-            textAlign = TextAlign.Center,
-            style = MaterialTheme.typography.titleLarge,
-        )
 
         LaunchedEffect(Unit) {
             viewModel.checkShowPolicyDialog(context)
