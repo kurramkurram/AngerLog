@@ -8,8 +8,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepository
+import io.github.kurramkurram.angerlog.model.AngerLog
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import java.util.Calendar
@@ -38,19 +40,20 @@ class HomeViewModel(
         private set
 
     val state: StateFlow<HomeUiState> =
-        angerLogDataRepository.getLimited(SHOW_LIMIT_ITEM_COUNT).map { data ->
-            val calendar = Calendar.getInstance()
-            val angerLogList = mutableListOf<HomeAngerLog>()
-            data.forEach {
-                val homeAngerLog = HomeAngerLog(angerLog = it, now = calendar.timeInMillis)
-                angerLogList.add(homeAngerLog)
-            }
-            HomeUiState.Success(logList = angerLogList)
-        }.stateIn(
-            scope = viewModelScope,
-            started = SharingStarted.WhileSubscribed(STOP_TIME_OUT_MILLIS),
-            initialValue = HomeUiState.Loading,
-        )
+        angerLogDataRepository.getLimited(SHOW_LIMIT_ITEM_COUNT)
+            .map<List<AngerLog>, HomeUiState> { data ->
+                val calendar = Calendar.getInstance()
+                val angerLogList = mutableListOf<HomeAngerLog>()
+                data.forEach {
+                    val homeAngerLog = HomeAngerLog(angerLog = it, now = calendar.timeInMillis)
+                    angerLogList.add(homeAngerLog)
+                }
+                HomeUiState.Success(logList = angerLogList)
+            }.catch { emit(HomeUiState.Error) }.stateIn(
+                scope = viewModelScope,
+                started = SharingStarted.WhileSubscribed(STOP_TIME_OUT_MILLIS),
+                initialValue = HomeUiState.Loading,
+            )
 
     /**
      * ダイアログを出すかどうかの判定を行う.

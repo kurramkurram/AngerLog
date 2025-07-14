@@ -153,7 +153,7 @@ class CalendarViewModel(
                 val start = System.currentTimeMillis()
                 calendarDataUseCase.execute(yearMonth).map {
                     it
-                }.catch { CalendarUiState.Error }.collect {
+                }.catch { _state.value = CalendarUiState.Error }.collect {
                     val end = System.currentTimeMillis()
                     val diff = end - start
                     if (MAX_LOADING_TIME > diff) {
