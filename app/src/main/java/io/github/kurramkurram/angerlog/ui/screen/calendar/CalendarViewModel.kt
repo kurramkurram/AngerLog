@@ -93,8 +93,7 @@ class CalendarViewModel(
      *
      * @return true: 表示する
      */
-    fun canShowBackArrow(): Boolean =
-        _yearMonthState.value.yearMonth > YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
+    fun canShowBackArrow(): Boolean = _yearMonthState.value.yearMonth > YearMonth.of(DEFAULT_MIN_YEAR_OF_PICKER, 1)
 
     /**
      * 「＞」の表示可否を判定する.

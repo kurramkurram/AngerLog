@@ -23,9 +23,10 @@ import io.github.kurramkurram.angerlog.R
 @Composable
 fun AngerLogErrorText(modifier: Modifier = Modifier) {
     Box(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(vertical = 20.dp),
+        modifier =
+            modifier
+                .fillMaxSize()
+                .padding(vertical = 20.dp),
         contentAlignment = Alignment.Center,
     ) {
         Text(
