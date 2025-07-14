@@ -115,14 +115,21 @@
     <string name="tips_category_change_of_pace_listen_music_description">好きな音楽を聞いて心を落ち着けてみませんか？</string>
     <string name="tips_category_change_of_pace_count_6_seconds_title">6秒数える</string>
     <string name="tips_category_change_of_pace_count_6_seconds_description">怒りは6秒で収まるとされています。まずは6秒数えてみましょう。</string>
+    <string name="tips_category_change_of_pace_change_place_title">場所を変える</string>
+    <string name="tips_category_change_of_pace_change_place_description">違う場所へ移動して、怒りの原因から離れてみましょう。</string>
+    <string name="tips_category_change_of_pace_think_other_things_title">意識を移す</string>
+    <string name="tips_category_change_of_pace_think_other_things_description">全く関係ないものに意識を移し、怒りの感情から距離を取りましょう。</string>
     <string name="tips_category_use_app">このアプリを利用する</string>
     <string name="tips_category_use_app_record_log_title">アンガーログを付ける</string>
-    <string name="tips_category_use_app_record_log_description">アンガーログを記録して、自分の怒りを客観視してみましょう。</string>
+    <string name="tips_category_use_app_record_log_description">ホームタブまたはカレンダータブからアンガーログを記録して、自分の怒りを客観視してみましょう。</string>
     <string name="tips_category_use_app_look_back_title">振り返りをする</string>
     <string name="tips_category_use_app_look_back_description">怒りを振り返りましょう。\nこれまで記録したアンガーログをもとに自分がどういった時に怒りの感情を持つのか？振り返ってみましょう。</string>
+    <string name="tips_category_use_app_check_analysis_title">分析する</string>
+    <string name="tips_category_use_app_check_analysis_description">分析タブから自分の怒りの傾向を分析してみましょう。</string>
     <string name="tips_category_thinking">考えてみる</string>
     <string name="tips_category_thinking_put_yourself_in_someone_title">相手の立場に立ってみる</string>
     <string name="tips_category_thinking_put_yourself_in_someone_description">怒りを感じた相手の立場に立ってみましょう。\n何らかの原因があるかもしれません。</string>
+    <string name="tips_attention">※これらを行った場合でも必ず怒りをコントロールできるわけではありません</string>
 
     <string name="policy">利用規約</string>
 

@@ -29,6 +29,7 @@ import io.github.kurramkurram.angerlog.R
 /**
  * 拡縮カード.
  *
+ * @param modifier [Modifier]
  * @param title タイトル
  * @param content 拡大時に表示するコンテンツ
  * @param isBottomRound 下部の左右を丸めるかどうか true: 丸める
@@ -66,7 +67,7 @@ fun AngerLogExpandableCard(
                 text = title,
             )
 
-            Box(modifier = modifier.padding(horizontal = 5.dp)) {
+            Box(modifier = modifier.padding(end = 20.dp)) {
                 if (expanded) {
                     Icon(
                         imageVector = Icons.Filled.KeyboardArrowUp,

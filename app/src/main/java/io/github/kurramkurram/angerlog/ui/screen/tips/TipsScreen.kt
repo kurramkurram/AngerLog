@@ -2,13 +2,16 @@ package io.github.kurramkurram.angerlog.ui.screen.tips
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -47,29 +50,54 @@ fun TipsScreen(
                     .fillMaxHeight()
                     .padding(horizontal = 10.dp),
         ) {
-            items(data) { tipsInfoCategory ->
-                Text(
-                    modifier = modifier.padding(top = 10.dp, bottom = 10.dp),
-                    text = tipsInfoCategory.category,
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Column(
-                    modifier =
-                        modifier.background(
-                            color = MaterialTheme.colorScheme.onPrimary,
-                            shape = MaterialTheme.shapes.medium,
-                        ),
-                ) {
-                    tipsInfoCategory.info.forEachIndexed { index, tipsInfo ->
-                        val isLast = index == tipsInfoCategory.info.size - 1
-                        AngerLogExpandableCard(
-                            modifier = modifier,
-                            title = tipsInfo.title,
-                            content = tipsInfo.content,
-                            isBottomRound = isLast,
+            for (tipsInfoCategory in data) {
+                stickyHeader {
+                    Row(
+                        modifier =
+                            modifier
+                                .fillMaxWidth()
+                                .background(MaterialTheme.colorScheme.background)
+                                .padding(vertical = 10.dp),
+                        verticalAlignment = Alignment.CenterVertically,
+                    ) {
+                        Icon(
+                            modifier = modifier.padding(end = 10.dp),
+                            imageVector = tipsInfoCategory.icon,
+                            contentDescription = tipsInfoCategory.category,
+                        )
+                        Text(
+                            text = tipsInfoCategory.category,
+                            style = MaterialTheme.typography.titleMedium,
                         )
                     }
                 }
+
+                item {
+                    Column(
+                        modifier =
+                            modifier.background(
+                                color = MaterialTheme.colorScheme.onPrimary,
+                                shape = MaterialTheme.shapes.medium,
+                            ),
+                    ) {
+                        tipsInfoCategory.info.forEachIndexed { index, tipsInfo ->
+                            val isLast = index == tipsInfoCategory.info.size - 1
+                            AngerLogExpandableCard(
+                                modifier = modifier,
+                                title = tipsInfo.title,
+                                content = tipsInfo.content,
+                                isBottomRound = isLast,
+                            )
+                        }
+                    }
+                }
+            }
+
+            item {
+                Text(
+                    modifier = modifier.padding(10.dp),
+                    text = stringResource(R.string.tips_attention),
+                )
             }
         }
     }
