@@ -34,6 +34,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.play.core.review.ReviewManagerFactory
 import io.github.kurramkurram.angerlog.BuildConfig
@@ -43,7 +44,6 @@ import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
-import androidx.core.net.toUri
 
 private const val TAG = "SettingScreen"
 
