@@ -182,10 +182,11 @@ private fun startActivityQuestion(context: Context) {
         data = "mailto:".toUri()
         putExtra(Intent.EXTRA_EMAIL, arrayOf("kurram.dev@gmail.com"))
         val resources = context.resources
-        val subject = resources.getString(
-            R.string.setting_question_mail_subject,
-            resources.getString(R.string.app_name)
-        )
+        val subject =
+            resources.getString(
+                R.string.setting_question_mail_subject,
+                resources.getString(R.string.app_name),
+            )
         putExtra(Intent.EXTRA_SUBJECT, subject)
 
         val text =
@@ -218,7 +219,7 @@ private fun startShare(context: Context) {
         val resources = context.resources
         putExtra(
             Intent.EXTRA_TEXT,
-            resources.getString(R.string.setting_share_text, resources.getString(R.string.app_name))
+            resources.getString(R.string.setting_share_text, resources.getString(R.string.app_name)),
         )
         try {
             context.startActivity(Intent.createChooser(this, null))
