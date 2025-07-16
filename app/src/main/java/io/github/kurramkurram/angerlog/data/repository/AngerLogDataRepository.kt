@@ -76,7 +76,7 @@ abstract class AngerLogDataRepository {
 }
 
 class AngerLogDataRepositoryImpl(
-    private val context: Context,
+    context: Context,
     private val db: AngerLogDatabase = AngerLogDatabase.getDatabases(context),
     private val dao: AngerLogDao = db.angerLogDao(),
     private val zoneId: ZoneId = ZoneId.systemDefault(),
