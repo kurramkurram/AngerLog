@@ -19,10 +19,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Badge
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -32,11 +35,13 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.play.core.review.ReviewManagerFactory
 import io.github.kurramkurram.angerlog.BuildConfig
 import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.util.L
 import kotlinx.serialization.Serializable
+import org.koin.androidx.compose.koinViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
 
@@ -49,9 +54,11 @@ object Setting
  * 設定画面.
  *
  * @param modifier [Modifier]
+ * @param onAboutAppClick アンガーログについて押下時の動作
  * @param onItemTipsClick お役立ちTips押下時の動作
  * @param onPolicyClick 利用規約押下時の動作
  * @param onLicenseClick ライセンス押下時の動作
+ * @param viewModel 設定画面のViewModel
  */
 @Composable
 fun SettingScreen(
@@ -60,8 +67,14 @@ fun SettingScreen(
     onItemTipsClick: () -> Unit,
     onPolicyClick: () -> Unit,
     onLicenseClick: () -> Unit,
+    viewModel: SettingViewModel = koinViewModel()
 ) {
     val context = LocalContext.current
+    val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        viewModel.checkTipsBadge(context)
+    }
 
     Column(
         modifier
@@ -92,7 +105,10 @@ fun SettingScreen(
 
         SettingScreenSectionItem {
             // お役立ち
-            SettingScreenItem(leading = stringResource(R.string.setting_tips)) { onItemTipsClick() }
+            val badge = (state as SettingUiState.Success).tipsBadge
+            SettingScreenItem(
+                leading = stringResource(R.string.setting_tips), badge = badge
+            ) { onItemTipsClick() }
         }
 
         SettingScreenSectionItem {
@@ -295,6 +311,7 @@ fun SettingScreenItem(
     leading: String,
     trailing: String = "",
     iconType: SettingLeadingIconType = SettingLeadingIconType.NextScreen,
+    badge: Boolean = false,
     onItemClick: () -> Unit,
 ) {
     Row(
@@ -320,6 +337,10 @@ fun SettingScreenItem(
                     .padding(horizontal = 10.dp),
             text = leading,
         )
+
+        if (badge) {
+            Badge(modifier = modifier.padding(vertical = 10.dp))
+        }
 
         Icon(
             modifier =
