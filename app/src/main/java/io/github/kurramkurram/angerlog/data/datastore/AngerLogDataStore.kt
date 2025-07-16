@@ -3,7 +3,6 @@ package io.github.kurramkurram.angerlog.data.datastore
 import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
-import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
@@ -27,7 +26,7 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "se
 suspend fun saveToDataStore(
     context: Context,
     key: Preferences.Key<Boolean>,
-    value: Boolean
+    value: Boolean,
 ) = context.dataStore.edit {
     it[key] = value
 }
@@ -42,7 +41,7 @@ suspend fun saveToDataStore(
 suspend fun saveToDataStore(
     context: Context,
     key: Preferences.Key<Int>,
-    value: Int
+    value: Int,
 ) = context.dataStore.edit {
     it[key] = value
 }
@@ -57,7 +56,7 @@ suspend fun saveToDataStore(
 fun getFromDataStore(
     context: Context,
     key: Preferences.Key<Boolean>,
-    defValue: Boolean
+    defValue: Boolean,
 ): Flow<Boolean> =
     context.dataStore.data.map {
         it[key] ?: defValue
@@ -73,7 +72,7 @@ fun getFromDataStore(
 fun getFromDataStore(
     context: Context,
     key: Preferences.Key<Int>,
-    defValue: Int
+    defValue: Int,
 ): Flow<Int> =
     context.dataStore.data.map {
         it[key] ?: defValue
@@ -87,7 +86,7 @@ fun getFromDataStore(
  */
 suspend fun resetFromDataStore(
     context: Context,
-    key: Preferences.Key<Boolean>
+    key: Preferences.Key<Boolean>,
 ) = context.dataStore.edit {
     it.remove(key)
 }

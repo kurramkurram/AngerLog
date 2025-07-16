@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
  * @param tipsRepository Tips表示状態のRepository
  */
 class TipsInfoViewModel(private val tipsRepository: TipsRepository) : ViewModel() {
-
     /**
      * Tipsの表示したことを表す.
      *

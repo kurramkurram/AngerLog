@@ -1,6 +1,5 @@
 package io.github.kurramkurram.angerlog.di
 
-import io.github.kurramkurram.angerlog.ui.component.bottomnavigationbar.BottomNavigationBarViewModel
 import io.github.kurramkurram.angerlog.data.database.AngerLogDatabase
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
@@ -8,6 +7,7 @@ import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepository
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepositoryImpl
 import io.github.kurramkurram.angerlog.data.repository.TipsRepository
 import io.github.kurramkurram.angerlog.data.repository.TipsRepositoryImpl
+import io.github.kurramkurram.angerlog.ui.component.bottomnavigationbar.BottomNavigationBarViewModel
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisDataUseCase
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisDataUseCaseImpl
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisViewModel
@@ -48,7 +48,7 @@ val appModule =
         single<AnalysisDataUseCase> { AnalysisDataUseCaseImpl(get()) }
 
         // 設定画面
-        viewModel {SettingViewModel(get())}
+        viewModel { SettingViewModel(get()) }
 
         // Tips画面
         viewModel { TipsInfoViewModel(get()) }

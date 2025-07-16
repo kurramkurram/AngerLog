@@ -46,7 +46,7 @@ data class TopLevelRoute<T : Any>(
     val name: String,
     val route: T,
     val icon: ImageVector,
-    val badge: Boolean = false
+    val badge: Boolean = false,
 )
 
 /**
@@ -60,7 +60,7 @@ data class TopLevelRoute<T : Any>(
 fun AngerLogBottomNavigationBar(
     modifier: Modifier = Modifier,
     navController: NavController,
-    viewModel: BottomNavigationBarViewModel = koinViewModel()
+    viewModel: BottomNavigationBarViewModel = koinViewModel(),
 ) {
     val context = LocalContext.current
     LaunchedEffect(Unit) {
@@ -77,7 +77,7 @@ fun AngerLogBottomNavigationBar(
                 stringResource(R.string.setting),
                 Setting,
                 Icons.Outlined.Settings,
-                (state as BottomNavigationUiState.Success).settingBadge
+                (state as BottomNavigationUiState.Success).settingBadge,
             ),
         )
 

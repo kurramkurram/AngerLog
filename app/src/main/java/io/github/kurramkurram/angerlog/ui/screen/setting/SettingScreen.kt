@@ -67,7 +67,7 @@ fun SettingScreen(
     onItemTipsClick: () -> Unit,
     onPolicyClick: () -> Unit,
     onLicenseClick: () -> Unit,
-    viewModel: SettingViewModel = koinViewModel()
+    viewModel: SettingViewModel = koinViewModel(),
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -107,7 +107,8 @@ fun SettingScreen(
             // お役立ち
             val badge = (state as SettingUiState.Success).tipsBadge
             SettingScreenItem(
-                leading = stringResource(R.string.setting_tips), badge = badge
+                leading = stringResource(R.string.setting_tips),
+                badge = badge,
             ) { onItemTipsClick() }
         }
 
