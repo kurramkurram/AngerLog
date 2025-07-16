@@ -17,7 +17,7 @@ val KEY_UNREAD_TIPS = intPreferencesKey("key_unread_tips")
 val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = "settings")
 
 /**
- * DataStoreへの保存.
+ * DataStoreへの保存(Boolean).
  *
  * @param context [Context]
  * @param key DataStoreへ保存するキー
@@ -32,7 +32,7 @@ suspend fun saveToDataStore(
 }
 
 /**
- * DataStoreへの保存.
+ * DataStoreへの保存(Int).
  *
  * @param context [Context]
  * @param key DataStoreへ保存するキー
@@ -47,7 +47,7 @@ suspend fun saveToDataStore(
 }
 
 /**
- * DataStoreからの取得.
+ * DataStoreからの取得(Boolean).
  *
  * @param context [Context]
  * @param key DataStoreから取得する値のキー
@@ -63,7 +63,7 @@ fun getFromDataStore(
     }
 
 /**
- * DataStoreからの取得.
+ * DataStoreからの取得(Int).
  *
  * @param context [Context]
  * @param key DataStoreから取得する値のキー
@@ -79,7 +79,7 @@ fun getFromDataStore(
     }
 
 /**
- * DataStoreからの削除.
+ * DataStoreからの削除(Boolean).
  *
  * @param context [Context]
  * @param key DataStoreから削除する値のキー

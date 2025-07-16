@@ -304,6 +304,7 @@ fun SettingScreenSectionItem(
  * @param leading 説明
  * @param trailing 項目に表示する文字列
  * @param iconType アイコンのタイプ（[trailing]が未指定の場合に表示）
+ * @param badge バッジ表示の有無
  * @param onItemClick 項目押下時の動作
  */
 @Composable
