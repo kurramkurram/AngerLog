@@ -1,6 +1,7 @@
 package io.github.kurramkurram.angerlog.data.preference
 
 import android.content.Context
+import androidx.core.content.edit
 
 /**
  * プリファレンスのファイル名.
@@ -31,7 +32,7 @@ fun saveToPreference(
 ) {
     val sharedPreferences =
         context.getSharedPreferences(PREFERENCE_FILE_USER_SETTING, Context.MODE_PRIVATE)
-    sharedPreferences.edit().putInt(key, value).apply()
+    sharedPreferences.edit { putInt(key, value) }
 }
 
 /**
