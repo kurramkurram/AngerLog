@@ -1,5 +1,6 @@
 package io.github.kurramkurram.angerlog.ui.screen.tips
 
+import android.content.Context
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Apps
 import androidx.compose.material.icons.outlined.Mood
@@ -7,12 +8,26 @@ import androidx.compose.material.icons.outlined.Psychology
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import io.github.kurramkurram.angerlog.R
+import io.github.kurramkurram.angerlog.data.repository.TipsRepository
+import kotlinx.coroutines.launch
 
 /**
  * お役立ちTips画面のViewModel.
+ *
+ * @param tipsRepository Tips表示状態のRepository
  */
-class TipsInfoViewModel : ViewModel() {
+class TipsInfoViewModel(private val tipsRepository: TipsRepository) : ViewModel() {
+    /**
+     * Tipsの表示したことを表す.
+     *
+     * @param context [Context]
+     */
+    fun hasShowTips(context: Context) {
+        viewModelScope.launch { tipsRepository.hasShowUnreadTips(context) }
+    }
+
     /**
      * Tips情報を取得する.
      *

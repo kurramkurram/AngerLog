@@ -5,6 +5,9 @@ import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepository
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepositoryImpl
+import io.github.kurramkurram.angerlog.data.repository.TipsRepository
+import io.github.kurramkurram.angerlog.data.repository.TipsRepositoryImpl
+import io.github.kurramkurram.angerlog.ui.component.bottomnavigationbar.BottomNavigationBarViewModel
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisDataUseCase
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisDataUseCaseImpl
 import io.github.kurramkurram.angerlog.ui.screen.analysis.AnalysisViewModel
@@ -14,6 +17,7 @@ import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarViewModel
 import io.github.kurramkurram.angerlog.ui.screen.home.HomeViewModel
 import io.github.kurramkurram.angerlog.ui.screen.initial.InitialViewModel
 import io.github.kurramkurram.angerlog.ui.screen.register.RegisterViewModel
+import io.github.kurramkurram.angerlog.ui.screen.setting.SettingViewModel
 import io.github.kurramkurram.angerlog.ui.screen.tips.TipsInfoViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
@@ -26,6 +30,10 @@ val appModule =
         single<AngerLogDatabase> { AngerLogDatabase.getDatabases(get()) }
         single<AngerLogDataRepository> { AngerLogDataRepositoryImpl(get()) }
         single<AgreementPolicyRepository> { AgreementPolicyRepositoryImpl() }
+        single<TipsRepository> { TipsRepositoryImpl() }
+
+        // ボトムナビゲーション
+        viewModel { BottomNavigationBarViewModel(get()) }
 
         viewModel { InitialViewModel(get()) }
 
@@ -39,5 +47,9 @@ val appModule =
         viewModel { AnalysisViewModel(get()) }
         single<AnalysisDataUseCase> { AnalysisDataUseCaseImpl(get()) }
 
-        viewModel { TipsInfoViewModel() }
+        // 設定画面
+        viewModel { SettingViewModel(get()) }
+
+        // Tips画面
+        viewModel { TipsInfoViewModel(get()) }
     }
