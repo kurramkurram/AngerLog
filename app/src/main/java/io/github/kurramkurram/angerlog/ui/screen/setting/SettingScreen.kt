@@ -5,7 +5,6 @@ import android.app.Activity
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.util.Log
@@ -44,6 +43,7 @@ import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 import java.text.SimpleDateFormat
 import java.util.Date
+import androidx.core.net.toUri
 
 private const val TAG = "SettingScreen"
 
@@ -179,7 +179,7 @@ fun SettingScreen(
 @SuppressLint("SimpleDateFormat")
 private fun startActivityQuestion(context: Context) {
     Intent(Intent.ACTION_SENDTO).apply {
-        data = Uri.parse("mailto:")
+        data = "mailto:".toUri()
         putExtra(Intent.EXTRA_EMAIL, arrayOf("kurram.dev@gmail.com"))
         val subject = context.resources.getString(R.string.setting_question_mail_subject)
         putExtra(Intent.EXTRA_SUBJECT, subject)
@@ -243,7 +243,7 @@ private fun startNotificationSetting(context: Context) {
  */
 private fun startOtherApp(context: Context) {
     Intent(Intent.ACTION_VIEW).apply {
-        data = Uri.parse("https://play.google.com/store/apps/developer?id=Kurram")
+        data = "https://play.google.com/store/apps/developer?id=Kurram".toUri()
         try {
             context.startActivity(this)
         } catch (e: ActivityNotFoundException) {
