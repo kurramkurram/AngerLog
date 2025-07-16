@@ -71,9 +71,9 @@
     <string name="setting_other_app">ほかのアプリ</string>
     <string name="setting_evaluate">このアプリを評価する</string>
     <string name="setting_question">問い合わせはこちら</string>
-    <string name="setting_question_mail_subject">あんがーろぐに関する問い合わせ</string>
+    <string name="setting_question_mail_subject">%sに関する問い合わせ</string>
     <string name="setting_question_text">アプリバージョン：%1s\nOSバージョン：Android %2d \n 機種名：%3s\n日にち：%4s</string>
-    <string name="setting_share_text">あんがーろぐを使ってみよう\n https://play.google.com/store/apps/details?id=io.github.kurramkurram.angerlog</string>
+    <string name="setting_share_text">%sを使ってみよう\n https://play.google.com/store/apps/details?id=io.github.kurramkurram.angerlog</string>
     <string name="setting_next_cd">次へ</string>
 
     <string name="register">登録</string>
