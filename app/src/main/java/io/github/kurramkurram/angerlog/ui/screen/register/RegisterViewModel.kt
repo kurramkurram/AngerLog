@@ -377,12 +377,12 @@ class RegisterViewModel(
     fun closeDeleteDialog() = _state.update { RegisterUiState.Success(showDeleteDialog = false) }
 
     /**
-     *
+     * 日付エラーダイアログを表示する.
      */
     private fun showBadDateDialog() = _state.update { RegisterUiState.Success(showBadDateDialog = true) }
 
     /**
-     *
+     * 日付エラーダイアログを閉じる.
      */
     fun closeBadDateDialog() = _state.update { RegisterUiState.Success(showBadDateDialog = false) }
 
