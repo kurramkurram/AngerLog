@@ -69,7 +69,7 @@ fun HomeScreen(
     Column(
         modifier =
             modifier
-                .padding(top = 20.dp, start = 10.dp, end = 10.dp)
+                .padding(top = 20.dp)
                 .fillMaxSize(),
     ) {
         val state by viewModel.state.collectAsStateWithLifecycle()
@@ -338,7 +338,9 @@ fun HomeListItem(
                     modifier =
                         modifier
                             .clip(CircleShape)
-                            .background(color = AngerLevel().select(level = item.getLevel()).getColor())
+                            .background(
+                                color = AngerLevel().select(level = item.getLevel()).getColor()
+                            )
                             .padding(horizontal = 20.dp, vertical = 5.dp),
                     text = "${item.getLevel()}",
                 )
