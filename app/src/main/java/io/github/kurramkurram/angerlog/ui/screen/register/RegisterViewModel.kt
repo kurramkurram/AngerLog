@@ -283,6 +283,7 @@ class RegisterViewModel(
      */
     fun save() {
         viewModelScope.launch {
+            val anger = AngerLevel()
             val angerLog =
                 AngerLog(
                     id = id,
@@ -292,6 +293,9 @@ class RegisterViewModel(
                     detail = detail,
                     thought = thought,
                     place = place,
+                    lookBackLevel = anger.getLevel(lookBackAngerLevel),
+                    lookBackWhyAnger = lookBackWhyFeelAnger,
+                    lookBackAdvice = lookBackAdvice,
                 )
             if (angerLog.id == 0L) {
                 angerLogDataRepository.save(angerLog)
