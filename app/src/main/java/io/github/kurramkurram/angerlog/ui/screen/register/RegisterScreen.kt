@@ -172,7 +172,7 @@ fun RegisterScreenContent(
             if (state.showBackDialog) {
                 RegisterScreenBackDialog(
                     modifier = modifier,
-                    viewModel = viewModel
+                    viewModel = viewModel,
                 ) { onClickBack() }
             }
 
@@ -276,7 +276,7 @@ fun RegisterScreenContent(
             if (state.showDeleteDialog) {
                 RegisterScreenDeleteDialog(
                     modifier = modifier,
-                    viewModel = viewModel
+                    viewModel = viewModel,
                 ) { onClickBack() }
             }
 
@@ -394,7 +394,10 @@ fun RegisterScreenAngerLevel(
  * @param viewModel 登録画面のViewModel
  */
 @Composable
-fun RegisterScreenLookBackButton(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+fun RegisterScreenLookBackButton(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+) {
     Button(
         modifier =
             modifier
@@ -421,7 +424,10 @@ fun RegisterScreenLookBackButton(modifier: Modifier = Modifier, viewModel: Regis
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreenDatePickerDialog(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+fun RegisterScreenDatePickerDialog(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+) {
     val datePickerState =
         rememberDatePickerState(initialSelectedDateMillis = viewModel.date.time)
     AngerLogDatePickerDialog(
@@ -440,7 +446,10 @@ fun RegisterScreenDatePickerDialog(modifier: Modifier = Modifier, viewModel: Reg
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreenTimePickerDialog(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+fun RegisterScreenTimePickerDialog(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+) {
     val time = viewModel.time
     val timePickerState =
         rememberTimePickerState(
@@ -518,7 +527,10 @@ fun RegisterScreenDeleteDialog(
  * @param viewModel 登録画面のViewModel
  */
 @Composable
-fun RegisterScreenBadDateDialog(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+fun RegisterScreenBadDateDialog(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+) {
     AngerLogBasicDialog(
         modifier = modifier,
         title = stringResource(R.string.register_bad_date_dialog_title),
@@ -537,7 +549,10 @@ fun RegisterScreenBadDateDialog(modifier: Modifier = Modifier, viewModel: Regist
  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun RegisterScreenLookBackBottomSheet(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+fun RegisterScreenLookBackBottomSheet(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+) {
     val sheetState =
         rememberModalBottomSheetState(
             skipPartiallyExpanded = true,
