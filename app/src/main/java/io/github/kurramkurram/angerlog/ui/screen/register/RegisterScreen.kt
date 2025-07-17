@@ -59,7 +59,6 @@ import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogDatePickerDia
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogTimePickerDialog
 import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogBackButtonLayout
 import io.github.kurramkurram.angerlog.ui.screen.lookback.LookBackScreen
-import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
