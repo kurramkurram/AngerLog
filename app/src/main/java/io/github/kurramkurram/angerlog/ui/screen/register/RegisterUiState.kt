@@ -11,6 +11,7 @@ sealed class RegisterUiState {
      * @param showTimePicker 時間選択ダイアログの表示状態
      * @param showBackDialog 戻るダイアログの表示状態
      * @param showDeleteDialog 削除ダイアログの表示状態
+     * @param showBadDateDialog 日付エラーダイアログの表示状態
      * @param showBottomSheet ボトムシートの表示状態
      * @param goBack 戻れるかどうかの状態
      */
@@ -19,6 +20,7 @@ sealed class RegisterUiState {
         val showTimePicker: Boolean = false,
         val showBackDialog: Boolean = false,
         val showDeleteDialog: Boolean = false,
+        val showBadDateDialog: Boolean = false,
         val showBottomSheet: Boolean = false,
         val goBack: Boolean = false,
     ) : RegisterUiState()
