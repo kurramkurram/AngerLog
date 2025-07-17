@@ -339,7 +339,7 @@ fun HomeListItem(
                         modifier
                             .clip(CircleShape)
                             .background(
-                                color = AngerLevel().select(level = item.getLevel()).getColor()
+                                color = AngerLevel().select(level = item.getLevel()).getColor(),
                             )
                             .padding(horizontal = 20.dp, vertical = 5.dp),
                     text = "${item.getLevel()}",
