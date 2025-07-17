@@ -288,7 +288,7 @@ class RegisterViewModel(
                 AngerLog(
                     id = id,
                     date = DateConverter.dateTimeToDate(date, time),
-                    level = AngerLevel().getLevel(angerLevel),
+                    level = anger.getLevel(angerLevel),
                     event = event,
                     detail = detail,
                     thought = thought,
