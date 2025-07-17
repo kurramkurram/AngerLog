@@ -91,6 +91,9 @@
     <string name="register_anger_event_thought_hint">その時に感じたことは？</string>
     <string name="register_anger_event_place_title">場所</string>
     <string name="register_anger_event_place_hint">どこで起きたできごとなの？</string>
+    <string name="register_bad_date_dialog_title">日時</string>
+    <string name="register_bad_date_dialog_description">未来の日時が選択されています。\n日時を確認してみてください。</string>
+    <string name="register_bad_date_dialog_positive_button">確認する</string>
     <string name="register_delete">削除する</string>
     <string name="register_delete_dialog_description">この怒りを削除しますか？</string>
     <string name="register_delete_dialog_positive_button">削除する</string>

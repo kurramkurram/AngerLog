@@ -15,6 +15,7 @@ import io.github.kurramkurram.angerlog.model.Time
 import io.github.kurramkurram.angerlog.ui.AngerLevel
 import io.github.kurramkurram.angerlog.ui.AngerLevelType
 import io.github.kurramkurram.angerlog.util.DateConverter
+import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -280,29 +281,39 @@ class RegisterViewModel(
      * 保存する、押下時の操作.
      * idが0の時には新規で作成
      * idが0出ない場合には更新
+     *
+     * @return 保存の成否
      */
-    fun save() {
+    fun save(): Boolean {
+        val angerDate = DateConverter.dateTimeToDate(date, time)
+        val now = Date()
+        if (angerDate > now) {
+            showBadDateDialog()
+            return false
+        }
+
+        val anger = AngerLevel()
+        val angerLog =
+            AngerLog(
+                id = id,
+                date = angerDate,
+                level = anger.getLevel(angerLevel),
+                event = event,
+                detail = detail,
+                thought = thought,
+                place = place,
+                lookBackLevel = anger.getLevel(lookBackAngerLevel),
+                lookBackWhyAnger = lookBackWhyFeelAnger,
+                lookBackAdvice = lookBackAdvice,
+            )
         viewModelScope.launch {
-            val anger = AngerLevel()
-            val angerLog =
-                AngerLog(
-                    id = id,
-                    date = DateConverter.dateTimeToDate(date, time),
-                    level = anger.getLevel(angerLevel),
-                    event = event,
-                    detail = detail,
-                    thought = thought,
-                    place = place,
-                    lookBackLevel = anger.getLevel(lookBackAngerLevel),
-                    lookBackWhyAnger = lookBackWhyFeelAnger,
-                    lookBackAdvice = lookBackAdvice,
-                )
             if (angerLog.id == 0L) {
                 angerLogDataRepository.save(angerLog)
             } else {
                 angerLogDataRepository.update(angerLog)
             }
         }
+        return true
     }
 
     /**
@@ -367,14 +378,27 @@ class RegisterViewModel(
     fun closeDeleteDialog() = _state.update { RegisterUiState.Success(showDeleteDialog = false) }
 
     /**
+     *
+     */
+    private fun showBadDateDialog() =
+        _state.update { RegisterUiState.Success(showBadDateDialog = true) }
+
+    /**
+     *
+     */
+    fun closeBadDateDialog() = _state.update { RegisterUiState.Success(showBadDateDialog = false) }
+
+    /**
      * 振り返りのボトムシートを表示する.
      */
-    fun showLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = true) }
+    fun showLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = true) }
 
     /**
      * 振り返りのボトムシートを閉じる.
      */
-    fun closeLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = false) }
+    fun closeLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = false) }
 
     /**
      * 削除する.

@@ -59,6 +59,7 @@ import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogDatePickerDia
 import io.github.kurramkurram.angerlog.ui.component.dialog.AngerLogTimePickerDialog
 import io.github.kurramkurram.angerlog.ui.component.layout.AngerLogBackButtonLayout
 import io.github.kurramkurram.angerlog.ui.screen.lookback.LookBackScreen
+import io.github.kurramkurram.angerlog.util.L
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -111,7 +112,6 @@ fun RegisterScreen(
  * @param viewModel 登録画面のViewModel
  * @param state 登録画面の状態
  */
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun RegisterScreenContent(
     modifier: Modifier = Modifier,
@@ -134,8 +134,10 @@ fun RegisterScreenContent(
         trailingText = stringResource((R.string.register_save)),
         onClickBack = { viewModel.onBackPressed() },
         onTrailingClick = {
-            onSaveClicked()
-            viewModel.save()
+            val success = viewModel.save()
+            if (success) {
+                onSaveClicked()
+            }
         },
     ) {
         Column(
@@ -147,22 +149,7 @@ fun RegisterScreenContent(
             verticalArrangement = Arrangement.spacedBy(4.dp),
         ) {
             if (viewModel.showLookBackButton) {
-                Button(
-                    modifier =
-                        modifier
-                            .fillMaxWidth()
-                            .padding(horizontal = 10.dp),
-                    onClick = { viewModel.showLookBackBottomSheet() },
-                ) {
-                    Row(verticalAlignment = Alignment.CenterVertically) {
-                        Icon(
-                            modifier = modifier.padding(horizontal = 5.dp),
-                            imageVector = Icons.Outlined.Reviews,
-                            contentDescription = stringResource(R.string.register_look_back_button),
-                        )
-                        Text(stringResource(R.string.register_look_back_button))
-                    }
-                }
+                RegisterScreenLookBackButton(modifier = modifier, viewModel = viewModel)
             }
 
             val date = viewModel.date
@@ -176,42 +163,18 @@ fun RegisterScreenContent(
             )
 
             if (state.showDatePicker) {
-                val datePickerState =
-                    rememberDatePickerState(initialSelectedDateMillis = date.time)
-                AngerLogDatePickerDialog(
-                    datePickerState = datePickerState,
-                    onConfirmRequest = { viewModel.updateDate(datePickerState) },
-                    onDismissRequest = { viewModel.closeDatePicker() },
-                )
+                RegisterScreenDatePickerDialog(modifier = modifier, viewModel = viewModel)
             }
 
             if (state.showTimePicker) {
-                val timePickerState =
-                    rememberTimePickerState(
-                        initialHour = time.hour,
-                        initialMinute = time.minute,
-                        is24Hour = true,
-                    )
-                AngerLogTimePickerDialog(
-                    timePickerState = timePickerState,
-                    onConfirmRequest = { viewModel.updateTime(it) },
-                    onDismissRequest = { viewModel.closeTimePicker() },
-                )
+                RegisterScreenTimePickerDialog(modifier = modifier, viewModel = viewModel)
             }
 
             if (state.showBackDialog) {
-                AngerLogBasicDialog(
+                RegisterScreenBackDialog(
                     modifier = modifier,
-                    title = stringResource((R.string.register)),
-                    descriptionContent = { Text(text = stringResource((R.string.register_back_dialog_description))) },
-                    confirmText = stringResource((R.string.register_back_dialog_positive_button)),
-                    dismissText = stringResource((R.string.register_back_dialog_negative_button)),
-                    onDismissRequest = { viewModel.closeBackDialog() },
-                    onDismissClick = { viewModel.closeBackDialog() },
-                ) {
-                    onClickBack()
-                    viewModel.closeBackDialog()
-                }
+                    viewModel = viewModel
+                ) { onClickBack() }
             }
 
             RegisterScreenItem(
@@ -312,57 +275,20 @@ fun RegisterScreenContent(
             )
 
             if (state.showDeleteDialog) {
-                AngerLogBasicDialog(
+                RegisterScreenDeleteDialog(
                     modifier = modifier,
-                    title = stringResource((R.string.register)),
-                    descriptionContent = { Text(text = stringResource((R.string.register_delete_dialog_description))) },
-                    confirmText = stringResource((R.string.register_delete_dialog_positive_button)),
-                    dismissText = stringResource((R.string.register_delete_dialog_negative_button)),
-                    onDismissRequest = { viewModel.closeDeleteDialog() },
-                    onDismissClick = { viewModel.closeDeleteDialog() },
-                ) {
-                    viewModel.delete()
-                    onClickBack()
-                    viewModel.closeDeleteDialog()
-                }
+                    viewModel = viewModel
+                ) { onClickBack() }
             }
 
             Spacer(Modifier.height(20.dp))
 
+            if (state.showBadDateDialog) {
+                RegisterScreenBadDateDialog(modifier = modifier, viewModel = viewModel)
+            }
+
             if (state.showBottomSheet) {
-                val sheetState =
-                    rememberModalBottomSheetState(
-                        skipPartiallyExpanded = true,
-                        confirmValueChange = { newValue ->
-                            // Hidden状態への遷移を禁止
-                            newValue != SheetValue.Hidden
-                        },
-                    )
-                val scope = rememberCoroutineScope()
-                val close = {
-                    scope.launch {
-                        sheetState.hide()
-                    }.invokeOnCompletion { viewModel.closeLookBackBottomSheet() }
-                }
-                AngerLogModalBottomSheet(
-                    modifier = modifier.imePadding(),
-                    onDismissRequest = { viewModel.closeLookBackBottomSheet() },
-                    sheetState = sheetState,
-                ) {
-                    LookBackScreen(
-                        modifier = modifier,
-                        onClickClose = { close() },
-                        selectedAngerLevel = viewModel.lookBackAngerLevel,
-                        onSelectedAngerLevel = { viewModel.updateLookBackAngerLevel(it) },
-                        whyAngerText = viewModel.lookBackWhyFeelAnger,
-                        onWhyAngerChanged = { viewModel.updateLookBackWhyFeelAnger(it) },
-                        adviceText = viewModel.lookBackAdvice,
-                        onAdviceChanged = { viewModel.updateLookBackAdvice(it) },
-                    ) {
-                        viewModel.saveLookBack()
-                        close()
-                    }
-                }
+                RegisterScreenLookBackBottomSheet(modifier = modifier, viewModel = viewModel)
             }
         }
     }
@@ -458,6 +384,192 @@ fun RegisterScreenAngerLevel(
                     text = "${index + 1}",
                 )
             }
+        }
+    }
+}
+
+/**
+ * 振り返りボタン.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 登録画面のViewModel
+ */
+@Composable
+fun RegisterScreenLookBackButton(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+    Button(
+        modifier =
+            modifier
+                .fillMaxWidth()
+                .padding(horizontal = 10.dp),
+        onClick = { viewModel.showLookBackBottomSheet() },
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Icon(
+                modifier = modifier.padding(horizontal = 5.dp),
+                imageVector = Icons.Outlined.Reviews,
+                contentDescription = stringResource(R.string.register_look_back_button),
+            )
+            Text(stringResource(R.string.register_look_back_button))
+        }
+    }
+}
+
+/**
+ * 日付選択ダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 登録画面のViewModel
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RegisterScreenDatePickerDialog(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+    val datePickerState =
+        rememberDatePickerState(initialSelectedDateMillis = viewModel.date.time)
+    AngerLogDatePickerDialog(
+        modifier = modifier,
+        datePickerState = datePickerState,
+        onConfirmRequest = { viewModel.updateDate(datePickerState) },
+        onDismissRequest = { viewModel.closeDatePicker() },
+    )
+}
+
+/**
+ * 時間選択ダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 登録画面のViewModel
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RegisterScreenTimePickerDialog(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+    val time = viewModel.time
+    val timePickerState =
+        rememberTimePickerState(
+            initialHour = time.hour,
+            initialMinute = time.minute,
+            is24Hour = true,
+        )
+    AngerLogTimePickerDialog(
+        modifier = modifier,
+        timePickerState = timePickerState,
+        onConfirmRequest = { viewModel.updateTime(it) },
+        onDismissRequest = { viewModel.closeTimePicker() },
+    )
+}
+
+/**
+ * 戻るダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 登録画面のViewModel
+ * @param onClickBack 戻る押下時の動作
+ */
+@Composable
+fun RegisterScreenBackDialog(
+    modifier: Modifier,
+    viewModel: RegisterViewModel,
+    onClickBack: () -> Unit,
+) {
+    AngerLogBasicDialog(
+        modifier = modifier,
+        title = stringResource((R.string.register)),
+        descriptionContent = { Text(text = stringResource((R.string.register_back_dialog_description))) },
+        confirmText = stringResource((R.string.register_back_dialog_positive_button)),
+        dismissText = stringResource((R.string.register_back_dialog_negative_button)),
+        onDismissRequest = { viewModel.closeBackDialog() },
+        onDismissClick = { viewModel.closeBackDialog() },
+    ) {
+        onClickBack()
+        viewModel.closeBackDialog()
+    }
+}
+
+/**
+ * 削除ダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 登録画面のViewModel
+ * @param onClickBack 全画面に戻る動作
+ */
+@Composable
+fun RegisterScreenDeleteDialog(
+    modifier: Modifier = Modifier,
+    viewModel: RegisterViewModel,
+    onClickBack: () -> Unit,
+) {
+    AngerLogBasicDialog(
+        modifier = modifier,
+        title = stringResource((R.string.register)),
+        descriptionContent = { Text(text = stringResource((R.string.register_delete_dialog_description))) },
+        confirmText = stringResource((R.string.register_delete_dialog_positive_button)),
+        dismissText = stringResource((R.string.register_delete_dialog_negative_button)),
+        onDismissRequest = { viewModel.closeDeleteDialog() },
+        onDismissClick = { viewModel.closeDeleteDialog() },
+    ) {
+        viewModel.delete()
+        onClickBack()
+        viewModel.closeDeleteDialog()
+    }
+}
+
+/**
+ * 日付エラーダイアログ.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 登録画面のViewModel
+ */
+@Composable
+fun RegisterScreenBadDateDialog(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+    AngerLogBasicDialog(
+        modifier = modifier,
+        title = stringResource(R.string.register_bad_date_dialog_title),
+        descriptionContent = { Text(text = stringResource(R.string.register_bad_date_dialog_description)) },
+        confirmText = stringResource(R.string.register_bad_date_dialog_positive_button),
+        onDismissRequest = { viewModel.closeBadDateDialog() },
+        onDismissClick = {},
+    ) { viewModel.closeBadDateDialog() }
+}
+
+/**
+ * 振り返りボトムシート.
+ *
+ * @param modifier [Modifier]
+ * @param viewModel 登録画面のViewModel
+ */
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun RegisterScreenLookBackBottomSheet(modifier: Modifier = Modifier, viewModel: RegisterViewModel) {
+    val sheetState =
+        rememberModalBottomSheetState(
+            skipPartiallyExpanded = true,
+            confirmValueChange = { newValue ->
+                // Hidden状態への遷移を禁止
+                newValue != SheetValue.Hidden
+            },
+        )
+    val scope = rememberCoroutineScope()
+    val close = {
+        scope.launch {
+            sheetState.hide()
+        }.invokeOnCompletion { viewModel.closeLookBackBottomSheet() }
+    }
+    AngerLogModalBottomSheet(
+        modifier = modifier.imePadding(),
+        onDismissRequest = { viewModel.closeLookBackBottomSheet() },
+        sheetState = sheetState,
+    ) {
+        LookBackScreen(
+            modifier = modifier,
+            onClickClose = { close() },
+            selectedAngerLevel = viewModel.lookBackAngerLevel,
+            onSelectedAngerLevel = { viewModel.updateLookBackAngerLevel(it) },
+            whyAngerText = viewModel.lookBackWhyFeelAnger,
+            onWhyAngerChanged = { viewModel.updateLookBackWhyFeelAnger(it) },
+            adviceText = viewModel.lookBackAdvice,
+            onAdviceChanged = { viewModel.updateLookBackAdvice(it) },
+        ) {
+            viewModel.saveLookBack()
+            close()
         }
     }
 }
