@@ -9,6 +9,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
+import io.github.kurramkurram.angerlog.ui.screen.newsdetail.NewsDetail
+import io.github.kurramkurram.angerlog.ui.screen.newsdetail.NewsDetailScreen
 import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutApp
 import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutAppScreen
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
@@ -21,6 +23,8 @@ import io.github.kurramkurram.angerlog.ui.screen.initial.Initial
 import io.github.kurramkurram.angerlog.ui.screen.initial.InitialScreen
 import io.github.kurramkurram.angerlog.ui.screen.license.License
 import io.github.kurramkurram.angerlog.ui.screen.license.LicenseScreen
+import io.github.kurramkurram.angerlog.ui.screen.news.News
+import io.github.kurramkurram.angerlog.ui.screen.news.NewsScreen
 import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
 import io.github.kurramkurram.angerlog.ui.screen.permission.PermissionScreen
 import io.github.kurramkurram.angerlog.ui.screen.policy.Policy
@@ -109,8 +113,9 @@ fun AngerLogNavHost(
 
         composable<Setting> {
             SettingScreen(
-                onItemTipsClick = { navController.navigate(route = Tips) },
                 onAboutAppClick = { navController.navigate(route = AboutApp) },
+                onItemTipsClick = { navController.navigate(route = Tips) },
+                onNewsClick = { navController.navigate(route = News) },
                 onPolicyClick = { navController.navigate(route = Policy) },
                 onLicenseClick = { navController.navigate(route = License) },
             )
@@ -134,5 +139,17 @@ fun AngerLogNavHost(
         composable<License> { LicenseScreen(onClickButton = { navController.popBackStack() }) }
 
         composable<Policy> { PolicyScreen(onClickBack = { navController.popBackStack() }) }
+
+        composable<News> {
+            NewsScreen(
+                onClickBack = { navController.popBackStack() },
+                onItemClick = { id -> navController.navigate(route = NewsDetail(newsId = id)) },
+            )
+        }
+
+        composable<NewsDetail> { backStackEntry ->
+            val id = backStackEntry.toRoute<NewsDetail>().newsId
+            NewsDetailScreen(newsId = id, onClickBack = { navController.popBackStack() })
+        }
     }
 }

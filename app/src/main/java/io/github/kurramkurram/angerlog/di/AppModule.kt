@@ -1,10 +1,13 @@
 package io.github.kurramkurram.angerlog.di
 
 import io.github.kurramkurram.angerlog.data.database.AngerLogDatabase
+import io.github.kurramkurram.angerlog.data.database.NewsStateDatabase
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepository
 import io.github.kurramkurram.angerlog.data.repository.AngerLogDataRepositoryImpl
+import io.github.kurramkurram.angerlog.data.repository.NewsRepository
+import io.github.kurramkurram.angerlog.data.repository.NewsRepositoryImpl
 import io.github.kurramkurram.angerlog.data.repository.TipsRepository
 import io.github.kurramkurram.angerlog.data.repository.TipsRepositoryImpl
 import io.github.kurramkurram.angerlog.ui.component.bottomnavigationbar.BottomNavigationBarViewModel
@@ -16,6 +19,8 @@ import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarDataUseCaseImp
 import io.github.kurramkurram.angerlog.ui.screen.calendar.CalendarViewModel
 import io.github.kurramkurram.angerlog.ui.screen.home.HomeViewModel
 import io.github.kurramkurram.angerlog.ui.screen.initial.InitialViewModel
+import io.github.kurramkurram.angerlog.ui.screen.news.NewsViewModel
+import io.github.kurramkurram.angerlog.ui.screen.newsdetail.NewsDetailViewModel
 import io.github.kurramkurram.angerlog.ui.screen.register.RegisterViewModel
 import io.github.kurramkurram.angerlog.ui.screen.setting.SettingViewModel
 import io.github.kurramkurram.angerlog.ui.screen.tips.TipsInfoViewModel
@@ -28,12 +33,15 @@ import org.koin.dsl.module
 val appModule =
     module {
         single<AngerLogDatabase> { AngerLogDatabase.getDatabases(get()) }
+        single<NewsStateDatabase> { NewsStateDatabase.getDatabases(get()) }
+
         single<AngerLogDataRepository> { AngerLogDataRepositoryImpl(get()) }
         single<AgreementPolicyRepository> { AgreementPolicyRepositoryImpl() }
         single<TipsRepository> { TipsRepositoryImpl() }
+        single<NewsRepository> { NewsRepositoryImpl(get()) }
 
         // ボトムナビゲーション
-        viewModel { BottomNavigationBarViewModel(get()) }
+        viewModel { BottomNavigationBarViewModel(get(), get()) }
 
         viewModel { InitialViewModel(get()) }
 
@@ -48,8 +56,14 @@ val appModule =
         single<AnalysisDataUseCase> { AnalysisDataUseCaseImpl(get()) }
 
         // 設定画面
-        viewModel { SettingViewModel(get()) }
+        viewModel { SettingViewModel(get(), get()) }
 
         // Tips画面
         viewModel { TipsInfoViewModel(get()) }
+
+        // お知らせ画面
+        viewModel { NewsViewModel(get()) }
+
+        // お知らせ詳細画面
+        viewModel { NewsDetailViewModel(get()) }
     }

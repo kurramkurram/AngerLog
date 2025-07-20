@@ -56,6 +56,7 @@ object Setting
  * @param modifier [Modifier]
  * @param onAboutAppClick アンガーログについて押下時の動作
  * @param onItemTipsClick お役立ちTips押下時の動作
+ * @param onNewsClick お知らせ押下時の動作
  * @param onPolicyClick 利用規約押下時の動作
  * @param onLicenseClick ライセンス押下時の動作
  * @param viewModel 設定画面のViewModel
@@ -65,6 +66,7 @@ fun SettingScreen(
     modifier: Modifier = Modifier,
     onAboutAppClick: () -> Unit,
     onItemTipsClick: () -> Unit,
+    onNewsClick: () -> Unit,
     onPolicyClick: () -> Unit,
     onLicenseClick: () -> Unit,
     viewModel: SettingViewModel = koinViewModel(),
@@ -73,7 +75,10 @@ fun SettingScreen(
     val state by viewModel.state.collectAsStateWithLifecycle()
 
     LaunchedEffect(Unit) {
-        viewModel.checkTipsBadge(context)
+        viewModel.apply {
+            checkTipsBadge(context)
+            checkNewsBadge()
+        }
     }
 
     Column(
@@ -113,6 +118,13 @@ fun SettingScreen(
         }
 
         SettingScreenSectionItem {
+            // お知らせ
+            val badge = (state as SettingUiState.Success).newsBadge
+            SettingScreenItem(
+                leading = stringResource(R.string.setting_news),
+                badge = badge
+            ) { onNewsClick() }
+
             // 通知設定
             SettingScreenItem(
                 leading = stringResource(R.string.setting_notification),
@@ -219,7 +231,10 @@ private fun startShare(context: Context) {
         val resources = context.resources
         putExtra(
             Intent.EXTRA_TEXT,
-            resources.getString(R.string.setting_share_text, resources.getString(R.string.app_name)),
+            resources.getString(
+                R.string.setting_share_text,
+                resources.getString(R.string.app_name)
+            ),
         )
         try {
             context.startActivity(Intent.createChooser(this, null))

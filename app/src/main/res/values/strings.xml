@@ -63,6 +63,7 @@
     <string name="setting">設定</string>
     <string name="setting_about_app">%sについて</string>
     <string name="setting_tips">お役立ちTips</string>
+    <string name="setting_news">お知らせ</string>
     <string name="setting_notification">お知らせの設定</string>
     <string name="setting_application_version">アプリバージョン</string>
     <string name="setting_policy">利用規約</string>
@@ -133,6 +134,11 @@
     <string name="tips_category_thinking_put_yourself_in_someone_title">相手の立場に立ってみる</string>
     <string name="tips_category_thinking_put_yourself_in_someone_description">怒りを感じた相手の立場に立ってみましょう。\n何らかの原因があるかもしれません。</string>
     <string name="tips_attention">※これらを行った場合でも必ず怒りをコントロールできるわけではありません</string>
+
+    <string name="news">お知らせ</string>
+    <string name="news_next_cd">次へ</string>
+    <string name="news_1_title">お知らせ機能が追加されました</string>
+    <string name="news_1_description">お知らせ機能が追加されました。\n\n機能追加・メンテナンスなどのアンガーログアプリからのメッセージは「お知らせ」に表示されます。\n\n未読のお知らせにはバッジがつくようになります。</string>
 
     <string name="policy">利用規約</string>
 
