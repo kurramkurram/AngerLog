@@ -4,7 +4,6 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverter
 import androidx.room.TypeConverters
 import io.github.kurramkurram.angerlog.data.dao.NewsStateDao
 import io.github.kurramkurram.angerlog.model.NewsState
@@ -19,7 +18,6 @@ abstract class NewsStateDatabase : RoomDatabase() {
     abstract fun newsStateDao(): NewsStateDao
 
     companion object {
-
         /**
          * Database名.
          */

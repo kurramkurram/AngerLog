@@ -13,7 +13,6 @@ import kotlinx.coroutines.launch
  * @param newsRepository お知らせのRepository
  */
 class NewsViewModel(private val newsRepository: NewsRepository) : ViewModel() {
-
     private val _state = MutableStateFlow<NewsUiState>(NewsUiState.Success())
     val state = _state.asStateFlow()
 

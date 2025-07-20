@@ -16,7 +16,6 @@ import java.util.Date
  * お知らせのRepository.
  */
 abstract class NewsRepository {
-
     /**
      * お知らせ一覧のリスト.
      *
@@ -59,17 +58,17 @@ class NewsRepositoryImpl(
     private val db: NewsStateDatabase = NewsStateDatabase.getDatabases(context),
     private val newsDao: NewsStateDao = db.newsStateDao(),
 ) : NewsRepository() {
-
     private val news = loadNews(context)
 
     private val allNewsFlow: MutableStateFlow<List<NewsItem>> = MutableStateFlow(news)
-    override val newsList: Flow<List<NewsItem>> = combine(
-        allNewsFlow,
-        newsDao.select()
-    ) { allNews, readNewsEntities ->
-        val readIds = readNewsEntities.map { it?.newsId }.toSet()
-        allNews.map { it.copy(isRead = it.newsId in readIds) }
-    }
+    override val newsList: Flow<List<NewsItem>> =
+        combine(
+            allNewsFlow,
+            newsDao.select(),
+        ) { allNews, readNewsEntities ->
+            val readIds = readNewsEntities.map { it?.newsId }.toSet()
+            allNews.map { it.copy(isRead = it.newsId in readIds) }
+        }
 
     /**
      * お知らせを読み込み.
@@ -115,7 +114,8 @@ class NewsRepositoryImpl(
      *
      * @return true: 未読あり
      */
-    override fun isUnreadNewsExist(): Flow<Boolean> = newsList.map { list ->
-        list.any { !it.isRead }
-    }
+    override fun isUnreadNewsExist(): Flow<Boolean> =
+        newsList.map { list ->
+            list.any { !it.isRead }
+        }
 }

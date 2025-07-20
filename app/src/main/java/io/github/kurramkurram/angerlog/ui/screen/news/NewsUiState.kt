@@ -12,6 +12,6 @@ sealed class NewsUiState {
      * @param newsList お知らせ一覧
      */
     data class Success(
-        val newsList: List<NewsItem> = listOf()
+        val newsList: List<NewsItem> = listOf(),
     ) : NewsUiState()
 }

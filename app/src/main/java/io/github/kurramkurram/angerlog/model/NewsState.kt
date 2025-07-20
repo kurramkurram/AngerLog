@@ -14,5 +14,5 @@ import java.util.Date
 @Entity(tableName = "t_news_state")
 class NewsState(
     @PrimaryKey val newsId: Int = 0,
-    val date: Date = Date()
+    val date: Date = Date(),
 )

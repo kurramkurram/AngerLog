@@ -9,8 +9,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
-import io.github.kurramkurram.angerlog.ui.screen.newsdetail.NewsDetail
-import io.github.kurramkurram.angerlog.ui.screen.newsdetail.NewsDetailScreen
 import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutApp
 import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutAppScreen
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
@@ -25,6 +23,8 @@ import io.github.kurramkurram.angerlog.ui.screen.license.License
 import io.github.kurramkurram.angerlog.ui.screen.license.LicenseScreen
 import io.github.kurramkurram.angerlog.ui.screen.news.News
 import io.github.kurramkurram.angerlog.ui.screen.news.NewsScreen
+import io.github.kurramkurram.angerlog.ui.screen.newsdetail.NewsDetail
+import io.github.kurramkurram.angerlog.ui.screen.newsdetail.NewsDetailScreen
 import io.github.kurramkurram.angerlog.ui.screen.permission.Permission
 import io.github.kurramkurram.angerlog.ui.screen.permission.PermissionScreen
 import io.github.kurramkurram.angerlog.ui.screen.policy.Policy

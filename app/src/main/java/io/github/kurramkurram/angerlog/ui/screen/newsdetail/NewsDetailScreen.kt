@@ -35,9 +35,8 @@ fun NewsDetailScreen(
     modifier: Modifier = Modifier,
     newsId: Int,
     onClickBack: () -> Unit,
-    viewModel: NewsDetailViewModel = koinViewModel()
+    viewModel: NewsDetailViewModel = koinViewModel(),
 ) {
-
     LaunchedEffect(Unit) { viewModel.initialize(newsId = newsId) }
 
     val state by viewModel.state.collectAsStateWithLifecycle()
@@ -69,9 +68,10 @@ fun NewsDetailScreenContent(
         title = state.title,
     ) {
         Text(
-            modifier = modifier
-                .padding(horizontal = 10.dp)
-                .verticalScroll(rememberScrollState()),
+            modifier =
+                modifier
+                    .padding(horizontal = 10.dp)
+                    .verticalScroll(rememberScrollState()),
             text = state.description,
         )
     }

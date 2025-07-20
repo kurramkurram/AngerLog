@@ -122,7 +122,7 @@ fun SettingScreen(
             val badge = (state as SettingUiState.Success).newsBadge
             SettingScreenItem(
                 leading = stringResource(R.string.setting_news),
-                badge = badge
+                badge = badge,
             ) { onNewsClick() }
 
             // 通知設定
@@ -233,7 +233,7 @@ private fun startShare(context: Context) {
             Intent.EXTRA_TEXT,
             resources.getString(
                 R.string.setting_share_text,
-                resources.getString(R.string.app_name)
+                resources.getString(R.string.app_name),
             ),
         )
         try {

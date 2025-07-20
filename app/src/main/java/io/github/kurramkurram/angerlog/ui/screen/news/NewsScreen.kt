@@ -81,7 +81,7 @@ fun NewsScreenContent(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     onItemClick: (Int) -> Unit,
-    state: NewsUiState.Success
+    state: NewsUiState.Success,
 ) {
     val newsList = state.newsList
     AngerLogBackButtonLayout(
@@ -108,7 +108,7 @@ fun NewsScreenContent(
 fun NewsScreenListItem(
     modifier: Modifier = Modifier,
     news: NewsItem,
-    onItemClick: (Int) -> Unit
+    onItemClick: (Int) -> Unit,
 ) {
     Row(
         modifier =

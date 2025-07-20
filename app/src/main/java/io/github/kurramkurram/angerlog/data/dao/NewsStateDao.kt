@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.Flow
  */
 @Dao
 interface NewsStateDao {
-
     /**
      * 既読の書き込み.
      */

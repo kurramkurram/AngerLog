@@ -14,7 +14,6 @@ import kotlinx.coroutines.launch
  */
 class NewsDetailViewModel(private val newsRepository: NewsRepository) :
     ViewModel() {
-
     private val _state = MutableStateFlow<NewsDetailUiState>(NewsDetailUiState.Loading)
     val state = _state.asStateFlow()
 
@@ -28,11 +27,12 @@ class NewsDetailViewModel(private val newsRepository: NewsRepository) :
             newsRepository.markAsRead(newsId = newsId)
 
             val news = newsRepository.getNews(newsId = newsId)
-            _state.value = NewsDetailUiState.Success(
-                newsId = newsId,
-                title = news.title,
-                description = news.description
-            )
+            _state.value =
+                NewsDetailUiState.Success(
+                    newsId = newsId,
+                    title = news.title,
+                    description = news.description,
+                )
         }
     }
 }

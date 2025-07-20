@@ -4,7 +4,6 @@ package io.github.kurramkurram.angerlog.ui.screen.newsdetail
  * お知らせ詳細画面の状態.
  */
 sealed class NewsDetailUiState {
-
     /**
      * お知らせ詳細画面の成功状態.
      *
