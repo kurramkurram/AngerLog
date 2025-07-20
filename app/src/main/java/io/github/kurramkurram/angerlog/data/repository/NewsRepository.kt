@@ -81,7 +81,7 @@ class NewsRepositoryImpl(
         return listOf(
             NewsItem(
                 newsId = 1,
-                date = Date(1753974000),
+                date = Date(1753974000000),
                 title = resources.getString(R.string.news_1_title),
                 description = resources.getString(R.string.news_1_description),
             ),

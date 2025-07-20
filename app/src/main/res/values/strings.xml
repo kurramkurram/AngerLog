@@ -138,7 +138,7 @@
     <string name="news">お知らせ</string>
     <string name="news_next_cd">次へ</string>
     <string name="news_1_title">お知らせ機能が追加されました</string>
-    <string name="news_1_description">お知らせ機能が追加されました。\n\n機能追加・メンテナンスなどのアンガーログアプリからのメッセージは「お知らせ」に表示されます。\n\n未読のお知らせにはバッジがつくようになります。</string>
+    <string name="news_1_description">お知らせ機能が追加されました。\n\n機能追加・メンテナンス予告などのアンガーログアプリからのメッセージは「お知らせ」に表示されます。\n\n未読のお知らせにはバッジがつくようになります。</string>
 
     <string name="policy">利用規約</string>
 
