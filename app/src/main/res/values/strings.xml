@@ -64,7 +64,7 @@
     <string name="setting_about_app">%sについて</string>
     <string name="setting_tips">お役立ちTips</string>
     <string name="setting_news">お知らせ</string>
-    <string name="setting_notification">お知らせの設定</string>
+    <string name="setting_reminder">リマインダー</string>
     <string name="setting_application_version">アプリバージョン</string>
     <string name="setting_policy">利用規約</string>
     <string name="setting_License">ライセンス</string>

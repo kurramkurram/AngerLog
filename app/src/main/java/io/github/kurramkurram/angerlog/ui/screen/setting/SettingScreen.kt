@@ -6,7 +6,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.os.Build
-import android.provider.Settings
 import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -67,6 +66,7 @@ fun SettingScreen(
     onAboutAppClick: () -> Unit,
     onItemTipsClick: () -> Unit,
     onNewsClick: () -> Unit,
+    onReminderClick: () -> Unit,
     onPolicyClick: () -> Unit,
     onLicenseClick: () -> Unit,
     viewModel: SettingViewModel = koinViewModel(),
@@ -124,16 +124,11 @@ fun SettingScreen(
                 leading = stringResource(R.string.setting_news),
                 badge = badge,
             ) { onNewsClick() }
+        }
 
+        SettingScreenSectionItem {
             // 通知設定
-            SettingScreenItem(
-                leading = stringResource(R.string.setting_notification),
-                iconType = SettingLeadingIconType.OpenInNew,
-            ) {
-                startNotificationSetting(
-                    context,
-                )
-            }
+            SettingScreenItem(leading = stringResource(R.string.setting_reminder)) { onReminderClick() }
         }
 
         SettingScreenSectionItem {
@@ -241,21 +236,6 @@ private fun startShare(context: Context) {
         } catch (e: Exception) {
             L.e("$TAG#onClick $e")
         }
-    }
-}
-
-/**
- * お知らせの設定押下時の動作.
- * 設定アプリの本アプリ通知設定画面を起動する.
- *
- * @param context [Context]
- */
-private fun startNotificationSetting(context: Context) {
-    Intent().apply {
-        action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
-        putExtra(Settings.EXTRA_APP_PACKAGE, BuildConfig.APPLICATION_ID)
-        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        context.startActivity(this)
     }
 }
 
