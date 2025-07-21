@@ -124,16 +124,6 @@ fun SettingScreen(
                 leading = stringResource(R.string.setting_news),
                 badge = badge,
             ) { onNewsClick() }
-
-            // 通知設定
-            SettingScreenItem(
-                leading = stringResource(R.string.setting_notification),
-                iconType = SettingLeadingIconType.OpenInNew,
-            ) {
-                startNotificationSetting(
-                    context,
-                )
-            }
         }
 
         SettingScreenSectionItem {
@@ -163,6 +153,18 @@ fun SettingScreen(
             // アプリを評価する
             SettingScreenItem(leading = stringResource(R.string.setting_evaluate)) {
                 startReview(
+                    context,
+                )
+            }
+        }
+
+        SettingScreenSectionItem {
+            // 通知設定
+            SettingScreenItem(
+                leading = stringResource(R.string.setting_notification),
+                iconType = SettingLeadingIconType.OpenInNew,
+            ) {
+                startNotificationSetting(
                     context,
                 )
             }
