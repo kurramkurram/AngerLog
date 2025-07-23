@@ -22,6 +22,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import io.github.kurramkurram.angerlog.ui.component.AngerLogHorizontalDivider
@@ -42,6 +43,7 @@ fun AngerLogBackButtonLayout(
     modifier: Modifier = Modifier,
     onClickBack: () -> Unit,
     title: String = "",
+    titleStyle: TextStyle = MaterialTheme.typography.titleLarge,
     description: String = "",
     trailingText: String = "",
     onTrailingClick: () -> Unit = {},
@@ -72,7 +74,7 @@ fun AngerLogBackButtonLayout(
                             .graphicsLayer { alpha = if (title.isNotEmpty()) 1f else 0f },
                     text = title,
                     textAlign = TextAlign.Center,
-                    style = MaterialTheme.typography.titleLarge,
+                    style = titleStyle,
                 )
 
                 if (description.isNotEmpty()) {
