@@ -56,7 +56,7 @@ val appModule =
         single<AnalysisDataUseCase> { AnalysisDataUseCaseImpl(get()) }
 
         // 設定画面
-        viewModel { SettingViewModel(get(), get()) }
+        viewModel { SettingViewModel(get(), get(), get()) }
 
         // Tips画面
         viewModel { TipsInfoViewModel(get()) }

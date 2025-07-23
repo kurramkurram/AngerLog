@@ -23,7 +23,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -56,6 +55,7 @@ object Setting
  * @param modifier [Modifier]
  * @param onAboutAppClick アンガーログについて押下時の動作
  * @param onItemTipsClick お役立ちTips押下時の動作
+ * @param onWidgetClick ウィジェットを追加する押下時の動作
  * @param onNewsClick お知らせ押下時の動作
  * @param onPolicyClick 利用規約押下時の動作
  * @param onLicenseClick ライセンス押下時の動作
@@ -66,6 +66,7 @@ fun SettingScreen(
     modifier: Modifier = Modifier,
     onAboutAppClick: () -> Unit,
     onItemTipsClick: () -> Unit,
+    onWidgetClick: () -> Unit,
     onNewsClick: () -> Unit,
     onPolicyClick: () -> Unit,
     onLicenseClick: () -> Unit,
@@ -73,13 +74,6 @@ fun SettingScreen(
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
-
-    LaunchedEffect(Unit) {
-        viewModel.apply {
-            checkTipsBadge(context)
-            checkNewsBadge()
-        }
-    }
 
     Column(
         modifier
@@ -115,6 +109,13 @@ fun SettingScreen(
                 leading = stringResource(R.string.setting_tips),
                 badge = badge,
             ) { onItemTipsClick() }
+
+            // ウィジェットを追加する
+            if ((state as SettingUiState.Success).showWidgetItem) {
+                SettingScreenItem(
+                    leading = stringResource(R.string.setting_widget),
+                ) { onWidgetClick() }
+            }
         }
 
         SettingScreenSectionItem {

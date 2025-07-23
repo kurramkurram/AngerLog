@@ -1,5 +1,6 @@
 package io.github.kurramkurram.angerlog.ui.screen.setting
 
+import android.appwidget.AppWidgetManager
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,10 +15,12 @@ import kotlinx.coroutines.launch
 /**
  * 設定画面のViewModel.
  *
+ * @param context [Context]
  * @param tipsRepository Tips表示状態のRepository
  * @param newsRepository お知らせのRepository
  */
 class SettingViewModel(
+    context: Context,
     private val tipsRepository: TipsRepository,
     private val newsRepository: NewsRepository,
 ) : ViewModel() {
@@ -25,12 +28,24 @@ class SettingViewModel(
         MutableStateFlow(SettingUiState.Success())
     val state = _state.asStateFlow()
 
+    init {
+        checkAddWidgetItem(context)
+        checkTipsBadge(context)
+        checkNewsBadge()
+    }
+
+    private fun checkAddWidgetItem(context: Context) {
+        val manager = AppWidgetManager.getInstance(context)
+        val supportWidget = manager.isRequestPinAppWidgetSupported
+        _state.update { (it as SettingUiState.Success).copy(showWidgetItem = supportWidget) }
+    }
+
     /**
      * Tipsの項目にバッジを表示するかの判定.
      *
      * @param context [Context]
      */
-    fun checkTipsBadge(context: Context) {
+    private fun checkTipsBadge(context: Context) {
         viewModelScope.launch {
             tipsRepository.isUnreadTipsExist(context).map {
                 it
@@ -43,7 +58,7 @@ class SettingViewModel(
     /**
      * お知らせの項目にバッジを表示するかの判定.
      */
-    fun checkNewsBadge() {
+    private fun checkNewsBadge() {
         viewModelScope.launch {
             newsRepository.isUnreadNewsExist().map {
                 it
