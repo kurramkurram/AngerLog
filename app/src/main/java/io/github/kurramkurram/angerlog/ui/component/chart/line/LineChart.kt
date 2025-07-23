@@ -117,7 +117,7 @@ private fun DrawScope.drawBezierCurve(
         drawCircle(
             color = lineColor,
             center = lastPoint,
-            radius = 6f
+            radius = 6f,
         )
 
         if (index == 0) {
