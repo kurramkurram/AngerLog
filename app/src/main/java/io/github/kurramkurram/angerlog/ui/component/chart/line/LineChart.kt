@@ -13,6 +13,9 @@ import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.dp
 
+/**
+ * 標準の折れ線グラフの太さ.
+ */
 private const val DEFAULT_LINE_STROKE = 5f
 
 /**
@@ -34,6 +37,11 @@ private const val LABEL_BOTTOM_OFFSET = 40f
  * ラベル表示の間隔.
  */
 private const val DEFAULT_LABEL_DISPLAY_SPAN = 5
+
+/**
+ * 折れ線グラフの半径.
+ */
+private const val DOT_RADIUS = 6f
 
 /**
  * 折れ線グラフ.
@@ -117,7 +125,7 @@ private fun DrawScope.drawBezierCurve(
         drawCircle(
             color = lineColor,
             center = lastPoint,
-            radius = 6f,
+            radius = DOT_RADIUS,
         )
 
         if (index == 0) {
