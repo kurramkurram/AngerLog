@@ -106,6 +106,10 @@ val DarkLocalCustomColorScheme =
 
 /**
  * アンガーログ向けのテーマ
+ *
+ * @param darkTheme true: ダークテーマ
+ * @param dynamicColor true: ダイナミックカラー（Android 12+）
+ * @param content 表示内容
  */
 @Composable
 fun AngerLogTheme(
@@ -136,6 +140,12 @@ fun AngerLogTheme(
     }
 }
 
+/**
+ * アンガーログWidget向けのテーマ.
+ *
+ * @param darkTheme true: ダークテーマ(GlanceThemeでは[isSystemInDarkTheme]は未サポート)
+ * @param content 表示内容
+ */
 @Composable
 fun AngerLogGlanceTheme(
     darkTheme: Boolean = false,

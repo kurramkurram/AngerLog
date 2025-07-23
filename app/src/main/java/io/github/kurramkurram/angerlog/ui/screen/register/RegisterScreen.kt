@@ -90,7 +90,7 @@ fun RegisterScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
-        viewModel.initialize(register.id, register.date, register.angerLevelType)
+        viewModel.initialize(register)
     }
 
     when (state) {

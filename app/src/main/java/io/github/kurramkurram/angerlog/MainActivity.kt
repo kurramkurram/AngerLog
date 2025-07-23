@@ -13,6 +13,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
+/**
+ * MainActivity起動時の怒りの強さを指定するextraのkey.
+ */
 const val EXTRA_START_APP_ANGER_LEVEL = "extra_start_app_anger_level"
 
 class MainActivity : ComponentActivity() {

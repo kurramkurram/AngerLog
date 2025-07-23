@@ -195,21 +195,17 @@ class RegisterViewModel(
     /**
      * 初期の登録画面の情報を取得する.
      *
-     * @param id データベースの一意のid
-     * @param inputDate 日付
+     * @param register 登録初期化内容
      */
-    fun initialize(
-        id: Long,
-        inputDate: Long,
-        angerLevelType: AngerLevelType,
-    ) {
-        this.id = id
+    fun initialize(register: Register) {
+        this.id = register.id
 
+        val inputDate = register.date
         if (inputDate != -1L) {
             updateDate(Date(inputDate))
         }
 
-        updateAngerLevel(angerLevelType)
+        updateAngerLevel(register.angerLevelType)
 
         if (id <= 0L) return
         viewModelScope.launch {
@@ -383,7 +379,8 @@ class RegisterViewModel(
     /**
      * 日付エラーダイアログを表示する.
      */
-    private fun showBadDateDialog() = _state.update { RegisterUiState.Success(showBadDateDialog = true) }
+    private fun showBadDateDialog() =
+        _state.update { RegisterUiState.Success(showBadDateDialog = true) }
 
     /**
      * 日付エラーダイアログを閉じる.
@@ -393,12 +390,14 @@ class RegisterViewModel(
     /**
      * 振り返りのボトムシートを表示する.
      */
-    fun showLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = true) }
+    fun showLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = true) }
 
     /**
      * 振り返りのボトムシートを閉じる.
      */
-    fun closeLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = false) }
+    fun closeLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = false) }
 
     /**
      * 削除する.
