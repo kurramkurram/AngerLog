@@ -17,6 +17,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import io.github.kurramkurram.angerlog.model.StartApp
 import io.github.kurramkurram.angerlog.ui.component.AngerLogFloatingActionButton
 import io.github.kurramkurram.angerlog.ui.component.ad.AngerLogBannerAd
 import io.github.kurramkurram.angerlog.ui.component.bottomnavigationbar.AngerLogBottomNavigationBar
@@ -29,9 +30,11 @@ import io.github.kurramkurram.angerlog.ui.screen.register.Register
 
 /**
  * アプリ全体.
+ *
+ * @param startApp アプリ起動時のデータ
  */
 @Composable
-fun AngerLogApp() {
+fun AngerLogApp(startApp: StartApp) {
     val navController = rememberNavController()
     Scaffold(
         modifier =
@@ -49,7 +52,7 @@ fun AngerLogApp() {
         Box(modifier = Modifier.padding(innerPadding)) {
             Column {
                 Column(modifier = Modifier.weight(1f)) {
-                    AngerLogNavHost(navController = navController)
+                    AngerLogNavHost(startApp = startApp, navController = navController)
                 }
 
                 AdBanner(navController = navController)

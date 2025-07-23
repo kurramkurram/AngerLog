@@ -201,12 +201,16 @@ class RegisterViewModel(
     fun initialize(
         id: Long,
         inputDate: Long,
+        angerLevelType: AngerLevelType,
     ) {
         this.id = id
 
         if (inputDate != -1L) {
             updateDate(Date(inputDate))
         }
+
+        updateAngerLevel(angerLevelType)
+
         if (id <= 0L) return
         viewModelScope.launch {
             angerLogDataRepository.getById(id).collect {
@@ -379,7 +383,8 @@ class RegisterViewModel(
     /**
      * 日付エラーダイアログを表示する.
      */
-    private fun showBadDateDialog() = _state.update { RegisterUiState.Success(showBadDateDialog = true) }
+    private fun showBadDateDialog() =
+        _state.update { RegisterUiState.Success(showBadDateDialog = true) }
 
     /**
      * 日付エラーダイアログを閉じる.
@@ -389,12 +394,14 @@ class RegisterViewModel(
     /**
      * 振り返りのボトムシートを表示する.
      */
-    fun showLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = true) }
+    fun showLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = true) }
 
     /**
      * 振り返りのボトムシートを閉じる.
      */
-    fun closeLookBackBottomSheet() = _state.update { RegisterUiState.Success(showBottomSheet = false) }
+    fun closeLookBackBottomSheet() =
+        _state.update { RegisterUiState.Success(showBottomSheet = false) }
 
     /**
      * 削除する.

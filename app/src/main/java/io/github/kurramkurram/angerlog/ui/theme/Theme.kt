@@ -12,6 +12,9 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.glance.GlanceTheme
+import androidx.glance.material3.ColorProviders
+import androidx.glance.unit.ColorProvider
 
 /**
  * Materialテーマのダークモードカラー上書き.
@@ -130,6 +133,25 @@ fun AngerLogTheme(
             colorScheme = colorScheme,
             typography = Typography,
             content = content,
+        )
+    }
+}
+
+@Composable
+fun AngerLogGlanceTheme(
+    darkTheme: Boolean = false,
+    content: @Composable () -> Unit,
+) {
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val customColorScheme = if (darkTheme) DarkLocalCustomColorScheme else LightLocalCustomColors
+
+    CompositionLocalProvider(LocalCustomColorScheme provides customColorScheme) {
+        GlanceTheme(
+            colors = ColorProviders(
+                light = colorScheme,
+                dark = colorScheme,
+            ),
+            content
         )
     }
 }

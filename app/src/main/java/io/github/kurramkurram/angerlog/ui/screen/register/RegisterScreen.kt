@@ -64,7 +64,11 @@ import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
 
 @Serializable
-data class Register(val id: Long = 0, val date: Long = -1)
+data class Register(
+    val id: Long = 0,
+    val date: Long = -1,
+    val angerLevelType: AngerLevelType = AngerLevelType.LEVEL_1,
+)
 
 /**
  * 登録画面.
@@ -86,7 +90,7 @@ fun RegisterScreen(
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     LaunchedEffect(Unit) {
-        viewModel.initialize(register.id, register.date)
+        viewModel.initialize(register.id, register.date, register.angerLevelType)
     }
 
     when (state) {

@@ -145,6 +145,8 @@
     <string name="license">ライセンス</string>
     <string name="license_divider">----------------------------</string>
 
+    <string name="register_widget_title">怒りを記録する</string>
+
     <string name="date_date_cd">日付</string>
     <string name="date_time_cd">時間</string>
 

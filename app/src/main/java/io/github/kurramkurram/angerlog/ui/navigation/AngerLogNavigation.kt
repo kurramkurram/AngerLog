@@ -1,6 +1,7 @@
 package io.github.kurramkurram.angerlog.ui.navigation
 
 import android.os.Build
+import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
@@ -9,6 +10,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
+import io.github.kurramkurram.angerlog.model.StartApp
+import io.github.kurramkurram.angerlog.model.StartAppType
 import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutApp
 import io.github.kurramkurram.angerlog.ui.screen.aboutapp.AboutAppScreen
 import io.github.kurramkurram.angerlog.ui.screen.analysis.Analysis
@@ -35,22 +38,36 @@ import io.github.kurramkurram.angerlog.ui.screen.setting.Setting
 import io.github.kurramkurram.angerlog.ui.screen.setting.SettingScreen
 import io.github.kurramkurram.angerlog.ui.screen.tips.Tips
 import io.github.kurramkurram.angerlog.ui.screen.tips.TipsScreen
+import io.github.kurramkurram.angerlog.util.L
 import io.github.kurramkurram.angerlog.util.isPermissionGranted
 import io.github.kurramkurram.angerlog.util.requestPermission
 
 /**
  * 画面遷移の制御.
  *
+ * @param startApp アプリ起動時のデータ
  * @param navController ナビゲーションを管理
  * @param agreementPolicyRepository 利用規約への同意状態を判定するRepository
  */
 @Composable
 fun AngerLogNavHost(
+    startApp: StartApp,
     navController: NavHostController,
     agreementPolicyRepository: AgreementPolicyRepository = AgreementPolicyRepositoryImpl(),
 ) {
     val context = LocalContext.current
-    val startDestination: Any = if (agreementPolicyRepository.hasAgree(context)) Home else Initial
+    val activity = LocalActivity.current
+    val startDestination: Any = if (agreementPolicyRepository.hasAgree(context)) {
+        if (startApp.startAppType == StartAppType.REGISTER) {
+            val angerLevel = startApp.angerLevel
+            Register(id = 0, angerLevelType = angerLevel)
+        } else {
+            Home
+        }
+    } else {
+        Initial
+    }
+    L.d("startDestination = $startDestination")
 
     NavHost(
         navController = navController,
@@ -122,13 +139,22 @@ fun AngerLogNavHost(
         }
 
         composable<Register> { backStackEntry ->
+            val onBackAction = {
+                if (startApp.startAppType == StartAppType.REGISTER) {
+                    activity?.finishAndRemoveTask()
+                } else {
+                    navController.popBackStack()
+                }
+            }
+
             val id = backStackEntry.toRoute<Register>().id
             val date = backStackEntry.toRoute<Register>().date
-            val register = Register(id = id, date = date)
+            val angerLevelType = backStackEntry.toRoute<Register>().angerLevelType
+            val register = Register(id = id, date = date, angerLevelType = angerLevelType)
             RegisterScreen(
                 register = register,
-                onSaveClicked = { navController.popBackStack() },
-                onClickBack = { navController.popBackStack() },
+                onSaveClicked = { onBackAction() },
+                onClickBack = { onBackAction() },
             )
         }
 
