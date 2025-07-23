@@ -113,6 +113,13 @@ private fun DrawScope.drawBezierCurve(
             path.lineTo(x, y)
         }
         lastPoint = Offset(x, y)
+
+        drawCircle(
+            color = lineColor,
+            center = lastPoint,
+            radius = 6f
+        )
+
         if (index == 0) {
             path.moveTo(x, y)
         }
