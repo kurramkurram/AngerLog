@@ -38,7 +38,19 @@ class RegisterViewModel(
     val state = _state.asStateFlow()
 
     private var id: Long = 0
+
+    /**
+     * 初期状態をメモリ上に保持.
+     * 変更の有無を判定、更新の必要がないときの復元に利用.
+     * 記録の更新を行う場合にはDBから取得することになるので、verで再入可能としている.
+     */
     private var initail = AngerLog(date = calendar.time)
+
+    /**
+     * 振り返りを保存する必要がある状態.
+     * 振り返りボタンで「保存する」を押下した時のみ、trueとなり、振り返りの情報を記録する.
+     */
+    private var savedLookBack = false
 
     var showLookBackButton: Boolean = false
         private set
@@ -260,9 +272,9 @@ class RegisterViewModel(
                 detail = detail,
                 thought = thought,
                 place = place,
-                lookBackLevel = anger.getLevel(lookBackAngerLevel),
-                lookBackWhyAnger = lookBackWhyFeelAnger,
-                lookBackAdvice = lookBackAdvice,
+                lookBackLevel = if (savedLookBack) anger.getLevel(lookBackAngerLevel) else initail.lookBackLevel,
+                lookBackWhyAnger = if (savedLookBack) lookBackWhyFeelAnger else initail.lookBackWhyAnger,
+                lookBackAdvice = if (savedLookBack) lookBackAdvice else initail.lookBackAdvice,
             )
         if (initail != angerLog) {
             _state.update { RegisterUiState.Success(showBackDialog = true) }
@@ -301,10 +313,11 @@ class RegisterViewModel(
                 detail = detail,
                 thought = thought,
                 place = place,
-                lookBackLevel = anger.getLevel(lookBackAngerLevel),
-                lookBackWhyAnger = lookBackWhyFeelAnger,
-                lookBackAdvice = lookBackAdvice,
+                lookBackLevel = if (savedLookBack) anger.getLevel(lookBackAngerLevel) else initail.lookBackLevel,
+                lookBackWhyAnger = if (savedLookBack) lookBackWhyFeelAnger else initail.lookBackWhyAnger,
+                lookBackAdvice = if (savedLookBack) lookBackAdvice else initail.lookBackAdvice,
             )
+        savedLookBack = false
         viewModelScope.launch {
             if (angerLog.id == 0L) {
                 angerLogDataRepository.save(angerLog)
@@ -335,6 +348,7 @@ class RegisterViewModel(
             )
         viewModelScope.launch {
             angerLogDataRepository.update(angerLog)
+            savedLookBack = true
         }
     }
 
