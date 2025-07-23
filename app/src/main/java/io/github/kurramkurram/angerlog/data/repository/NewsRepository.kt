@@ -1,6 +1,7 @@
 package io.github.kurramkurram.angerlog.data.repository
 
 import android.content.Context
+import androidx.compose.ui.res.stringResource
 import io.github.kurramkurram.angerlog.R
 import io.github.kurramkurram.angerlog.data.dao.NewsStateDao
 import io.github.kurramkurram.angerlog.data.database.NewsStateDatabase
@@ -79,6 +80,12 @@ class NewsRepositoryImpl(
     private fun loadNews(context: Context): List<NewsItem> {
         val resources = context.resources
         return listOf(
+            NewsItem(
+                newsId = 2,
+                date = Date(1753974000000),
+                title = resources.getString(R.string.news_2_title),
+                description = resources.getString(R.string.news_2_description)
+            ),
             NewsItem(
                 newsId = 1,
                 date = Date(1753974000000),
