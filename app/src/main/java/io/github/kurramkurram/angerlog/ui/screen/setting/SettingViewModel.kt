@@ -36,7 +36,7 @@ class SettingViewModel(
 
     private fun checkAddWidgetItem(context: Context) {
         val manager = AppWidgetManager.getInstance(context)
-        val supportWidget =  manager.isRequestPinAppWidgetSupported
+        val supportWidget = manager.isRequestPinAppWidgetSupported
         _state.update { (it as SettingUiState.Success).copy(showWidgetItem = supportWidget) }
     }
 

@@ -200,11 +200,12 @@ private fun startWidget(context: Context) {
     val provider = ComponentName(context, RegisterWidgetReceiver::class.java)
     val intent = Intent(context, PinWidgetBroadcastReceiver::class.java)
     intent.action = ACTION_PIN_WIDGET
-    val successCallback = PendingIntent.getBroadcast(
-        context,
-        0,
-        intent,
-        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
-    )
+    val successCallback =
+        PendingIntent.getBroadcast(
+            context,
+            0,
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE,
+        )
     manager.requestPinAppWidget(provider, null, successCallback)
 }
