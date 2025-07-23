@@ -2,7 +2,10 @@ package io.github.kurramkurram.angerlog.ui.screen.setting
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
 import android.content.ActivityNotFoundException
+import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -37,8 +40,11 @@ import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.google.android.play.core.review.ReviewManagerFactory
+import io.github.kurramkurram.angerlog.ACTION_PIN_WIDGET
 import io.github.kurramkurram.angerlog.BuildConfig
+import io.github.kurramkurram.angerlog.PinWidgetBroadcastReceiver
 import io.github.kurramkurram.angerlog.R
+import io.github.kurramkurram.angerlog.RegisterWidgetReceiver
 import io.github.kurramkurram.angerlog.util.L
 import kotlinx.serialization.Serializable
 import org.koin.androidx.compose.koinViewModel
@@ -66,6 +72,7 @@ fun SettingScreen(
     modifier: Modifier = Modifier,
     onAboutAppClick: () -> Unit,
     onItemTipsClick: () -> Unit,
+    onWidgetClick: () -> Unit,
     onNewsClick: () -> Unit,
     onPolicyClick: () -> Unit,
     onLicenseClick: () -> Unit,
@@ -73,13 +80,6 @@ fun SettingScreen(
 ) {
     val context = LocalContext.current
     val state by viewModel.state.collectAsStateWithLifecycle()
-
-    LaunchedEffect(Unit) {
-        viewModel.apply {
-            checkTipsBadge(context)
-            checkNewsBadge()
-        }
-    }
 
     Column(
         modifier
@@ -115,6 +115,13 @@ fun SettingScreen(
                 leading = stringResource(R.string.setting_tips),
                 badge = badge,
             ) { onItemTipsClick() }
+
+            // ウィジェットを追加する
+            if ((state as SettingUiState.Success).showWidgetItem) {
+                SettingScreenItem(
+                    leading = stringResource(R.string.setting_widget)
+                ) { onWidgetClick() }
+            }
         }
 
         SettingScreenSectionItem {

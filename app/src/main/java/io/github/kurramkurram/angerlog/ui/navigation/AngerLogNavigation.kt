@@ -1,5 +1,10 @@
 package io.github.kurramkurram.angerlog.ui.navigation
 
+import android.app.PendingIntent
+import android.appwidget.AppWidgetManager
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
 import android.os.Build
 import androidx.activity.compose.LocalActivity
 import androidx.compose.runtime.Composable
@@ -8,6 +13,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import io.github.kurramkurram.angerlog.ACTION_PIN_WIDGET
+import io.github.kurramkurram.angerlog.PinWidgetBroadcastReceiver
+import io.github.kurramkurram.angerlog.RegisterWidgetReceiver
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepository
 import io.github.kurramkurram.angerlog.data.repository.AgreementPolicyRepositoryImpl
 import io.github.kurramkurram.angerlog.model.StartApp
@@ -133,6 +141,7 @@ fun AngerLogNavHost(
             SettingScreen(
                 onAboutAppClick = { navController.navigate(route = AboutApp) },
                 onItemTipsClick = { navController.navigate(route = Tips) },
+                onWidgetClick = { startWidget(context) },
                 onNewsClick = { navController.navigate(route = News) },
                 onPolicyClick = { navController.navigate(route = Policy) },
                 onLicenseClick = { navController.navigate(route = License) },
@@ -179,4 +188,23 @@ fun AngerLogNavHost(
             NewsDetailScreen(newsId = id, onClickBack = { navController.popBackStack() })
         }
     }
+}
+
+/**
+ * ウィジェットを追加する.
+ *
+ * @param context [Context]
+ */
+private fun startWidget(context: Context) {
+    val manager = AppWidgetManager.getInstance(context)
+    val provider = ComponentName(context, RegisterWidgetReceiver::class.java)
+    val intent = Intent(context, PinWidgetBroadcastReceiver::class.java)
+    intent.action = ACTION_PIN_WIDGET
+    val successCallback = PendingIntent.getBroadcast(
+        context,
+        0,
+        intent,
+        PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+    )
+    manager.requestPinAppWidget(provider, null, successCallback)
 }

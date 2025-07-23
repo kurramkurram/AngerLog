@@ -13,5 +13,6 @@ sealed class SettingUiState {
     data class Success(
         val tipsBadge: Boolean = false,
         val newsBadge: Boolean = false,
+        val showWidgetItem: Boolean = false,
     ) : SettingUiState()
 }

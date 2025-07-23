@@ -39,6 +39,9 @@
                 android:resource="@xml/app_widget_info" />
         </receiver>
 
+        <receiver android:name=".PinWidgetBroadcastReceiver"
+            android:exported="false"/>
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/ad_application_id"/>
