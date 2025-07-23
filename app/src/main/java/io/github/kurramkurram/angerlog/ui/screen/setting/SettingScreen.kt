@@ -55,6 +55,7 @@ object Setting
  * @param modifier [Modifier]
  * @param onAboutAppClick アンガーログについて押下時の動作
  * @param onItemTipsClick お役立ちTips押下時の動作
+ * @param onWidgetClick ウィジェットを追加する押下時の動作
  * @param onNewsClick お知らせ押下時の動作
  * @param onPolicyClick 利用規約押下時の動作
  * @param onLicenseClick ライセンス押下時の動作
