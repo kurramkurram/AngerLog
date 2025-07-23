@@ -33,12 +33,12 @@ import io.github.kurramkurram.angerlog.ui.AngerLevelType
  */
 @Composable
 fun RegisterWidget(modifier: GlanceModifier = GlanceModifier) {
-
     Column(
-        modifier = modifier.fillMaxSize().background(colorProvider = GlanceTheme.colors.background)
-            .padding(horizontal = 10.dp),
+        modifier =
+            modifier.fillMaxSize().background(colorProvider = GlanceTheme.colors.background)
+                .padding(horizontal = 10.dp),
         verticalAlignment = Alignment.Top,
-        horizontalAlignment = Alignment.CenterHorizontally
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
         val context = LocalContext.current
 
@@ -75,14 +75,17 @@ fun RegisterWidgetAngerLevel(modifier: GlanceModifier = GlanceModifier) {
 
         for ((index, level) in AngerLevelType.entries.withIndex()) {
             Column(
-                modifier = modifier.clickable(
-                    onClick = actionStartActivity(
-                        Intent(context, MainActivity::class.java).apply {
-                            action = StartAppType.REGISTER.action
-                            putExtra(EXTRA_START_APP_ANGER_LEVEL, index + 1)
-                        }
-                    ))
-                    .padding(horizontal = 3.dp)
+                modifier =
+                    modifier.clickable(
+                        onClick =
+                            actionStartActivity(
+                                Intent(context, MainActivity::class.java).apply {
+                                    action = StartAppType.REGISTER.action
+                                    putExtra(EXTRA_START_APP_ANGER_LEVEL, index + 1)
+                                },
+                            ),
+                    )
+                        .padding(horizontal = 3.dp),
             ) {
                 Text(
                     modifier =

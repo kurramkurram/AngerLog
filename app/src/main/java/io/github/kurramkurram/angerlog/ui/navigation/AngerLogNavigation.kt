@@ -57,16 +57,17 @@ fun AngerLogNavHost(
 ) {
     val context = LocalContext.current
     val activity = LocalActivity.current
-    val startDestination: Any = if (agreementPolicyRepository.hasAgree(context)) {
-        if (startApp.startAppType == StartAppType.REGISTER) {
-            val angerLevel = startApp.angerLevel
-            Register(id = 0, angerLevelType = angerLevel)
+    val startDestination: Any =
+        if (agreementPolicyRepository.hasAgree(context)) {
+            if (startApp.startAppType == StartAppType.REGISTER) {
+                val angerLevel = startApp.angerLevel
+                Register(id = 0, angerLevelType = angerLevel)
+            } else {
+                Home
+            }
         } else {
-            Home
+            Initial
         }
-    } else {
-        Initial
-    }
     L.d("startDestination = $startDestination")
 
     NavHost(

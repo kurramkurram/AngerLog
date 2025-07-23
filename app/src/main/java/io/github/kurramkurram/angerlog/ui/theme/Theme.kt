@@ -14,7 +14,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.glance.GlanceTheme
 import androidx.glance.material3.ColorProviders
-import androidx.glance.unit.ColorProvider
 
 /**
  * Materialテーマのダークモードカラー上書き.
@@ -147,11 +146,12 @@ fun AngerLogGlanceTheme(
 
     CompositionLocalProvider(LocalCustomColorScheme provides customColorScheme) {
         GlanceTheme(
-            colors = ColorProviders(
-                light = colorScheme,
-                dark = colorScheme,
-            ),
-            content
+            colors =
+                ColorProviders(
+                    light = colorScheme,
+                    dark = colorScheme,
+                ),
+            content,
         )
     }
 }

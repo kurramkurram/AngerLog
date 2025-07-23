@@ -15,8 +15,10 @@ import io.github.kurramkurram.angerlog.ui.widget.register.RegisterWidget
  */
 class AngerLogAppWidget(private val widgetType: WidgetType = WidgetType.REGISTER) :
     GlanceAppWidget() {
-
-    override suspend fun provideGlance(context: Context, id: GlanceId) {
+    override suspend fun provideGlance(
+        context: Context,
+        id: GlanceId,
+    ) {
         provideContent {
             AngerLogGlanceTheme {
                 if (widgetType == WidgetType.REGISTER) {

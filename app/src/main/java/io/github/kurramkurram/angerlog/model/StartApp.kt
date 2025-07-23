@@ -18,7 +18,8 @@ data class StartApp(val startAppType: StartAppType, val angerLevel: AngerLevelTy
  */
 enum class StartAppType(val action: String) {
     DEFAULT(Intent.ACTION_MAIN),
-    REGISTER("io.github.kurramkurram.angerlog.ACTION_REGISTER");
+    REGISTER("io.github.kurramkurram.angerlog.ACTION_REGISTER"),
+    ;
 
     companion object {
         fun getType(value: String): StartAppType {
@@ -31,4 +32,3 @@ enum class StartAppType(val action: String) {
         }
     }
 }
-
