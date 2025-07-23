@@ -12,6 +12,8 @@ import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.glance.GlanceTheme
+import androidx.glance.material3.ColorProviders
 
 /**
  * Materialテーマのダークモードカラー上書き.
@@ -104,6 +106,10 @@ val DarkLocalCustomColorScheme =
 
 /**
  * アンガーログ向けのテーマ
+ *
+ * @param darkTheme true: ダークテーマ
+ * @param dynamicColor true: ダイナミックカラー（Android 12+）
+ * @param content 表示内容
  */
 @Composable
 fun AngerLogTheme(
@@ -130,6 +136,32 @@ fun AngerLogTheme(
             colorScheme = colorScheme,
             typography = Typography,
             content = content,
+        )
+    }
+}
+
+/**
+ * アンガーログWidget向けのテーマ.
+ *
+ * @param darkTheme true: ダークテーマ(GlanceThemeでは[isSystemInDarkTheme]は未サポート)
+ * @param content 表示内容
+ */
+@Composable
+fun AngerLogGlanceTheme(
+    darkTheme: Boolean = false,
+    content: @Composable () -> Unit,
+) {
+    val colorScheme = if (darkTheme) DarkColorScheme else LightColorScheme
+    val customColorScheme = if (darkTheme) DarkLocalCustomColorScheme else LightLocalCustomColors
+
+    CompositionLocalProvider(LocalCustomColorScheme provides customColorScheme) {
+        GlanceTheme(
+            colors =
+                ColorProviders(
+                    light = colorScheme,
+                    dark = colorScheme,
+                ),
+            content,
         )
     }
 }

@@ -195,18 +195,18 @@ class RegisterViewModel(
     /**
      * 初期の登録画面の情報を取得する.
      *
-     * @param id データベースの一意のid
-     * @param inputDate 日付
+     * @param register 登録初期化内容
      */
-    fun initialize(
-        id: Long,
-        inputDate: Long,
-    ) {
-        this.id = id
+    fun initialize(register: Register) {
+        this.id = register.id
 
+        val inputDate = register.date
         if (inputDate != -1L) {
             updateDate(Date(inputDate))
         }
+
+        updateAngerLevel(register.angerLevelType)
+
         if (id <= 0L) return
         viewModelScope.launch {
             angerLogDataRepository.getById(id).collect {
