@@ -67,7 +67,7 @@ fun NewsDetailScreenContent(
     AngerLogBackButtonLayout(
         onClickBack = onClickBack,
         title = state.title,
-        titleStyle = MaterialTheme.typography.titleSmall
+        titleStyle = MaterialTheme.typography.titleSmall,
     ) {
         Text(
             modifier =
